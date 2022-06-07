@@ -4,11 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import model.PPMImage;
 import model.Pixel;
 
 public class ImageReader {
 
-  private Pixel[][] readImage(String filename){
+  private PPMImage readImage(String filename){
     Scanner sc;
 
     try {
@@ -43,14 +44,18 @@ public class ImageReader {
     int maxValue = sc.nextInt();
     System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
 
+    Pixel[][] pixelGrid = new Pixel[height][width];
+
     for (int i=0;i<height;i++) {
       for (int j=0;j<width;j++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
-        System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
+
+        pixelGrid[i][j] = new Pixel(r,g,b);
       }
     }
-    return null;
+
+    return new PPMImage(pixelGrid);
   }
 }

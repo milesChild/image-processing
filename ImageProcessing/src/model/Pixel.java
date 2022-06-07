@@ -5,7 +5,7 @@ public class Pixel {
   protected final int green;
   protected final int blue;
 
-  protected Pixel(int red, int green, int blue){
+  public Pixel(int red, int green, int blue){
     this.red = red;
     this.green = green;
     this.blue = blue;
