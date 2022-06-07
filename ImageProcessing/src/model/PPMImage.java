@@ -9,6 +9,9 @@ import java.util.Scanner;
 
 public class PPMImage {
   private final Pixel[][] pixelGrid;
+  private int width;
+  private int height;
+  private int maxValue;
 
   public PPMImage(String filename){
     Scanner sc;
@@ -38,15 +41,12 @@ public class PPMImage {
     if (!token.equals("P3")) {
       System.out.println("Invalid PPM file: plain RAW file should begin with P3");
     }
-    int width = sc.nextInt();
-    System.out.println("Width of image: "+width);
-    int height = sc.nextInt();
-    System.out.println("Height of image: "+height);
-    int maxValue = sc.nextInt();
-    System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
+
+    this.width = sc.nextInt();
+    this.height = sc.nextInt();
+    this.maxValue = sc.nextInt();
 
     Pixel[][] pixelGrid = new Pixel[height][width];
-
     for (int i=0;i<height;i++) {
       for (int j=0;j<width;j++) {
         int r = sc.nextInt();
@@ -60,10 +60,20 @@ public class PPMImage {
     this.pixelGrid = pixelGrid;
   }
 
-  public void saveImage (String path, String fileName) throws IOException {
+  public void saveImage (String path) throws IOException {
     File imageFile = new File(path);
     imageFile.createNewFile();
     PrintWriter fileWriter = new PrintWriter(path);
+
+    fileWriter.write("P3");
+    fileWriter.write(this.width);
+    fileWriter.write(this.height);
+
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        fileWriter.write();
+      }
+    }
 
   }
 }

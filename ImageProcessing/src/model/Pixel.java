@@ -11,4 +11,8 @@ public class Pixel {
     this.blue = blue;
   }
 
+  @Override
+  public String toString() {
+    return this.red + " " + this.green + " " + this.blue
+  }
 }
