@@ -1,6 +1,7 @@
-package View;
+package view;
 
 import java.io.IOException;
+
 
 /**
  * Implementation of the image view class which offers a primitive method of displaying user
