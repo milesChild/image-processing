@@ -3,8 +3,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import View.ImageTextView;
-import View.ImageTextViewImpl;
+import view.ImageTextView;
+import view.ImageTextViewImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

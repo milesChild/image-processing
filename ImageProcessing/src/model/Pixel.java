@@ -10,4 +10,5 @@ public class Pixel {
     this.green = green;
     this.blue = blue;
   }
+
 }
