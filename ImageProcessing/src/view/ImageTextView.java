@@ -7,7 +7,7 @@ import java.io.IOException;
  * of their commands to the program. Accepts commands from the controller in the form of strings to
  * be relayed to the user on the command line.
  */
-public interface ImageTextView {
+public interface ImageTextView extends ImageProcessingView {
 
   // TODO: Make IOException more elaborate description
   /**

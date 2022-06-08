@@ -13,6 +13,6 @@ public class Pixel {
 
   @Override
   public String toString() {
-    return this.red + " " + this.green + " " + this.blue
+    return this.red + " " + this.green + " " + this.blue;
   }
 }
