@@ -28,18 +28,18 @@ public class Pixel {
       this.red += redOffset;
     }
 
-    if (this.green + redOffset > maxValue) {
+    if (this.green + greenOffset > maxValue) {
       this.green = maxValue;
     }
     else {
-      this.green += redOffset;
+      this.green += greenOffset;
     }
 
-    if (this.blue + redOffset > maxValue) {
+    if (this.blue + blueOffset > maxValue) {
       this.blue = maxValue;
     }
     else {
-      this.blue += redOffset;
+      this.blue += blueOffset;
     }
 
   }

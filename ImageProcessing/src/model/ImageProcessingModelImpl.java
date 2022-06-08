@@ -33,12 +33,16 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
 
   @Override
   public void flipHorizontally(String from, String to) {
-
+    PPMImage newImage = new PPMImage(from);
+    newImage.flipHorizontally();
+    this.knownImages.put(to,newImage);
   }
 
   @Override
   public void flipVertically(String from, String to) {
-
+    PPMImage newImage = new PPMImage(from);
+    newImage.flipVertically();
+    this.knownImages.put(to,newImage);
   }
 
   @Override

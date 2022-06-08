@@ -18,16 +18,16 @@ public class PixelTest {
 
   @Before
   public void init() {
-    this.red = new Pixel(255, 0, 0);
-    this.blue = new Pixel(0, 0, 255);
-    this.green = new Pixel(0, 255, 0);
-    this.black = new Pixel(0, 0, 0);
-    this.white = new Pixel(255, 255, 255);
+    this.red = new Pixel(255, 0, 0, 255);
+    this.blue = new Pixel(0, 0, 255, 255);
+    this.green = new Pixel(0, 255, 0, 255);
+    this.black = new Pixel(0, 0, 0, 225);
+    this.white = new Pixel(255, 255, 255, 225);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidInitNullParameter() {
-    Pixel test = new Pixel(-2, 100, 100);
+    Pixel test = new Pixel(-2, 100, 100, 255);
   }
 
   @Test

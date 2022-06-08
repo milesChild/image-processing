@@ -64,7 +64,7 @@ public class ImageUtil {
     if (args.length > 0) {
       filename = args[0];
     } else {
-      filename = "Koala.ppm";
+      filename = "src/penis.ppm";
     }
 
     ImageUtil.readPPM(filename);

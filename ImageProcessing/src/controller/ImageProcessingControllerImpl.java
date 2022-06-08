@@ -12,6 +12,7 @@ import commands.Dim;
 import commands.HorizontalFlip;
 import commands.ImageProcessingCommand;
 import commands.ImageProcessingCommand;
+import commands.Load;
 import commands.VerticalFlip;
 import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
@@ -53,19 +54,20 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     knownCommands.put("brighten", s ->
             new Brighten(s.nextInt(), s.nextLine(), s.nextLine()));
     knownCommands.put("dim", s -> new Dim(s.nextInt(), s.nextLine(), s.nextLine()));
+    knownCommands.put("load", s -> new Load(s.next(), s.next()));
   }
 
   public void runProgram() {
     Scanner s = new Scanner(in);
-    boolean q = false;
+    boolean quit = false;
 
-    while(s.hasNext() && !q) {
+    while(s.hasNext() && !quit) {
       ImageProcessingCommand c;
       String in = s.nextLine();
 
       // quit when prompted.
       if (in.equalsIgnoreCase("q") || in.equalsIgnoreCase("quit")) {
-        q = true;
+        quit = true;
         break;
       }
       Function<Scanner, ImageProcessingCommand> cmd =
@@ -82,7 +84,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
       }
     }
 
-    if (q) this.quitProgram();
+    if (quit) this.quitProgram();
   }
 
   private void quitProgram() {

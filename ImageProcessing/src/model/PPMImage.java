@@ -79,31 +79,49 @@ public class PPMImage {
   }
 
   public void flipHorizontally(){
-    for (int i = 0; i < width; i++) {
+    for (int i = 0; i < height; i++) {
       Collections.reverse(Arrays.asList(this.pixelGrid[i]));
     }
   }
 
   public void saveImage (String path, String filename) throws IOException {
-    File imageFile = new File(path);
-    imageFile.createNewFile();
-    FileWriter writer = new FileWriter(filename);
+    File newFile = new File(path);
+//    imageFile.createNewFile();
+//    FileWriter writer = new FileWriter(filename);
 
-    writer.write("P3\n");
-    writer.write("# " + filename + "\n");
-    writer.write(this.width);
-    writer.write(" ");
-    writer.write(this.height);
-    writer.write("\n");
-    writer.write(this.maxValue);
-    writer.write("\n");
+//    writer.write("P3\n");
+//    //writer.write("# " + filename + "\n");
+//    writer.write(this.width);
+//    writer.write(" ");
+//    writer.write(this.height);
+//    writer.write("\n");
+//    writer.write(this.maxValue);
+//    writer.write("\n");
+
+    StringBuilder newFileContents = new StringBuilder();
+    newFileContents.append("P3" + " ");
+    newFileContents.append(this.width + " ");
+    newFileContents.append(this.height + " ");
+    newFileContents.append(this.maxValue + " ");
+
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        pixelGrid[i][j].writePixel(writer);
+        Pixel p1 = this.pixelGrid[i][j];
+        newFileContents.append(p1.red + " ");
+        newFileContents.append(p1.green + " ");
+        newFileContents.append(p1.blue + " ");
       }
     }
-    writer.close();
+    String oldFileContents = newFileContents.toString();
+
+    try {
+      FileWriter writer = new FileWriter(newFile);
+      newFile.createNewFile();
+      writer.write(oldFileContents);
+    } catch (IOException e) {
+      throw new IllegalArgumentException();
+    }
 
   }
 }
