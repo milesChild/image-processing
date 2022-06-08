@@ -27,11 +27,11 @@ public class PixelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidInitNullParameter() {
-
+    Pixel test = new Pixel(-2, 100, 100);
   }
 
   @Test
-  public void testtoString() {
+  public void testToString() {
     assertEquals("255 0 0", this.red.toString());
     assertEquals("255 255 255", this.white.toString());
     assertEquals("0 0 0", this.black.toString());

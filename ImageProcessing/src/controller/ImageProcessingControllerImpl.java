@@ -50,8 +50,9 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     knownCommands = new HashMap<>();
     knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s.nextLine(), s.nextLine()));
     knownCommands.put("horizontal-flip", s -> new VerticalFlip(s.nextLine(), s.nextLine()));
-    knownCommands.put("horizontal-flip", s -> new Brighten(s.nextLine(), s.nextLine()));
-    knownCommands.put("horizontal-flip", s -> new Dim(s.nextLine(), s.nextLine()));
+    knownCommands.put("horizontal-flip", s ->
+            new Brighten(s.nextInt(), s.nextLine(), s.nextLine()));
+    knownCommands.put("horizontal-flip", s -> new Dim(s.nextInt(), s.nextLine(), s.nextLine()));
     // TODO: Add remaining commands...
   }
 
