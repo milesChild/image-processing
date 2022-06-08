@@ -4,8 +4,11 @@ import model.ImageProcessingModel;
 
 public class Dim extends AbstractCommand {
 
-  public Dim(String from, String to) {
+  private int value;
+
+  public Dim(int value, String from, String to) {
     super(from, to);
+    this.value = value;
   }
 
   /**
@@ -15,7 +18,8 @@ public class Dim extends AbstractCommand {
    */
   @Override
   public void execute(ImageProcessingModel model) {
-    model.dim(this.from, this.to);
+
+    model.dim(this.value, this.from, this.to);
   }
 
 }

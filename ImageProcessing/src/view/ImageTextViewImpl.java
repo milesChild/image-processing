@@ -2,7 +2,6 @@ package view;
 
 import java.io.IOException;
 
-
 /**
  * Implementation of the image view class which offers a primitive method of displaying user
  * commands and their results as strings on the command line. This class will orders from the
@@ -10,7 +9,7 @@ import java.io.IOException;
  */
 public class ImageTextViewImpl implements ImageTextView {
 
-  Appendable out;
+  private Appendable out;
 
   /**
    * Default constructor for the image text view implementation which accepts an appendable to which

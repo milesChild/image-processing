@@ -4,8 +4,11 @@ import model.ImageProcessingModel;
 
 public class Brighten extends AbstractCommand {
 
-  public Brighten(String from, String to) {
+  private int value;
+
+  public Brighten(int value, String from, String to) {
     super(from, to);
+    this.value = value;
   }
 
   /**
@@ -15,7 +18,8 @@ public class Brighten extends AbstractCommand {
    */
   @Override
   public void execute(ImageProcessingModel model) {
-    model.brighten(this.from, this.to);
+
+    model.brighten(this.value, this.from, this.to);
   }
 
 }

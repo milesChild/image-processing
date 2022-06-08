@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -70,7 +71,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
       Function<Scanner, ImageProcessingCommand> cmd =
               knownCommands.getOrDefault(in, null);
       if (cmd == null) {
-        this.view.renderMessage("Unknown or invalid command. Try Again.");
+        try {
+          this.view.renderMessage("Unknown or invalid command. Try Again.");
+        } catch (IOException e) {
+          throw new IllegalStateException();
+        }
       } else {
         c = cmd.apply(s);
         c.execute(this.model);
@@ -81,7 +86,10 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   }
 
   private void quitProgram() {
-    this.view.renderMessage("Program Ended.");
+    try {
+      this.view.renderMessage("Program Ended.");
+    } catch (IOException e) {
+      throw new IllegalStateException();
+    }
   }
-
 }

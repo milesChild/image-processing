@@ -5,7 +5,7 @@ public interface ImageProcessingModel {
 
   void flipHorizontally(String from, String to);
 
-  void dim(String from, String to);
+  void dim(int value, String from, String to);
 
-  void brighten(String from, String to);
+  void brighten(int value, String from, String to);
 }

@@ -25,9 +25,16 @@ public class PixelTest {
     this.white = new Pixel(255, 255, 255);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidInitNullParameter() {
+
+  }
+
   @Test
-  public void testValidInit() {
-    assertEquals(this.red.);
+  public void testtoString() {
+    assertEquals("255 0 0", this.red.toString());
+    assertEquals("255 255 255", this.white.toString());
+    assertEquals("0 0 0", this.black.toString());
   }
 
 }

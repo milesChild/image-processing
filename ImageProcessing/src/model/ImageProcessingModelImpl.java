@@ -37,12 +37,12 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   }
 
   @Override
-  public void brighten(String from, String to) {
+  public void brighten(int value, String from, String to) {
 
   }
 
   @Override
-  public void dim(String from, String to) {
+  public void dim(int value, String from, String to) {
 
   }
 

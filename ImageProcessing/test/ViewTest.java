@@ -42,5 +42,4 @@ public class ViewTest {
     this.view1.renderMessage("test");
     assertEquals("test", this.out.toString());
   }
-
 }
