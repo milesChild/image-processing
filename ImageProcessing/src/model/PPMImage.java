@@ -3,15 +3,16 @@ package model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class PPMImage {
   private final Pixel[][] pixelGrid;
-  private int width;
-  private int height;
-  private int maxValue;
+  private final int width;
+  private final int height;
+  private final int maxValue;
 
   public PPMImage(String filename){
     Scanner sc;
@@ -53,27 +54,46 @@ public class PPMImage {
         int g = sc.nextInt();
         int b = sc.nextInt();
 
-        pixelGrid[i][j] = new Pixel(r,g,b);
+        pixelGrid[i][j] = new Pixel(r,g,b, this.maxValue);
       }
     }
 
     this.pixelGrid = pixelGrid;
   }
 
-  public void saveImage (String path) throws IOException {
+  public void editColor(int redOffset, int greenOffset, int blueOffset) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        pixelGrid[i][j].offsetPixel(redOffset, greenOffset, blueOffset);
+      }
+    }
+  }
+
+  public void editOrientation() {
+
+  }
+
+  public PPMImage createCopy (String path, String filename) throws IOException {
     File imageFile = new File(path);
     imageFile.createNewFile();
-    PrintWriter fileWriter = new PrintWriter(path);
+    FileWriter writer = new FileWriter(filename);
 
-    fileWriter.write("P3");
-    fileWriter.write(this.width);
-    fileWriter.write(this.height);
+    writer.write("P3\n");
+    writer.write("# " + filename + "\n");
+    writer.write(this.width);
+    writer.write(" ");
+    writer.write(this.height);
+    writer.write("\n");
+    writer.write(this.maxValue);
+    writer.write("\n");
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        //fileWriter.write();
+        pixelGrid[i][j].writePixel(writer);
       }
     }
+    writer.close();
+    return new PPMImage(filename);
 
   }
 }

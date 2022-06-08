@@ -1,11 +1,15 @@
 package model;
 
-public class Pixel {
-  protected final int red;
-  protected final int green;
-  protected final int blue;
+import java.io.FileWriter;
+import java.io.IOException;
 
-  public Pixel(int red, int green, int blue) throws IllegalArgumentException {
+public class Pixel {
+  protected int red;
+  protected int green;
+  protected int blue;
+  protected int maxValue;
+
+  public Pixel(int red, int green, int blue, int maxValue) throws IllegalArgumentException {
     if (!((red >= 0) && (green >= 0) && (blue >= 0))) {
       throw new IllegalArgumentException("Pixels must be integers greater than or equal to 0.");
     }
@@ -13,10 +17,40 @@ public class Pixel {
     this.red = red;
     this.green = green;
     this.blue = blue;
+    this.maxValue = maxValue;
   }
 
-  @Override
-  public String toString() {
-    return this.red + " " + this.green + " " + this.blue;
+  public void offsetPixel(int redOffset, int greenOffset, int blueOffset) {
+    if (this.red + redOffset > maxValue) {
+      this.red = maxValue;
+    }
+    else {
+      this.red += redOffset;
+    }
+
+    if (this.green + redOffset > maxValue) {
+      this.green = maxValue;
+    }
+    else {
+      this.green += redOffset;
+    }
+
+    if (this.blue + redOffset > maxValue) {
+      this.blue = maxValue;
+    }
+    else {
+      this.blue += redOffset;
+    }
+
+  }
+
+
+  public void writePixel(FileWriter writer) throws IOException {
+    writer.write(red);
+    writer.write( " ");
+    writer.write(green);
+    writer.write( " ");
+    writer.write(blue);
+    writer.write( " ");
   }
 }

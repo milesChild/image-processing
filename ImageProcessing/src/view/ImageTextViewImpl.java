@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class ImageTextViewImpl implements ImageTextView {
 
-  private Appendable out;
+  private final Appendable out;
 
   /**
    * Default constructor for the image text view implementation which accepts an appendable to which

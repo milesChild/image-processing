@@ -3,6 +3,9 @@ package model;
 import java.awt.*;
 import java.util.Map;
 
+import commands.HorizontalFlip;
+import commands.ImageProcessingCommand;
+
 public class ImageProcessingModelImpl implements ImageProcessingModel {
 
   Map<String, PPMImage> knownImages;
@@ -28,7 +31,6 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
 
   @Override
   public void flipHorizontally(String from, String to) {
-
   }
 
   @Override
@@ -38,7 +40,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
 
   @Override
   public void brighten(int value, String from, String to) {
-
+    PPMImage newImage = knownImages.get(from).createCopy();
   }
 
   @Override

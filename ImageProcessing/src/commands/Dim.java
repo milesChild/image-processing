@@ -4,7 +4,7 @@ import model.ImageProcessingModel;
 
 public class Dim extends AbstractCommand {
 
-  private int value;
+  private final int value;
 
   public Dim(int value, String from, String to) {
     super(from, to);

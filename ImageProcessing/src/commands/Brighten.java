@@ -4,7 +4,7 @@ import model.ImageProcessingModel;
 
 public class Brighten extends AbstractCommand {
 
-  private int value;
+  private final int value;
 
   public Brighten(int value, String from, String to) {
     super(from, to);
