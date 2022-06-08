@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class PPMImage {
@@ -70,10 +72,19 @@ public class PPMImage {
   }
 
   public void editOrientation() {
-
   }
 
-  public PPMImage createCopy (String path, String filename) throws IOException {
+  public void flipVertically(){
+    Collections.reverse(Arrays.asList(this.pixelGrid));
+  }
+
+  public void flipHorizontally(){
+    for (int i = 0; i < width; i++) {
+      Collections.reverse(Arrays.asList(this.pixelGrid[i]));
+    }
+  }
+
+  public void saveImage (String path, String filename) throws IOException {
     File imageFile = new File(path);
     imageFile.createNewFile();
     FileWriter writer = new FileWriter(filename);
@@ -93,7 +104,6 @@ public class PPMImage {
       }
     }
     writer.close();
-    return new PPMImage(filename);
 
   }
 }

@@ -46,14 +46,13 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   }
 
   // Initializes the known commands that can be consulted to operate on the model.
-  private final void initCommands() {
+  private void initCommands() {
     knownCommands = new HashMap<>();
     knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s.nextLine(), s.nextLine()));
-    knownCommands.put("horizontal-flip", s -> new VerticalFlip(s.nextLine(), s.nextLine()));
-    knownCommands.put("horizontal-flip", s ->
+    knownCommands.put("vertical-flip", s -> new VerticalFlip(s.nextLine(), s.nextLine()));
+    knownCommands.put("brighten", s ->
             new Brighten(s.nextInt(), s.nextLine(), s.nextLine()));
-    knownCommands.put("horizontal-flip", s -> new Dim(s.nextInt(), s.nextLine(), s.nextLine()));
-    // TODO: Add remaining commands...
+    knownCommands.put("dim", s -> new Dim(s.nextInt(), s.nextLine(), s.nextLine()));
   }
 
   public void runProgram() {

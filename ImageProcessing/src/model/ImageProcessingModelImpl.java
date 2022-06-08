@@ -1,6 +1,8 @@
 package model;
 
 import java.awt.*;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import commands.HorizontalFlip;
@@ -26,11 +28,12 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
    * Default constructor ...
    */
   public ImageProcessingModelImpl() {
-
+    this.knownImages = new HashMap<String, PPMImage>();
   }
 
   @Override
   public void flipHorizontally(String from, String to) {
+
   }
 
   @Override
@@ -40,12 +43,30 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
 
   @Override
   public void brighten(int value, String from, String to) {
-    PPMImage newImage = knownImages.get(from).createCopy();
+    PPMImage newImage = new PPMImage(from);
+    newImage.editColor(value,value,value);
+    this.knownImages.put(to,newImage);
+  }
+
+  @Override
+  public void save(String path, String name) {
+    try {
+      this.knownImages.get(name).saveImage(path, name);
+    }
+    catch (IOException ignored) {
+
+    }
+  }
+
+  @Override
+  public void load(String path, String name) {
+    PPMImage loadImage = new PPMImage(path);
+    this.knownImages.put(name,loadImage);
   }
 
   @Override
   public void dim(int value, String from, String to) {
-
+    this.brighten(-value, from, to);
   }
 
 }

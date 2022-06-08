@@ -8,4 +8,8 @@ public interface ImageProcessingModel {
   void dim(int value, String from, String to);
 
   void brighten(int value, String from, String to);
+
+  void save(String path, String name);
+
+  void load(String path, String name);
 }
