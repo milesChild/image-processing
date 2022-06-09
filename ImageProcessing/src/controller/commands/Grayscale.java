@@ -14,7 +14,7 @@ public class Grayscale extends AbstractCommand{
    * @param grayscaleChoice
    * @throws IllegalArgumentException if either of the provided parameters are null
    */
-  public Grayscale(String from, String to, ImageProcessingModel.GrayscaleTypes grayscaleChoice)
+  public Grayscale(ImageProcessingModel.GrayscaleTypes grayscaleChoice, String from, String to)
           throws IllegalArgumentException {
     super(from, to);
     this.grayscaleChoice = grayscaleChoice;

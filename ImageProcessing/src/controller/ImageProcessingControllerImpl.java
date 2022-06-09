@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import controller.commands.Brighten;
 import controller.commands.Dim;
+import controller.commands.Grayscale;
 import controller.commands.HorizontalFlip;
 import controller.commands.ImageProcessingCommand;
 import controller.commands.Load;
@@ -21,9 +22,9 @@ import view.ImageProcessingView;
  */
 public class ImageProcessingControllerImpl implements ImageProcessingController {
 
-  private ImageProcessingModel model;
-  private Readable in;
-  private ImageProcessingView view;
+  private final ImageProcessingModel model;
+  private final Readable in;
+  private final ImageProcessingView view;
   Map<String, Function<Scanner, ImageProcessingCommand>> knownCommands;
 
   /**
@@ -56,6 +57,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     knownCommands.put("dim", s -> new Dim(s.nextInt(), s.next(), s.next()));
     knownCommands.put("load", s -> new Load(s.next(), s.next()));
     knownCommands.put("save", s -> new Save(s.next(), s.next()));
+    knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s.next()), s.next(), s.next()));
   }
 
   public void runProgram() {
@@ -86,6 +88,25 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     }
 
     if (quit) this.quitProgram();
+  }
+
+  private ImageProcessingModel.GrayscaleTypes stringToGrayscaleEnum(String userInput){
+    switch (userInput) {
+      case "value":
+        return ImageProcessingModel.GrayscaleTypes.ValueGrayscale;
+      case "intensity":
+        return ImageProcessingModel.GrayscaleTypes.IntensityGrayscale;
+      case "luma":
+        return ImageProcessingModel.GrayscaleTypes.LumaGrayscale;
+      case "red":
+        return ImageProcessingModel.GrayscaleTypes.RedGrayscale;
+      case "green":
+        return ImageProcessingModel.GrayscaleTypes.GreenGrayscale;
+      case "blue":
+        return ImageProcessingModel.GrayscaleTypes.BlueGrayscale;
+      default:
+        return ImageProcessingModel.GrayscaleTypes.ValueGrayscale;
+    }
   }
 
   private void quitProgram() {
