@@ -1,14 +1,6 @@
 import org.junit.Test;
 
-import java.io.InputStreamReader;
-
-import controller.ImageProcessingController;
-import controller.ImageProcessingControllerImpl;
 import model.ImageProcessingModelImpl;
-import view.ImageProcessingView;
-import view.ImageTextViewImpl;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for the ImageProcessingModel class & its methods.
