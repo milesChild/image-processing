@@ -116,16 +116,6 @@ public class PPMImage {
     }
   }
 
-//  public void flipVertically() {
-//    Collections.reverse(Arrays.asList(this.pixelGrid));
-//  }
-//
-//  public void flipHorizontally() {
-//    for (int i = 0; i < height; i++) {
-//      Collections.reverse(Arrays.asList(this.pixelGrid[i]));
-//    }
-//  }
-
   public void saveImage(String path) throws IOException {
     File newFile = new File(path);
 
@@ -150,5 +140,27 @@ public class PPMImage {
     } catch (IOException e) {
       throw new IllegalArgumentException();
     }
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    PPMImage ppmImage = (PPMImage) o;
+
+    if (width != ppmImage.width) return false;
+    if (height != ppmImage.height) return false;
+    if (maxValue != ppmImage.maxValue) return false;
+    return Arrays.deepEquals(pixelGrid, ppmImage.pixelGrid);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Arrays.deepHashCode(pixelGrid);
+    result = 31 * result + width;
+    result = 31 * result + height;
+    result = 31 * result + maxValue;
+    return result;
   }
 }
