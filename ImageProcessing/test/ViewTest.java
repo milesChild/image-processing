@@ -3,18 +3,17 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import view.ImageTextView;
+import view.ImageProcessingView;
 import view.ImageTextViewImpl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the ImageProcessingTextView class & its methods.
  */
 public class ViewTest {
 
-  ImageTextView view1;
+  ImageProcessingView view1;
   Appendable out;
 
   @Before
@@ -26,7 +25,7 @@ public class ViewTest {
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidInitializationNullParameter() {
     Appendable testOut = null;
-    ImageTextView test = new ImageTextViewImpl(testOut);
+    ImageProcessingView test = new ImageTextViewImpl(testOut);
   }
 
   @Test

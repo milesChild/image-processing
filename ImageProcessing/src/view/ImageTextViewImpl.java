@@ -7,7 +7,7 @@ import java.io.IOException;
  * commands and their results as strings on the command line. This class will orders from the
  * controller in the form of strings to display to the user.
  */
-public class ImageTextViewImpl implements ImageTextView {
+public class ImageTextViewImpl implements ImageProcessingView {
 
   private final Appendable out;
 

@@ -150,6 +150,5 @@ public class PPMImage {
     } catch (IOException e) {
       throw new IllegalArgumentException();
     }
-
   }
 }

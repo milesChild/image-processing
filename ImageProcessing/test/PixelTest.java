@@ -30,7 +30,8 @@ public class PixelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidInitNullParameter() {
-    Pixel test = new Pixel(-2, 100, 100, 255);
+    Pixel test =
+            new Pixel(-2, 100, 100, 255);
   }
 
   @Test
@@ -38,6 +39,15 @@ public class PixelTest {
     // create fake file
     // call file.write(this.red)
     // test that the file contents equal "255, 0, 0"
+  }
+
+  @Test
+  public void testToString() {
+    assertEquals("255 0 0", this.red.toString());
+    assertEquals("0 0 255", this.blue.toString());
+    assertEquals("0 255 0", this.green.toString());
+    assertEquals("0 0 0", this.black.toString());
+    assertEquals("255 255 255", this.white.toString());
   }
 
 }

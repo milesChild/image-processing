@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,11 +10,9 @@ import commands.Brighten;
 import commands.Dim;
 import commands.HorizontalFlip;
 import commands.ImageProcessingCommand;
-import commands.ImageProcessingCommand;
 import commands.Load;
 import commands.VerticalFlip;
 import model.ImageProcessingModel;
-import model.ImageProcessingModelImpl;
 import view.ImageProcessingView;
 
 
@@ -29,11 +26,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   /**
    * Default constructor for an image processing controller implementation which instantiates a
    * new controller using the provided model, readable, and view.
-   * @param model the model that the controller will transmit information to.
-   * @param in the readable that the controller will use to accept user input.
+   * @param model the model that the controller will transmit information to
+   * @param in the readable that the controller will use to accept user input
    * @param view the view to which information will be transmitted according to the controller's
-   *             discretion.
-   * @throws IllegalArgumentException if any of the provided parameters are null.
+   *             discretion
+   * @throws IllegalArgumentException if any of the provided parameters are null
    */
   public ImageProcessingControllerImpl(ImageProcessingModel model, Readable in,
                                        ImageProcessingView view) throws IllegalArgumentException {
@@ -45,6 +42,8 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     this.view = view;
     initCommands();
   }
+
+  // TODO: new constructor
 
   // Initializes the known commands that can be consulted to operate on the model.
   private void initCommands() {
@@ -61,7 +60,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     Scanner s = new Scanner(in);
     boolean quit = false;
 
-    while(s.hasNext() && !quit) {
+    while(s.hasNext()) {
       ImageProcessingCommand c;
       String in = s.nextLine();
 
