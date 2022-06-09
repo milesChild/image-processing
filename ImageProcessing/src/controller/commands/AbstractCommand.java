@@ -7,8 +7,8 @@ import model.ImageProcessingModel;
  */
 public abstract class AbstractCommand implements ImageProcessingCommand {
 
-  String from; // image alias at origin
-  String to; // name for new image
+  protected final String from; // image alias at origin
+  protected final String to; // name for new image
 
   /**
    * The abstract implementation for a command to be executed on an image.

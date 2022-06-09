@@ -94,7 +94,7 @@ public class PPMImage {
     }
   }
 
-  public void grayscale(ImageProcessingModelImpl.GrayscaleTypes grayscaleChoice) {
+  public void grayscale(ImageProcessingModel.GrayscaleTypes grayscaleChoice) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         pixelGrid[i][j].grayscale(grayscaleChoice);

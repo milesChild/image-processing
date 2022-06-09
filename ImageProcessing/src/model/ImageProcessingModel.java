@@ -7,6 +7,16 @@ package model;
  * stored in the model's knownImages map.
  */
 public interface ImageProcessingModel {
+  enum Orientations { Vertical, Horizontal }
+  enum GrayscaleTypes {
+    RedGrayscale,
+    GreenGrayscale,
+    BlueGrayscale,
+    ValueGrayscale,
+    IntensityGrayscale,
+    LumaGrayscale
+  }
+
   void flipVertically(String from, String to);
 
   void flipHorizontally(String from, String to);

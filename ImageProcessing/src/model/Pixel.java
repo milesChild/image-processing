@@ -31,9 +31,9 @@ public class Pixel {
     }
   }
 
-  public void grayscale (ImageProcessingModelImpl.GrayscaleTypes grayscale){
+  public void grayscale (ImageProcessingModel.GrayscaleTypes grayscale){
     switch (grayscale) {
-      case redGrayscale:
+      case RedGrayscale:
         this.setComponents(this.red, this.red, this.red);
         break;
       case GreenGrayscale:

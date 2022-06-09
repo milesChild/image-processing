@@ -26,7 +26,7 @@ public class ControllerTest {
 
   @Before
   public void init() {
-    this.controller1 = new ImageProcessingControllerImpl();
+    //this.controller1 = new ImageProcessingControllerImpl();
   }
 
   @Test

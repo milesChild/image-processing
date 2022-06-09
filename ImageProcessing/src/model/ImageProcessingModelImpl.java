@@ -6,15 +6,6 @@ import java.util.Map;
 
 public class ImageProcessingModelImpl implements ImageProcessingModel {
   private final Map<String, PPMImage> imageLibrary;
-  enum Orientations {Vertical, Horizontal}
-  public enum GrayscaleTypes {
-    RedGrayscale,
-    GreenGrayscale,
-    BlueGrayscale,
-    ValueGrayscale,
-    IntensityGrayscale,
-    LumaGrayscale
-  }
 
   /**
    * Constructor which allows the user to load in a pre-existing database (map) of images.

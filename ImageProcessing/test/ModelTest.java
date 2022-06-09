@@ -18,9 +18,6 @@ public class ModelTest {
   public void testModel() {
     ImageProcessingModelImpl model = new ImageProcessingModelImpl();
     model.load("Koala.ppm", "koala");
-    //model.dim(50,"Koala.ppm", "penis2");
-    //model.brighten(30,"Koala.ppm", "penis");
-    //model.flipVertically("Koala.ppm", "penis3");
     model.flipHorizontally("koala", "horizontalKoala");
     model.save("src/horizontalKoala.ppm", "horizontalKoala");
   }
