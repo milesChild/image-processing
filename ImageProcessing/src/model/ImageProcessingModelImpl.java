@@ -6,14 +6,15 @@ import java.util.Map;
 
 public class ImageProcessingModelImpl implements ImageProcessingModel {
   private final Map<String, PPMImage> imageLibrary;
-  enum Orientations {vertical, horizontal}
+  enum Orientations {Vertical, Horizontal}
   public enum GrayscaleTypes {
-    redGrayscale,
-    greenGrayscale,
-    blueGrayscale,
-    valueGrayscale,
-    intensityGrayscale,
-    lumaGrayscale }
+    RedGrayscale,
+    GreenGrayscale,
+    BlueGrayscale,
+    ValueGrayscale,
+    IntensityGrayscale,
+    LumaGrayscale
+  }
 
   /**
    * Constructor which allows the user to load in a pre-existing database (map) of images.
@@ -40,7 +41,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   public void flipHorizontally(String from, String to) {
     PPMImage fromImage = this.imageLibrary.get(from);
     PPMImage newImage = new PPMImage(fromImage);
-    newImage.flip(Orientations.horizontal);
+    newImage.flip(Orientations.Horizontal);
     this.imageLibrary.put(to, newImage);
   }
 
@@ -48,7 +49,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   public void flipVertically(String from, String to) {
     PPMImage fromImage = this.imageLibrary.get(from);
     PPMImage newImage = new PPMImage(fromImage);
-    newImage.flip(Orientations.vertical);
+    newImage.flip(Orientations.Vertical);
     this.imageLibrary.put(to, newImage);
   }
 

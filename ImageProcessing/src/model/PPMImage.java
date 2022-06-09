@@ -104,10 +104,10 @@ public class PPMImage {
 
   public void flip(ImageProcessingModelImpl.Orientations orientation){
     switch (orientation) {
-      case vertical:
+      case Vertical:
         Collections.reverse(Arrays.asList(this.pixelGrid));
         break;
-      case horizontal:
+      case Horizontal:
         for (int i = 0; i < height; i++) {
           Collections.reverse(Arrays.asList(this.pixelGrid[i]));
         }

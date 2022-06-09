@@ -36,21 +36,21 @@ public class Pixel {
       case redGrayscale:
         this.setComponents(this.red, this.red, this.red);
         break;
-      case greenGrayscale:
+      case GreenGrayscale:
         this.setComponents(this.green, this.green, this.green);
         break;
-      case blueGrayscale:
+      case BlueGrayscale:
         this.setComponents(this.blue, this.blue, this.blue);
         break;
-      case valueGrayscale:
+      case ValueGrayscale:
         int maxComponent = this.findMaxComponent();
         this.setComponents(maxComponent, maxComponent, maxComponent);
         break;
-      case intensityGrayscale:
+      case IntensityGrayscale:
         int intensity = (int) Math.round((this.red + this.green + this.blue) / 3.0);
         this.setComponents(intensity, intensity, intensity);
         break;
-      case lumaGrayscale:
+      case LumaGrayscale:
         int luma = (int) Math.round(this.red * 0.2126 + this.green * 0.7152 + this.blue * 0.0722);
         this.setComponents(luma, luma, luma);
         break;
