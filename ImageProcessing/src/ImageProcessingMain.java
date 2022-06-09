@@ -1,9 +1,7 @@
 import java.io.InputStreamReader;
 
-import commands.ImageProcessingCommand;
 import controller.ImageProcessingController;
 import controller.ImageProcessingControllerImpl;
-import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
 import view.ImageProcessingView;
 import view.ImageTextViewImpl;

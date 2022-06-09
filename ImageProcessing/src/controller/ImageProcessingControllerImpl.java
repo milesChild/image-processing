@@ -6,12 +6,12 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import commands.Brighten;
-import commands.Dim;
-import commands.HorizontalFlip;
-import commands.ImageProcessingCommand;
-import commands.Load;
-import commands.VerticalFlip;
+import controller.commands.Brighten;
+import controller.commands.Dim;
+import controller.commands.HorizontalFlip;
+import controller.commands.ImageProcessingCommand;
+import controller.commands.Load;
+import controller.commands.VerticalFlip;
 import model.ImageProcessingModel;
 import view.ImageProcessingView;
 

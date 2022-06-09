@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import commands.ImageProcessingCommand;
+import controller.commands.ImageProcessingCommand;
 import controller.ImageProcessingController;
 import controller.ImageProcessingControllerImpl;
 import model.ImageProcessingModel;
