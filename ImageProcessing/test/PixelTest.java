@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+import java.io.File;
+
 import model.Pixel;
 
 import static org.junit.Assert.assertEquals;
@@ -31,10 +34,10 @@ public class PixelTest {
   }
 
   @Test
-  public void testToString() {
-    assertEquals("255 0 0", this.red.toString());
-    assertEquals("255 255 255", this.white.toString());
-    assertEquals("0 0 0", this.black.toString());
+  public void testWritePixel() {
+    // create fake file
+    // call file.write(this.red)
+    // test that the file contents equal "255, 0, 0"
   }
 
 }

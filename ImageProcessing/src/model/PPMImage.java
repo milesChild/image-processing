@@ -16,22 +16,48 @@ public class PPMImage {
   private final int height;
   private final int maxValue;
 
-  public PPMImage(String filename){
+  /**
+   * Constructor for a PPM Image that creates a deep copy of the provided image. The constructed
+   * image will have identical parameters to the old one.
+   * @param fromImage the image to be copied
+   * @throws IllegalArgumentException if the fromImage is null
+   */
+  public PPMImage(PPMImage fromImage) throws IllegalArgumentException {
+    if (fromImage == null) {
+      throw new IllegalArgumentException("Given null parameter.");
+    }
+    // deep copy of pixelGrid
+    Pixel[][] copyGrid = new Pixel[fromImage.height][fromImage.width];
+    for (int i = 0; i < fromImage.height; i++) {
+      Pixel[] tempRow = new Pixel[fromImage.width];
+
+      for (int j = 0; j < fromImage.width; j++) {
+        tempRow[j] = fromImage.pixelGrid[i][j];
+      }
+      copyGrid[i] = tempRow;
+    }
+
+    this.pixelGrid = copyGrid;
+    this.width = fromImage.width;
+    this.height = fromImage.height;
+    this.maxValue = fromImage.maxValue;
+  }
+
+  public PPMImage(String filename) {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(filename));
-    }
-    catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("File "+filename+ " not found!");
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File " + filename + " not found!");
     }
 
     StringBuilder builder = new StringBuilder();
-    //read the file line by line, and populate a string. This will throw away any comment lines
+    // read the file line by line, and populate a string. This will throw away any comment lines
     while (sc.hasNextLine()) {
       String s = sc.nextLine();
-      if (s.charAt(0)!='#') {
-        builder.append(s+System.lineSeparator());
+      if (s.charAt(0) != '#') {
+        builder.append(s + System.lineSeparator());
       }
     }
 
@@ -42,7 +68,7 @@ public class PPMImage {
 
     token = sc.next();
     if (!token.equals("P3")) {
-      System.out.println("Invalid PPM file: plain RAW file should begin with P3");
+      System.out.println("Invalid PPM file: plain RAW file should begin with P3.");
     }
 
     this.width = sc.nextInt();
@@ -50,13 +76,13 @@ public class PPMImage {
     this.maxValue = sc.nextInt();
 
     Pixel[][] pixelGrid = new Pixel[height][width];
-    for (int i=0;i<height;i++) {
-      for (int j=0;j<width;j++) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
 
-        pixelGrid[i][j] = new Pixel(r,g,b, this.maxValue);
+        pixelGrid[i][j] = new Pixel(r, g, b, this.maxValue);
       }
     }
 
@@ -74,17 +100,17 @@ public class PPMImage {
   public void editOrientation() {
   }
 
-  public void flipVertically(){
+  public void flipVertically() {
     Collections.reverse(Arrays.asList(this.pixelGrid));
   }
 
-  public void flipHorizontally(){
+  public void flipHorizontally() {
     for (int i = 0; i < height; i++) {
       Collections.reverse(Arrays.asList(this.pixelGrid[i]));
     }
   }
 
-  public void saveImage (String path, String filename) throws IOException {
+  public void saveImage(String path, String filename) throws IOException {
     File newFile = new File(path);
 //    imageFile.createNewFile();
 //    FileWriter writer = new FileWriter(filename);

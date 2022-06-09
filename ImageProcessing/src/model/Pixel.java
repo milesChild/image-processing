@@ -44,7 +44,6 @@ public class Pixel {
 
   }
 
-
   public void writePixel(FileWriter writer) throws IOException {
     writer.write(red);
     writer.write( " ");
@@ -53,4 +52,5 @@ public class Pixel {
     writer.write(blue);
     writer.write( " ");
   }
+
 }
