@@ -16,7 +16,9 @@ import controller.commands.VerticalFlip;
 import model.ImageProcessingModel;
 import view.ImageProcessingView;
 
-
+/**
+ * Javadoc for testing.
+ */
 public class ImageProcessingControllerImpl implements ImageProcessingController {
 
   private ImageProcessingModel model;
