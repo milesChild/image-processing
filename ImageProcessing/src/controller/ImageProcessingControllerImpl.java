@@ -11,6 +11,7 @@ import controller.commands.Dim;
 import controller.commands.HorizontalFlip;
 import controller.commands.ImageProcessingCommand;
 import controller.commands.Load;
+import controller.commands.Save;
 import controller.commands.VerticalFlip;
 import model.ImageProcessingModel;
 import view.ImageProcessingView;
@@ -43,17 +44,16 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     initCommands();
   }
 
-  // TODO: new constructor
-
   // Initializes the known commands that can be consulted to operate on the model.
   private void initCommands() {
     knownCommands = new HashMap<>();
-    knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s.nextLine(), s.nextLine()));
-    knownCommands.put("vertical-flip", s -> new VerticalFlip(s.nextLine(), s.nextLine()));
+    knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s.next(), s.next()));
+    knownCommands.put("vertical-flip", s -> new VerticalFlip(s.next(), s.next()));
     knownCommands.put("brighten", s ->
-            new Brighten(s.nextInt(), s.nextLine(), s.nextLine()));
-    knownCommands.put("dim", s -> new Dim(s.nextInt(), s.nextLine(), s.nextLine()));
+            new Brighten(s.nextInt(), s.next(), s.next()));
+    knownCommands.put("dim", s -> new Dim(s.nextInt(), s.next(), s.next()));
     knownCommands.put("load", s -> new Load(s.next(), s.next()));
+    knownCommands.put("save", s -> new Save(s.next(), s.next()));
   }
 
   public void runProgram() {
@@ -62,7 +62,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
 
     while(s.hasNext()) {
       ImageProcessingCommand c;
-      String in = s.nextLine();
+      String in = s.next();
 
       // quit when prompted.
       if (in.equalsIgnoreCase("q") || in.equalsIgnoreCase("quit")) {
