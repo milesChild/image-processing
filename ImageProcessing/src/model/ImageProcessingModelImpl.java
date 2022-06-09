@@ -1,16 +1,19 @@
 package model;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import commands.HorizontalFlip;
-import commands.ImageProcessingCommand;
-
 public class ImageProcessingModelImpl implements ImageProcessingModel {
-
-  Map<String, PPMImage> knownImages;
+  private final Map<String, PPMImage> imageLibrary;
+  enum Orientations {vertical, horizontal}
+  public enum GrayscaleTypes {
+    redGrayscale,
+    greenGrayscale,
+    blueGrayscale,
+    valueGrayscale,
+    intensityGrayscale,
+    lumaGrayscale }
 
   /**
    * Constructor which allows the user to load in a pre-existing database (map) of images.
@@ -22,60 +25,46 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Given null parameter.");
     }
 
-    this.knownImages = images;
+    this.imageLibrary = images;
   }
 
   /**
    * Default constructor, takes in no currently loaded (known) images and instantiates the
-   * knownImages as an empty HashMap. As the user loads in images, knownImages will be populated.
+   * imageLibrary as an empty HashMap. As the user loads in images, imageLibrary will be populated.
    */
   public ImageProcessingModelImpl() {
-    this.knownImages = new HashMap<String, PPMImage>();
+    this.imageLibrary = new HashMap<>();
   }
-
-//  @Override
-//  public void flipHorizontally(String from, String to) {
-//    PPMImage newImage = new PPMImage(from);
-//    newImage.flipHorizontally();
-//    this.knownImages.put(to,newImage);
-//  }
 
   @Override
   public void flipHorizontally(String from, String to) {
-    PPMImage fromImage = this.knownImages.get(from);
+    PPMImage fromImage = this.imageLibrary.get(from);
     PPMImage newImage = new PPMImage(fromImage);
-    newImage.flipHorizontally();
-    this.knownImages.put(to, newImage);
+    newImage.flip(Orientations.horizontal);
+    this.imageLibrary.put(to, newImage);
   }
-
-//  @Override
-//  public void flipVertically(String from, String to) {
-//    PPMImage newImage = new PPMImage(from);
-//    newImage.flipVertically();
-//    this.knownImages.put(to,newImage);
-//  }
 
   @Override
   public void flipVertically(String from, String to) {
-    PPMImage fromImage = this.knownImages.get(from);
+    PPMImage fromImage = this.imageLibrary.get(from);
     PPMImage newImage = new PPMImage(fromImage);
-    newImage.flipVertically();
-    this.knownImages.put(to, newImage);
+    newImage.flip(Orientations.vertical);
+    this.imageLibrary.put(to, newImage);
   }
-
-//  @Override
-//  public void brighten(int value, String from, String to) {
-//    PPMImage newImage = new PPMImage(from);
-//    newImage.editColor(value, value, value);
-//    this.knownImages.put(to, newImage);
-//  }
 
   @Override
   public void brighten(int value, String from, String to) {
-    PPMImage fromImage = this.knownImages.get(from);
+    PPMImage fromImage = this.imageLibrary.get(from);
     PPMImage newImage = new PPMImage(fromImage);
-    newImage.editColor(value, value, value);
-    this.knownImages.put(to, newImage);
+    newImage.brighten(value);
+    this.imageLibrary.put(to, newImage);
+  }
+
+  public void grayscale(GrayscaleTypes choice, String from, String to){
+    PPMImage fromImage = this.imageLibrary.get(from);
+    PPMImage newImage = new PPMImage(fromImage);
+    newImage.grayscale(choice);
+    this.imageLibrary.put(to, newImage);
   }
 
   @Override
@@ -86,7 +75,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   @Override
   public void save(String path, String name) {
     try {
-      this.knownImages.get(name).saveImage(path, name);
+      this.imageLibrary.get(name).saveImage(path);
     } catch (IOException ignored) {
       throw new IllegalStateException();
     }
@@ -95,7 +84,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   @Override
   public void load(String path, String name) {
     PPMImage loadImage = new PPMImage(path);
-    this.knownImages.put(name, loadImage);
+    this.imageLibrary.put(name, loadImage);
   }
 
 }

@@ -18,4 +18,6 @@ public interface ImageProcessingModel {
   void save(String path, String name);
 
   void load(String path, String name);
+
+  void grayscale(ImageProcessingModelImpl.GrayscaleTypes choice, String path, String name);
 }

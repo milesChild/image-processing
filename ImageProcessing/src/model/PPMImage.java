@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
@@ -31,9 +30,7 @@ public class PPMImage {
     for (int i = 0; i < fromImage.height; i++) {
       Pixel[] tempRow = new Pixel[fromImage.width];
 
-      for (int j = 0; j < fromImage.width; j++) {
-        tempRow[j] = fromImage.pixelGrid[i][j];
-      }
+      System.arraycopy(fromImage.pixelGrid[i], 0, tempRow, 0, fromImage.width);
       copyGrid[i] = tempRow;
     }
 
@@ -57,7 +54,7 @@ public class PPMImage {
     while (sc.hasNextLine()) {
       String s = sc.nextLine();
       if (s.charAt(0) != '#') {
-        builder.append(s + System.lineSeparator());
+        builder.append(s).append(System.lineSeparator());
       }
     }
 
@@ -89,62 +86,67 @@ public class PPMImage {
     this.pixelGrid = pixelGrid;
   }
 
-  public void editColor(int redOffset, int greenOffset, int blueOffset) {
+  public void brighten(int brightenValue) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        pixelGrid[i][j].offsetPixel(redOffset, greenOffset, blueOffset);
+        pixelGrid[i][j].brighten(brightenValue);
       }
     }
   }
 
-  public void editOrientation() {
-  }
-
-  public void flipVertically() {
-    Collections.reverse(Arrays.asList(this.pixelGrid));
-  }
-
-  public void flipHorizontally() {
+  public void grayscale(ImageProcessingModelImpl.GrayscaleTypes grayscaleChoice) {
     for (int i = 0; i < height; i++) {
-      Collections.reverse(Arrays.asList(this.pixelGrid[i]));
+      for (int j = 0; j < width; j++) {
+        pixelGrid[i][j].grayscale(grayscaleChoice);
+      }
     }
   }
 
-  public void saveImage(String path, String filename) throws IOException {
-    File newFile = new File(path);
-//    imageFile.createNewFile();
-//    FileWriter writer = new FileWriter(filename);
+  public void flip(ImageProcessingModelImpl.Orientations orientation){
+    switch (orientation) {
+      case vertical:
+        Collections.reverse(Arrays.asList(this.pixelGrid));
+        break;
+      case horizontal:
+        for (int i = 0; i < height; i++) {
+          Collections.reverse(Arrays.asList(this.pixelGrid[i]));
+        }
+        break;
+      default:
+    }
+  }
 
-//    writer.write("P3\n");
-//    //writer.write("# " + filename + "\n");
-//    writer.write(this.width);
-//    writer.write(" ");
-//    writer.write(this.height);
-//    writer.write("\n");
-//    writer.write(this.maxValue);
-//    writer.write("\n");
+//  public void flipVertically() {
+//    Collections.reverse(Arrays.asList(this.pixelGrid));
+//  }
+//
+//  public void flipHorizontally() {
+//    for (int i = 0; i < height; i++) {
+//      Collections.reverse(Arrays.asList(this.pixelGrid[i]));
+//    }
+//  }
+
+  public void saveImage(String path) throws IOException {
+    File newFile = new File(path);
 
     StringBuilder newFileContents = new StringBuilder();
     newFileContents.append("P3" + " ");
-    newFileContents.append(this.width + " ");
-    newFileContents.append(this.height + " ");
-    newFileContents.append(this.maxValue + " ");
+    newFileContents.append(this.width).append(" ");
+    newFileContents.append(this.height).append(" ");
+    newFileContents.append(this.maxValue).append(" ");
 
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         Pixel p1 = this.pixelGrid[i][j];
-        newFileContents.append(p1.red + " ");
-        newFileContents.append(p1.green + " ");
-        newFileContents.append(p1.blue + " ");
+        newFileContents.append(p1.toString());
       }
     }
-    String oldFileContents = newFileContents.toString();
 
     try {
       FileWriter writer = new FileWriter(newFile);
       newFile.createNewFile();
-      writer.write(oldFileContents);
+      writer.write(newFileContents.toString());
     } catch (IOException e) {
       throw new IllegalArgumentException();
     }
