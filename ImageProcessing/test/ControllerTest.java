@@ -4,13 +4,10 @@ import org.junit.Test;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
-
 import controller.commands.ImageProcessingCommand;
 import controller.ImageProcessingController;
-import controller.ImageProcessingControllerImpl;
 import model.ImageProcessingModel;
 import view.ImageProcessingView;
-
 import static org.junit.Assert.assertEquals;
 
 /**

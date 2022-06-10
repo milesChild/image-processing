@@ -8,6 +8,10 @@ import model.ImageProcessingModel;
  */
 public interface ImageProcessingCommand {
 
-  void execute(ImageProcessingModel m);
+  /**
+   * Calls upon the model to execute the given command.
+   * @param model the model which will be used to actually conduct the operation.
+   */
+  void execute(ImageProcessingModel model);
 
 }
