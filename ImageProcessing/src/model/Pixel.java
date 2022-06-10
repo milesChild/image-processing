@@ -12,6 +12,14 @@ public class Pixel {
   private int blue;
   private final int maxValue;
 
+  /**
+   * 
+   * @param red
+   * @param green
+   * @param blue
+   * @param maxValue
+   * @throws IllegalArgumentException
+   */
   public Pixel(int red, int green, int blue, int maxValue) throws IllegalArgumentException {
     if (maxValue < 0) {
       throw new IllegalArgumentException("Max value of a pixel must be greater than 0.");

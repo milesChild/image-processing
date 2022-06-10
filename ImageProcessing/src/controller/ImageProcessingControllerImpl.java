@@ -49,7 +49,9 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     initCommands();
   }
 
-  // Initializes the known commands that can be consulted to operate on the model.
+  /**
+   * Initializes the known commands that can be consulted to operate on the model.
+   */
   private void initCommands() {
     knownCommands = new HashMap<>();
     knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s.next(), s.next()));
@@ -63,6 +65,10 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
             s.next(), s.next()));
   }
 
+  /**
+   * Allows the user to run the program and pass in various commands for loading, saving, and
+   * manipulating images. User can quit by typing "q" at any time.
+   */
   public void runProgram() {
     Scanner s = new Scanner(in);
     boolean quit = false;
@@ -105,6 +111,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     if (quit) this.quitProgram();
   }
 
+  /**
+   * Converts a user input string to a grayscale type.
+   * @param userInput the string user input to be converted into a grayscale type.
+   * @return a grayscale type enumeration that matches the user input
+   */
   private ImageProcessingModel.GrayscaleTypes stringToGrayscaleEnum(String userInput){
     switch (userInput) {
       case "value":
@@ -124,6 +135,9 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     }
   }
 
+  /**
+   * Renders a message to the view, notifying the user that the program has ended.
+   */
   private void quitProgram() {
     try {
       this.view.renderMessage("Program Ended.");
