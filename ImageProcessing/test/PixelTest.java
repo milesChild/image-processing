@@ -30,7 +30,7 @@ public class PixelTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testInvalidInitNullParameter() {
+  public void testInvalidInitNegativePixel() {
     Pixel test = new Pixel(-2, 100, 100, 255);
   }
 
@@ -85,6 +85,18 @@ public class PixelTest {
     assertEquals("20 30 50 ", this.blue.toString());
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidOverMaxSecondsSetComponents() {
+    this.init();
+    this.green.setComponents(1000, 1000, 1000);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidNegativeSetComponents() {
+    this.init();
+    this.green.setComponents(-10, 255, 255);
+  }
+
   @Test
   public void testBrightenRed() {
     this.init();
@@ -118,6 +130,13 @@ public class PixelTest {
     this.init();
     this.white.brighten(56);
     assertEquals("255 255 255 ", this.white.toString());
+  }
+
+  @Test
+  public void testBrightenTryingToSetAboveMax() {
+    this.init();
+    this.red.brighten(1000);
+    assertEquals("255 255 255 ", this.red.toString());
   }
 
   @Test
@@ -161,4 +180,11 @@ public class PixelTest {
     this.red.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
     assertEquals("54 54 54 ", this.red.toString());
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidGrayscaleNullParameter() {
+    this.init();
+    this.green.grayscale(null);
+  }
+
 }
