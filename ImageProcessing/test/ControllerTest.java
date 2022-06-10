@@ -69,9 +69,7 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyHorizontal, model.getImage("donkeyHorizontal"));
-    assertEquals(model.getImage("donkeyHorizontal"),
-            model.getImage("copyHorizontal"));
-    assertEquals(appendable.toString(), "Program Ended.");
+    assertEquals(model.getImage("donkeyHorizontal"), model.getImage("copyHorizontal"));
   }
 
   @Test
