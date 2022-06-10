@@ -1,3 +1,5 @@
+package view;
+
 import java.io.InputStreamReader;
 
 import controller.ImageProcessingController;

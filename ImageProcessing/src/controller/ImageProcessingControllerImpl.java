@@ -80,13 +80,25 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
               knownCommands.getOrDefault(in, null);
       if (cmd == null) {
         try {
-          this.view.renderMessage("Unknown or invalid command. Try Again.");
+          this.view.renderMessage("Unknown or invalid command. Try Again."
+                  + System.lineSeparator());
+          s.nextLine();
         } catch (IOException e) {
           throw new IllegalStateException();
         }
       } else {
-        c = cmd.apply(s);
-        c.execute(this.model);
+        try {
+          c = cmd.apply(s);
+          c.execute(this.model);
+        } catch (Exception e) {
+          try {
+            this.view.renderMessage("Unknown or invalid command. Try Again."
+                    + System.lineSeparator());
+            s.nextLine();
+          } catch (IOException i) {
+            throw new IllegalStateException();
+          }
+        }
       }
     }
 
