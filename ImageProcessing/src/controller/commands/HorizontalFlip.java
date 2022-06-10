@@ -2,6 +2,10 @@ package controller.commands;
 
 import model.ImageProcessingModel;
 
+/**
+ * Command class to represent the horizontal-flip command, which horizontally-flips a specific
+ * image and saves it as a new image.
+ */
 public class HorizontalFlip extends AbstractCommand implements ImageProcessingCommand {
 
   /**

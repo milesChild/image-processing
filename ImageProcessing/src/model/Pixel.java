@@ -13,31 +13,35 @@ public class Pixel {
   private final int maxValue;
 
   /**
-   * 
-   * @param red
-   * @param green
-   * @param blue
-   * @param maxValue
-   * @throws IllegalArgumentException
+   * Default constructor for a pixel which takes in a red, green, blue, and max value that any of
+   * the pixels can hold. This information will be used to construct a pixel in RGB format, where
+   * (r, g, b) are the color components and r, g, b >= maxValue.
+   *
+   * @param red      red pixel component of RGB
+   * @param green    green pixel component of RGB
+   * @param blue     blue pixel component of RGB
+   * @param maxValue the maximum value that any pixel can have
+   * @throws IllegalArgumentException if any of the RGB values are set above the max value or
+   *                                  are not positive
    */
   public Pixel(int red, int green, int blue, int maxValue) throws IllegalArgumentException {
     if (maxValue < 0) {
       throw new IllegalArgumentException("Max value of a pixel must be greater than 0.");
     }
     this.maxValue = maxValue;
-    this.setComponents(red, green, blue);
+    this.setComponents(red, green, blue); // throws exception when R, G, or B > maxvalue
   }
 
-  public void brighten (int brightenValue) {
+  public void brighten(int brightenValue) {
     int newRed = this.red;
     int newGreen = this.green;
     int newBlue = this.blue;
-    if (brightenValue > 0){
+    if (brightenValue > 0) {
       newRed = Math.min(this.red + brightenValue, this.maxValue);
       newGreen = Math.min(this.green + brightenValue, this.maxValue);
       newBlue = Math.min(this.blue + brightenValue, this.maxValue);
     }
-    if (brightenValue < 0){
+    if (brightenValue < 0) {
       newRed = Math.max(this.red + brightenValue, 0);
       newGreen = Math.max(this.green + brightenValue, 0);
       newBlue = Math.max(this.blue + brightenValue, 0);
@@ -46,8 +50,8 @@ public class Pixel {
     this.setComponents(newRed, newGreen, newBlue);
   }
 
-  private int findMaxComponent(){
-    if (this.red >= this.green && this.red >= this.blue){
+  private int findMaxComponent() {
+    if (this.red >= this.green && this.red >= this.blue) {
       return this.red;
     } else if (this.green >= this.red && this.green >= this.blue) {
       return this.green;
@@ -56,7 +60,20 @@ public class Pixel {
     }
   }
 
-  public void grayscale (ImageProcessingModel.GrayscaleTypes grayscale){
+  /**
+   * Converts a pixel to a certain grayscale type, specified by the user. If the user passes an
+   * invalid grayscale type, the pixels simply will not change. Our design already notifies the user
+   * that they have passed in an invalid command if they specify an invalid grayscale type.
+   * We ensure that the method will never take in an invalid enumeration.
+   * @param grayscale the grayscale type to convert the pixels to.
+   * @throws IllegalArgumentException if the provided grayscale type is null
+   */
+  public void grayscale(ImageProcessingModel.GrayscaleTypes grayscale)
+          throws IllegalArgumentException {
+    if (grayscale == null) {
+      throw new IllegalArgumentException("Given null parameter.");
+    }
+
     switch (grayscale) {
       case RedGrayscale:
         this.setComponents(this.red, this.red, this.red);

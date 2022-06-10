@@ -2,6 +2,10 @@ package controller.commands;
 
 import model.ImageProcessingModel;
 
+/**
+ * Command class to represent the brighten command, which brightens the pixels in a specific image
+ * and saves it as a new image.
+ */
 public class Brighten extends AbstractCommand {
 
   private final int value; // the amount the pixels will be brightened by

@@ -3,7 +3,10 @@ package controller.commands;
 import model.ImageProcessingModel;
 
 /**
- *
+ * Abstract class for a command that includes fields and constructor that are common for most
+ * commands (this reduces code repetition). Implementations represent a specific operation that can
+ * be executed on an image. Specific commands will extend this class and be called by the
+ * controller when manipulating model information.
  */
 public abstract class AbstractCommand implements ImageProcessingCommand {
 

@@ -2,6 +2,10 @@ package controller.commands;
 
 import model.ImageProcessingModel;
 
+/**
+ * Command class to represent the save command, which saves a specific image from the imageLibrary
+ * and saves it to the specified image-path on the user's device.
+ */
 public class Save extends AbstractCommand {
 
   /**

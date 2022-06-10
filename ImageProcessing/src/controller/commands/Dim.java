@@ -2,6 +2,10 @@ package controller.commands;
 
 import model.ImageProcessingModel;
 
+/**
+ * Command class to represent the dim command, which dims the pixels in a specific image and saves
+ * it as a new image.
+ */
 public class Dim extends AbstractCommand {
 
   private final int value; // the amount the pixels will be dimmed by

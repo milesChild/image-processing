@@ -2,6 +2,10 @@ package controller.commands;
 
 import model.ImageProcessingModel;
 
+/**
+ * Command class to represent the vertical-flip command, which vertically-flips a specific
+ * image and saves it as a new image.
+ */
 public class VerticalFlip extends AbstractCommand {
 
   /**

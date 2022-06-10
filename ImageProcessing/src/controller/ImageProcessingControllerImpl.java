@@ -32,10 +32,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   /**
    * Default constructor for an image processing controller implementation which instantiates a
    * new controller using the provided model, readable, and view.
+   *
    * @param model the model that the controller will transmit information to
-   * @param in the readable that the controller will use to accept user input
-   * @param view the view to which information will be transmitted according to the controller's
-   *             discretion
+   * @param in    the readable that the controller will use to accept user input
+   * @param view  the view to which information will be transmitted according to the controller's
+   *              discretion
    * @throws IllegalArgumentException if any of the provided parameters are null
    */
   public ImageProcessingControllerImpl(ImageProcessingModel model, Readable in,
@@ -73,7 +74,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     Scanner s = new Scanner(in);
     boolean quit = false;
 
-    while(s.hasNext()) {
+    while (s.hasNext()) {
       ImageProcessingCommand c;
       String in = s.next();
 
@@ -108,15 +109,18 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
       }
     }
 
-    if (quit) this.quitProgram();
+    if (quit) {
+      this.quitProgram();
+    }
   }
 
   /**
    * Converts a user input string to a grayscale type.
+   *
    * @param userInput the string user input to be converted into a grayscale type.
    * @return a grayscale type enumeration that matches the user input
    */
-  private ImageProcessingModel.GrayscaleTypes stringToGrayscaleEnum(String userInput){
+  private ImageProcessingModel.GrayscaleTypes stringToGrayscaleEnum(String userInput) {
     switch (userInput) {
       case "value":
         return ImageProcessingModel.GrayscaleTypes.ValueGrayscale;

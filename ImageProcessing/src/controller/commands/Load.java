@@ -2,6 +2,10 @@ package controller.commands;
 
 import model.ImageProcessingModel;
 
+/**
+ * Command class to represent the load command, which loads an image from the specified image-path
+ * and saves it as a new image in the model's library.
+ */
 public class Load extends AbstractCommand {
 
   /**
