@@ -5,7 +5,6 @@ import model.PPMImage;
 import model.Pixel;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class PPMImageTest {
   PPMImage donkeyTest;
