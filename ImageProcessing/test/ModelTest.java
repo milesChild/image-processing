@@ -11,16 +11,24 @@ import static org.junit.Assert.assertTrue;
  * Tests for the ImageProcessingModel class & its methods.
  */
 public class ModelTest {
-  PPMImage donkeyRedGrayscale = new PPMImage("res/predefinedImages/donkey-red-greyscale.ppm");
-  PPMImage donkeyGreenGrayscale = new PPMImage("res/predefinedImages/donkey-green-greyscale.ppm");
-  PPMImage donkeyBlueGrayscale = new PPMImage("res/predefinedImages/donkey-blue-greyscale.ppm");
-  PPMImage donkeyValueGrayscale = new PPMImage("res/predefinedImages/donkey-value-greyscale.ppm");
+  PPMImage donkeyRedGrayscale =
+          new PPMImage("res/predefinedImages/donkey-red-greyscale.ppm");
+  PPMImage donkeyGreenGrayscale =
+          new PPMImage("res/predefinedImages/donkey-green-greyscale.ppm");
+  PPMImage donkeyBlueGrayscale =
+          new PPMImage("res/predefinedImages/donkey-blue-greyscale.ppm");
+  PPMImage donkeyValueGrayscale =
+          new PPMImage("res/predefinedImages/donkey-value-greyscale.ppm");
   PPMImage donkeyIntensityGrayscale =
           new PPMImage("res/predefinedImages/donkey-intensity-greyscale.ppm");
-  PPMImage donkeyLumaGrayscale = new PPMImage("res/predefinedImages/donkey-luma-greyscale.ppm");
-  PPMImage donkeyHorizontal = new PPMImage("res/predefinedImages/donkey-horizontal.ppm");
-  PPMImage donkeyBrighterBy50 = new PPMImage("res/predefinedImages/donkey-brighten-by-50.ppm");
-  PPMImage donkeyDimBy50 = new PPMImage("res/predefinedImages/donkey-dim-by-50.ppm");
+  PPMImage donkeyLumaGrayscale =
+          new PPMImage("res/predefinedImages/donkey-luma-greyscale.ppm");
+  PPMImage donkeyHorizontal =
+          new PPMImage("res/predefinedImages/donkey-horizontal.ppm");
+  PPMImage donkeyBrighterBy50 =
+          new PPMImage("res/predefinedImages/donkey-brighten-by-50.ppm");
+  PPMImage donkeyDimBy50 =
+          new PPMImage("res/predefinedImages/donkey-dim-by-50.ppm");
 
   @Test (expected = IllegalArgumentException.class)
   public void testNullModel() {
@@ -116,7 +124,7 @@ public class ModelTest {
     // Create a new model that has no currently loaded images
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
-    // load donkey.ppm, grayscale it to red pixel, and save the image
+    // load donkey.ppm, grayscale it to green pixel, and save the image
     model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale, "donkey",
             "donkeyGreenGrayscale");
@@ -138,7 +146,7 @@ public class ModelTest {
     // Create a new model that has no currently loaded images
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
-    // load donkey.ppm, grayscale it to red pixel, and save the image
+    // load donkey.ppm, grayscale it to blue pixel, and save the image
     model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale, "donkey",
             "donkeyBlueGrayscale");
@@ -160,7 +168,7 @@ public class ModelTest {
     // Create a new model that has no currently loaded images
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
-    // load donkey.ppm, grayscale it to red pixel, and save the image
+    // load donkey.ppm, grayscale it to intensity, and save the image
     model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale, "donkey",
             "donkeyIntensityGrayscale");
@@ -182,7 +190,7 @@ public class ModelTest {
     // Create a new model that has no currently loaded images
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
-    // load donkey.ppm, grayscale it to red pixel, and save the image
+    // load donkey.ppm, grayscale it to value, and save the image
     model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale, "donkey",
             "donkeyValueGrayscale");
@@ -204,7 +212,7 @@ public class ModelTest {
     // Create a new model that has no currently loaded images
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
-    // load donkey.ppm, grayscale it to red pixel, and save the image
+    // load donkey.ppm, grayscale it to luma, and save the image
     model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale, "donkey",
             "donkeyLumaGrayscale");
