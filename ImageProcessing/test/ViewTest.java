@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
  * Tests for the ImageProcessingTextView class & its methods.
  */
 public class ViewTest {
-
   ImageProcessingView view1;
   Appendable out;
 
@@ -26,11 +25,6 @@ public class ViewTest {
   public void testInvalidInitializationNullParameter() {
     Appendable testOut = null;
     ImageProcessingView test = new ImageTextViewImpl(testOut);
-  }
-
-  @Test
-  public void testValidInitDefaultConstructor() {
-    // TODO:
   }
 
   // test to ensure that the renderMessage() method properly mutates the appendable to be passed

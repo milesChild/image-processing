@@ -19,7 +19,7 @@ public abstract class AbstractCommand implements ImageProcessingCommand {
    * @param to the name of the new image
    * @throws IllegalArgumentException if either of the provided parameters are null
    */
-  public AbstractCommand(String from, String to) throws IllegalArgumentException {
+  protected AbstractCommand(String from, String to) throws IllegalArgumentException {
     if (from == null || to == null) {
       throw new IllegalArgumentException("Given null parameter");
     }

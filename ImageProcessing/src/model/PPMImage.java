@@ -47,13 +47,18 @@ public class PPMImage {
     this.maxValue = fromImage.maxValue;
   }
 
-  public PPMImage(String filename) {
+  /**
+   * Constructor for a PPM Image that creates an image given a specified computer path for an image.
+   * @param path the computer path for the PPM image that is to be constructed
+   * @throws IllegalArgumentException if image is not found from the given path
+   */
+  public PPMImage(String path) throws IllegalArgumentException {
     Scanner sc;
 
     try {
-      sc = new Scanner(new FileInputStream(filename));
+      sc = new Scanner(new FileInputStream(path));
     } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("File " + filename + " not found!");
+      throw new IllegalArgumentException("File " + path + " not found!");
     }
 
     StringBuilder builder = new StringBuilder();
@@ -93,6 +98,10 @@ public class PPMImage {
     this.pixelGrid = pixelGrid;
   }
 
+  /**
+   * Brightens all the pixels in this PPM image's pixel grid given a specified value.
+   * @param brightenValue the value to brighten each pixel by
+   */
   public void brighten(int brightenValue) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -101,6 +110,10 @@ public class PPMImage {
     }
   }
 
+  /**
+   * Converts all the pixels in this PPM image's pixel grid given a specified grayscale choice.
+   * @param grayscaleChoice the type of grayscale the image will be converted to
+   */
   public void grayscale(ImageProcessingModel.GrayscaleTypes grayscaleChoice) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -109,6 +122,11 @@ public class PPMImage {
     }
   }
 
+  /**
+   * Flips the pixel grid in this PPM image horizontally or vertically,
+   * given the specified flip choice.
+   * @param orientation the type of flip that will be performed on this PPM image
+   */
   public void flip(ImageProcessingModelImpl.Orientations orientation){
     switch (orientation) {
       case Vertical:
@@ -123,6 +141,10 @@ public class PPMImage {
     }
   }
 
+  /**
+   * Saves this PPM image to a specified path on the device.
+   * @param path the device path the PPM image will be saved to
+   */
   public void saveImage(String path) {
     File newFile = new File(path);
 
@@ -150,6 +172,12 @@ public class PPMImage {
     }
   }
 
+  /**
+   * Overriden equals method. A PPMImage equals another image if they have the same width, height,
+   * max value, and the pixels in each grid are equal.
+   * @param o the object that is being checked if it is equal against this PPMImage
+   * @return true if the object is equal, false if the object is not equal
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -163,20 +191,30 @@ public class PPMImage {
     return Arrays.deepEquals(pixelGrid, ppmImage.pixelGrid);
   }
 
+  /**
+   * Gets the height of this PPMImage.
+   * @return the height of this image
+   */
   public int getHeight(){
     return this.height;
   }
 
+  /**
+   * Gets the width of this PPMImage.
+   * @return the width of this image
+   */
   public int getWidth(){
     return this.width;
   }
 
+  /**
+   * Gets a deep copy of this PPMImage's pixel grid.
+   * @return a copy of this image's pixel grid
+   */
   public Pixel[][] getPixelGrid(){
     Pixel[][] gridCopy = new Pixel[this.height][this.width];
     for (int i = 0; i < this.height; i++) {
-      for (int j = 0; j < this.width; j++) {
-        gridCopy[i][j] = this.pixelGrid[i][j];
-      }
+      System.arraycopy(this.pixelGrid[i], 0, gridCopy[i], 0, this.width);
     }
     return gridCopy;
   }
