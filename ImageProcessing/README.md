@@ -3,9 +3,9 @@
 *Version 1: June 9, 2022*
  
 ## Contributors:
-> Miles Child - *Northeastern University, Khoury SCS & D'Amore McKim BS 2025*
+> Miles Child - *Northeastern University, Khoury CSC College & D'Amore McKim BS 2025*
 > 
-> Aashir Khan - *Northeastern University, Khoury SCS 2025*
+> Aashir Khan - *Northeastern University, Khoury CSC & CSSH 2025*
 
 ## Project Description
 
@@ -163,6 +163,6 @@ The syntax the user should use when using the console to interact with the progr
 
 **Contact:**
 - Miles: child.m@northeastern.edu
-- Aashir: khan.a@northeastern.edu
+- Aashir: khan.aas@northeastern.edu
 
 Note: The image provided in the code for grading purposes is our own image. We give ourselves permission to use our own image.
