@@ -62,7 +62,7 @@ public class Pixel {
         this.setComponents(intensity, intensity, intensity);
         break;
       case LumaGrayscale:
-        int luma = (int) Math.round(this.red * 0.2126 + this.green * 0.7152 + this.blue * 0.0722);
+        int luma = (int) Math.round((this.red * 0.2126 + this.green * 0.7152 + this.blue * 0.0722));
         this.setComponents(luma, luma, luma);
         break;
       default:
