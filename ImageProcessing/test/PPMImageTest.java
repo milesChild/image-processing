@@ -8,20 +8,29 @@ import static org.junit.Assert.assertEquals;
 
 public class PPMImageTest {
   PPMImage donkeyTest;
-  PPMImage donkeyRedGrayscale = new PPMImage("SmallPPMImages/donkey-red-greyscale.ppm");
-  PPMImage donkeyGreenGrayscale = new PPMImage("SmallPPMImages/donkey-green-greyscale.ppm");
-  PPMImage donkeyBlueGrayscale = new PPMImage("SmallPPMImages/donkey-blue-greyscale.ppm");
-  PPMImage donkeyValueGrayscale = new PPMImage("SmallPPMImages/donkey-value-greyscale.ppm");
+  PPMImage donkeyRedGrayscale =
+          new PPMImage("res/predefinedImages/donkey-red-greyscale.ppm");
+  PPMImage donkeyGreenGrayscale =
+          new PPMImage("res/predefinedImages/donkey-green-greyscale.ppm");
+  PPMImage donkeyBlueGrayscale =
+          new PPMImage("res/predefinedImages/donkey-blue-greyscale.ppm");
+  PPMImage donkeyValueGrayscale =
+          new PPMImage("res/predefinedImages/donkey-value-greyscale.ppm");
   PPMImage donkeyIntensityGrayscale =
-          new PPMImage("SmallPPMImages/donkey-intensity-greyscale.ppm");
-  PPMImage donkeyLumaGrayscale = new PPMImage("SmallPPMImages/donkey-luma-greyscale.ppm");
-  PPMImage donkeyHorizontal = new PPMImage("SmallPPMImages/donkey-horizontal.ppm");
-  PPMImage donkeyVertical = new PPMImage("SmallPPMImages/donkey-vertical.ppm");
-  PPMImage donkeyBrighterBy50 = new PPMImage("SmallPPMImages/donkey-brighten-by-50.ppm");
-  PPMImage donkeyDimBy50 = new PPMImage("SmallPPMImages/donkey-dim-by-50.ppm");
+          new PPMImage("res/predefinedImages/donkey-intensity-greyscale.ppm");
+  PPMImage donkeyLumaGrayscale =
+          new PPMImage("res/predefinedImages/donkey-luma-greyscale.ppm");
+  PPMImage donkeyHorizontal =
+          new PPMImage("res/predefinedImages/donkey-horizontal.ppm");
+  PPMImage donkeyVertical =
+          new PPMImage("res/predefinedImages/donkey-vertical.ppm");
+  PPMImage donkeyBrighterBy50 =
+          new PPMImage("res/predefinedImages/donkey-brighten-by-50.ppm");
+  PPMImage donkeyDimBy50 =
+          new PPMImage("res/predefinedImages/donkey-dim-by-50.ppm");
 
-  public void init(){
-    this.donkeyTest = new PPMImage("SmallPPMImages/donkey.ppm");
+  public void init() {
+    this.donkeyTest = new PPMImage("res/predefinedImages/donkey.ppm");
   }
 
   @Test
@@ -41,7 +50,7 @@ public class PPMImageTest {
   @Test
   public void testFlipHorizontal() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.flip(ImageProcessingModel.Orientations.Horizontal);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -56,7 +65,7 @@ public class PPMImageTest {
   @Test
   public void testFlipVertical() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.flip(ImageProcessingModel.Orientations.Vertical);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -71,7 +80,7 @@ public class PPMImageTest {
   @Test
   public void testBrighten() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.brighten(50);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -89,7 +98,7 @@ public class PPMImageTest {
   @Test
   public void testBrightenMax() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.brighten(255);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -105,7 +114,7 @@ public class PPMImageTest {
   @Test
   public void testDim() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.brighten(-10);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -123,7 +132,7 @@ public class PPMImageTest {
   @Test
   public void testDimMax() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.brighten(-255);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -139,7 +148,7 @@ public class PPMImageTest {
   @Test
   public void testRedGrayscale() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -157,7 +166,7 @@ public class PPMImageTest {
   @Test
   public void testGreenGrayscale() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -175,7 +184,7 @@ public class PPMImageTest {
   @Test
   public void testBlueGrayscale() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -193,7 +202,7 @@ public class PPMImageTest {
   @Test
   public void testValueGrayscale() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -213,7 +222,7 @@ public class PPMImageTest {
   @Test
   public void testIntensityGrayscale() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -232,7 +241,7 @@ public class PPMImageTest {
   @Test
   public void testLumaGrayscale() {
     this.init();
-    PPMImage donkeyCopy = new PPMImage("SmallPPMImages/donkey.ppm");
+    PPMImage donkeyCopy = new PPMImage("res/predefinedImages/donkey.ppm");
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
     Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
     Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
@@ -253,8 +262,8 @@ public class PPMImageTest {
   public void testSaveImage() {
     this.init();
     donkeyTest.brighten(50);
-    donkeyTest.saveImage("TestCreatedImages/imageSaveTest.ppm");
-    PPMImage testImage = new PPMImage("TestCreatedImages/imageSaveTest.ppm");
+    donkeyTest.saveImage("res/imageSaveTest.ppm");
+    PPMImage testImage = new PPMImage("res/imageSaveTest.ppm");
     assertEquals(testImage, donkeyBrighterBy50);
   }
 
@@ -270,7 +279,7 @@ public class PPMImageTest {
   public void testFlipHorizontalFullImage() {
     this.init();
     donkeyTest.flip(ImageProcessingModel.Orientations.Horizontal);
-    donkeyTest.saveImage("SmallPPMImages/donkey-horizontal.ppm");
+    donkeyTest.saveImage("res/predefinedImages/donkey-horizontal.ppm");
     assertEquals(donkeyTest, donkeyHorizontal);
   }
 

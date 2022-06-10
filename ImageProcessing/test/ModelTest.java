@@ -11,16 +11,16 @@ import static org.junit.Assert.assertTrue;
  * Tests for the ImageProcessingModel class & its methods.
  */
 public class ModelTest {
-  PPMImage donkeyRedGrayscale = new PPMImage("SmallPPMImages/donkey-red-greyscale.ppm");
-  PPMImage donkeyGreenGrayscale = new PPMImage("SmallPPMImages/donkey-green-greyscale.ppm");
-  PPMImage donkeyBlueGrayscale = new PPMImage("SmallPPMImages/donkey-blue-greyscale.ppm");
-  PPMImage donkeyValueGrayscale = new PPMImage("SmallPPMImages/donkey-value-greyscale.ppm");
+  PPMImage donkeyRedGrayscale = new PPMImage("res/predefinedImages/donkey-red-greyscale.ppm");
+  PPMImage donkeyGreenGrayscale = new PPMImage("res/predefinedImages/donkey-green-greyscale.ppm");
+  PPMImage donkeyBlueGrayscale = new PPMImage("res/predefinedImages/donkey-blue-greyscale.ppm");
+  PPMImage donkeyValueGrayscale = new PPMImage("res/predefinedImages/donkey-value-greyscale.ppm");
   PPMImage donkeyIntensityGrayscale =
-          new PPMImage("SmallPPMImages/donkey-intensity-greyscale.ppm");
-  PPMImage donkeyLumaGrayscale = new PPMImage("SmallPPMImages/donkey-luma-greyscale.ppm");
-  PPMImage donkeyHorizontal = new PPMImage("SmallPPMImages/donkey-horizontal.ppm");
-  PPMImage donkeyBrighterBy50 = new PPMImage("SmallPPMImages/donkey-brighten-by-50.ppm");
-  PPMImage donkeyDimBy50 = new PPMImage("SmallPPMImages/donkey-dim-by-50.ppm");
+          new PPMImage("res/predefinedImages/donkey-intensity-greyscale.ppm");
+  PPMImage donkeyLumaGrayscale = new PPMImage("res/predefinedImages/donkey-luma-greyscale.ppm");
+  PPMImage donkeyHorizontal = new PPMImage("res/predefinedImages/donkey-horizontal.ppm");
+  PPMImage donkeyBrighterBy50 = new PPMImage("res/predefinedImages/donkey-brighten-by-50.ppm");
+  PPMImage donkeyDimBy50 = new PPMImage("res/predefinedImages/donkey-dim-by-50.ppm");
 
   @Test (expected = IllegalArgumentException.class)
   public void testNullModel() {
@@ -32,9 +32,9 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, brighten it by 50, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.brighten(50, "donkey", "donkeyBrighten");
-    model.save("TestCreatedImages/donkeyBrighten.ppm", "donkeyBrighten");
+    model.save("res/donkeyBrighten.ppm", "donkeyBrighten");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyBrighten");
@@ -43,7 +43,7 @@ public class ModelTest {
     assertEquals(this.donkeyBrighterBy50, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyBrighten.ppm", "copyBrighten");
+    model.load("res/donkeyBrighten.ppm", "copyBrighten");
     assertEquals(testImage, model.getImage("copyBrighten"));
   }
 
@@ -53,9 +53,9 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, dim it by 50, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.dim(50, "donkey", "donkeyDim");
-    model.save("TestCreatedImages/donkeyDim.ppm", "donkeyDim");
+    model.save("res/donkeyDim.ppm", "donkeyDim");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyDim");
@@ -64,7 +64,7 @@ public class ModelTest {
     assertEquals(this.donkeyDimBy50, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyDim.ppm", "copyDim");
+    model.load("res/donkeyDim.ppm", "copyDim");
     assertEquals(testImage, model.getImage("copyDim"));
   }
 
@@ -74,9 +74,9 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, flip it horizontally, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.flipHorizontally("donkey", "donkeyHorizontal");
-    model.save("TestCreatedImages/donkeyHorizontal.ppm", "donkeyHorizontal");
+    model.save("res/donkeyHorizontal.ppm", "donkeyHorizontal");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyHorizontal");
@@ -85,7 +85,7 @@ public class ModelTest {
     assertEquals(this.donkeyHorizontal, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyHorizontal.ppm", "copyHorizontal");
+    model.load("res/donkeyHorizontal.ppm", "copyHorizontal");
     assertEquals(testImage, model.getImage("copyHorizontal"));
   }
 
@@ -95,10 +95,10 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale, "donkey",
             "donkeyRedGrayscale");
-    model.save("TestCreatedImages/donkeyRedGrayscale.ppm", "donkeyRedGrayscale");
+    model.save("res/donkeyRedGrayscale.ppm", "donkeyRedGrayscale");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyRedGrayscale");
@@ -107,7 +107,7 @@ public class ModelTest {
     assertEquals(this.donkeyRedGrayscale, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyRedGrayscale.ppm", "copyRed");
+    model.load("res/donkeyRedGrayscale.ppm", "copyRed");
     assertEquals(testImage, model.getImage("copyRed"));
   }
 
@@ -117,10 +117,10 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale, "donkey",
             "donkeyGreenGrayscale");
-    model.save("TestCreatedImages/donkeyGreenGrayscale.ppm", "donkeyGreenGrayscale");
+    model.save("res/donkeyGreenGrayscale.ppm", "donkeyGreenGrayscale");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyGreenGrayscale");
@@ -129,7 +129,7 @@ public class ModelTest {
     assertEquals(this.donkeyGreenGrayscale, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyGreenGrayscale.ppm", "copyGreen");
+    model.load("res/donkeyGreenGrayscale.ppm", "copyGreen");
     assertEquals(testImage, model.getImage("copyGreen"));
   }
 
@@ -139,10 +139,10 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale, "donkey",
             "donkeyBlueGrayscale");
-    model.save("TestCreatedImages/donkeyBlueGrayscale.ppm", "donkeyBlueGrayscale");
+    model.save("res/donkeyBlueGrayscale.ppm", "donkeyBlueGrayscale");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyBlueGrayscale");
@@ -151,7 +151,7 @@ public class ModelTest {
     assertEquals(this.donkeyBlueGrayscale, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyBlueGrayscale.ppm", "copyBlue");
+    model.load("res/donkeyBlueGrayscale.ppm", "copyBlue");
     assertEquals(testImage, model.getImage("copyBlue"));
   }
 
@@ -161,10 +161,10 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale, "donkey",
             "donkeyIntensityGrayscale");
-    model.save("TestCreatedImages/donkeyIntensityGrayscale.ppm", "donkeyIntensityGrayscale");
+    model.save("res/donkeyIntensityGrayscale.ppm", "donkeyIntensityGrayscale");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyIntensityGrayscale");
@@ -173,7 +173,7 @@ public class ModelTest {
     assertEquals(this.donkeyIntensityGrayscale, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyIntensityGrayscale.ppm", "copyIntensity");
+    model.load("res/donkeyIntensityGrayscale.ppm", "copyIntensity");
     assertEquals(testImage, model.getImage("copyIntensity"));
   }
 
@@ -183,10 +183,10 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale, "donkey",
             "donkeyValueGrayscale");
-    model.save("TestCreatedImages/donkeyValueGrayscale.ppm", "donkeyValueGrayscale");
+    model.save("res/donkeyValueGrayscale.ppm", "donkeyValueGrayscale");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyValueGrayscale");
@@ -195,7 +195,7 @@ public class ModelTest {
     assertEquals(this.donkeyValueGrayscale, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyValueGrayscale.ppm", "copyValue");
+    model.load("res/donkeyValueGrayscale.ppm", "copyValue");
     assertEquals(testImage, model.getImage("copyValue"));
   }
 
@@ -205,10 +205,10 @@ public class ModelTest {
     ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
-    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.load("res/predefinedImages/donkey.ppm", "donkey");
     model.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale, "donkey",
             "donkeyLumaGrayscale");
-    model.save("TestCreatedImages/donkeyLumaGrayscale.ppm", "donkeyLumaGrayscale");
+    model.save("res/donkeyLumaGrayscale.ppm", "donkeyLumaGrayscale");
 
     // get the image (deep copy) from the model
     PPMImage testImage = model.getImage("donkeyLumaGrayscale");
@@ -217,7 +217,7 @@ public class ModelTest {
     assertEquals(this.donkeyLumaGrayscale, testImage);
 
     // check if save worked correctly
-    model.load("TestCreatedImages/donkeyLumaGrayscale.ppm", "copyLuma");
+    model.load("res/donkeyLumaGrayscale.ppm", "copyLuma");
     assertEquals(testImage, model.getImage("copyLuma"));
   }
 }
