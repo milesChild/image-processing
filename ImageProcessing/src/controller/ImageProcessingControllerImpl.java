@@ -18,7 +18,9 @@ import model.ImageProcessingModel;
 import view.ImageProcessingView;
 
 /**
- * Javadoc for testing.
+ * Primary implementation of the controller interface. This controller class is constructed with
+ * an ImageProcessingModel (referenced when conducting operations), a Readable for user input, an
+ * ImageProcessingView to transmit information to the user, and a map of known commands.
  */
 public class ImageProcessingControllerImpl implements ImageProcessingController {
 
@@ -57,7 +59,8 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     knownCommands.put("dim", s -> new Dim(s.nextInt(), s.next(), s.next()));
     knownCommands.put("load", s -> new Load(s.next(), s.next()));
     knownCommands.put("save", s -> new Save(s.next(), s.next()));
-    knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s.next()), s.next(), s.next()));
+    knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s.next()),
+            s.next(), s.next()));
   }
 
   public void runProgram() {

@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * This class represents a Pixel, which is referenced throughout the entire rest of the project.
+ * PPM images are made up of pixels, each of which has a Red, Green, and Blue component. RGB values
+ * are stored in the format 0-255, 0-255, 0-255, 255 being the maximum value for any particular
+ * color component. Users can also specify an alternate {@code maxValue} for the color component.
+ */
 public class Pixel {
   private int red;
   private int green;

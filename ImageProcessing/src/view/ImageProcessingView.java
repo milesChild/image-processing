@@ -2,6 +2,12 @@ package view;
 
 import java.io.IOException;
 
+/**
+ * Interface that will be implemented by the different view types (currently, we only support a
+ * simple text viewing system for the client, but we anticipate more intricate view systems for
+ * better UX). This interface holds all the methods that are common across all view
+ * implementations.
+ */
 public interface ImageProcessingView {
 
   /**

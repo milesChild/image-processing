@@ -9,6 +9,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
+/**
+ * Class to represent a PPM (Portable Pix Map) image, which stores all the pixel values in a 2D
+ * array of Pixels of a specified height and width. This program (currently) only supports
+ * manipulation of PPM-type images. This class stores all the actual image-manipulation
+ * operations that can be conducted by the user; each operation will directly manipulate the 2D
+ * array of pixels, {@code pixelGrid}.
+ */
 public class PPMImage {
   private final Pixel[][] pixelGrid;
   private final int width;

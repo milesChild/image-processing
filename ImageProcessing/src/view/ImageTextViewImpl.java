@@ -4,8 +4,8 @@ import java.io.IOException;
 
 /**
  * Implementation of the image view class which offers a primitive method of displaying user
- * commands and their results as strings on the command line. This class will orders from the
- * controller in the form of strings to display to the user.
+ * commands and their results as strings on the command line. This class will accept orders from
+ * the controller in the form of strings to display to the user.
  */
 public class ImageTextViewImpl implements ImageProcessingView {
 

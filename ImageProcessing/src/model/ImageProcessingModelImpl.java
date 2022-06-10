@@ -4,12 +4,18 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The core implementation of the ImageProcessingModel interface. This model stores a hashmap of
+ * images - the imageLibrary - which holds all the images that users can conduct operations on.
+ * Images can be added to the imageLibrary via use of the {@code load(String path, String name)}
+ * method. The model also stores various methods for operations that can be conducted on the
+ * images. Each of these methods delegates actual manipulation to the PPMImage class.
+ */
 public class ImageProcessingModelImpl implements ImageProcessingModel {
   private final Map<String, PPMImage> imageLibrary;
 
   /**
    * Constructor which allows the user to load in a pre-existing database (map) of images.
-   *
    * @param images the images that the model will be allowed to operate with.
    */
   public ImageProcessingModelImpl(Map<String, PPMImage> images) throws IllegalArgumentException {
