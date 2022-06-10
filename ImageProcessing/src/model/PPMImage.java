@@ -123,7 +123,7 @@ public class PPMImage {
     }
   }
 
-  public void saveImage(String path) throws IOException {
+  public void saveImage(String path) {
     File newFile = new File(path);
 
     StringBuilder newFileContents = new StringBuilder();
@@ -144,6 +144,7 @@ public class PPMImage {
       FileWriter writer = new FileWriter(newFile);
       newFile.createNewFile();
       writer.write(newFileContents.toString());
+      writer.close();
     } catch (IOException e) {
       throw new IllegalArgumentException();
     }
@@ -161,5 +162,23 @@ public class PPMImage {
       }
     }
     return true;
+  }
+
+  public int getHeight(){
+    return this.height;
+  }
+
+  public int getWidth(){
+    return this.width;
+  }
+
+  public Pixel[][] getPixelGrid(){
+    Pixel[][] gridCopy = new Pixel[this.height][this.width];
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        gridCopy[i][j] = this.pixelGrid[i][j];
+      }
+    }
+    return gridCopy;
   }
 }

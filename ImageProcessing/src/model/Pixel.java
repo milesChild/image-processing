@@ -87,7 +87,11 @@ public class Pixel {
 
   @Override
   public String toString() {
-    return " " + this.red + " " + this.green + " " + this.blue;
+    return this.red + " " + this.green + " " + this.blue + " ";
+  }
+
+  public Pixel getPixel(){
+    return new Pixel(this.red, this.green, this.blue, this.maxValue);
   }
 
   public void setComponents(int redVal, int greenVal, int blueVal) throws IllegalArgumentException {

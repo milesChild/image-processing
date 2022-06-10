@@ -9,6 +9,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PPMImageTest {
+  PPMImage donkeyTest;
+  PPMImage donkeyRedGrayscale = new PPMImage("SmallPPMImages/donkey-red-greyscale.ppm");
+  PPMImage donkeyGreenGrayscale = new PPMImage("SmallPPMImages/donkey-green-greyscale.ppm");
+  PPMImage donkeyBlueGrayscale = new PPMImage("SmallPPMImages/donkey-blue-greyscale.ppm");
+  PPMImage donkeyValueGrayscale = new PPMImage("SmallPPMImages/donkey-value-greyscale.ppm");
+  PPMImage donkeyIntensityGrayscale = new PPMImage("SmallPPMImages/donkey-intensity-greyscale.ppm");
+  PPMImage donkeyLumaGrayscale = new PPMImage("SmallPPMImages/donkey-luma-greyscale.ppm");
+  PPMImage donkeyHorizontal = new PPMImage("SmallPPMImages/donkey-horizontal.ppm");
+    this.donkeyVertical = new PPMImage("SmallPPMImages/donkey-vertical.ppm");
+    this.donkeyBrighterBy50 = new PPMImage("SmallPPMImages/donkey-brighten-by-50.ppm");
+    this.donkeyDimBy50 = new PPMImage("SmallPPMImages/donkey-dim-by-50.ppm");
+
+  public void init(){
+    this.donkeyTest = new PPMImage("SmallPPMImages/donkey.ppm");
+    this.donkeyRedGrayscale = new PPMImage("SmallPPMImages/donkey-red-greyscale.ppm");
+    this.donkeyGreenGrayscale = new PPMImage("SmallPPMImages/donkey-green-greyscale.ppm");
+    this.donkeyBlueGrayscale = new PPMImage("SmallPPMImages/donkey-blue-greyscale.ppm");
+    this.donkeyValueGrayscale = new PPMImage("SmallPPMImages/donkey-value-greyscale.ppm");
+    this.donkeyIntensityGrayscale = new PPMImage("SmallPPMImages/donkey-intensity-greyscale.ppm");
+    this.donkeyValueGrayscale = new PPMImage("SmallPPMImages/donkey-value-greyscale.ppm");
+    this.donkeyLumaGrayscale = new PPMImage("SmallPPMImages/donkey-luma-greyscale.ppm");
+    this.donkeyHorizontal = new PPMImage("SmallPPMImages/donkey-horizontal.ppm");
+    this.donkeyVertical = new PPMImage("SmallPPMImages/donkey-vertical.ppm");
+    this.donkeyBrighterBy50 = new PPMImage("SmallPPMImages/donkey-brighten-by-50.ppm");
+    this.donkeyDimBy50 = new PPMImage("SmallPPMImages/donkey-dim-by-50.ppm");
+  }
 //  PPMImage henockImage;
 //  PPMImage henockImageCopy;
 //  PPMImage koala;
@@ -113,11 +139,55 @@ public class PPMImageTest {
 //    assertTrue(this.koala.equals(koalaVerticalHorizontal));
 //  }
 
+//  @Test
+//  public void testGenerateImages() throws IOException {
+////    PPMImage donkey = new PPMImage("SmallPPMImages/donkey.ppm");
+////
+////    donkey.brighten(10);
+////    donkey.toString();
+////    //donkey.saveImage("SmallPPMImages/bright-donkey.ppm");
+////    PPMImage donkeyBright = new PPMImage(donkey);
+////    donkeyBright.toString();
+////    PPMImage henock = new PPMImage("SmallPPMImages/donkey.ppm");
+////    henock.brighten(10);
+////    henock.saveImage("SmallPPMimages/wheenock.ppm");
+//
+//    //donkeyBright.saveImage("SmallPPMImages/donkey-test.ppm");
+////    donkey.brighten(10);
+////    //donkey.flip(ImageProcessingModel.Orientations.Vertical);
+//////    donkey.saveImage("SmallPPMImages/donkey-vertical.ppm");
+////
+////    donkeyTest = new PPMImage("SmallPPMImages/donkey.ppm");
+////    donkeyTest.flip(ImageProcessingModel.Orientations.Vertical);
+////    donkeyTest.saveImage("SmallPPMImages/donkey-horizontal.ppm");
+//  }
   @Test
-  public void testGenerateImages() throws IOException {
-    PPMImage donkey = new PPMImage("SmallPPMImages/donkey.ppm");
-    donkey.flip(ImageProcessingModel.Orientations.Vertical);
-    donkey.saveImage("SmallPPMImages/donkey-vertical.ppm");
+  public void testCopyImage(){
+    this.init();
+    PPMImage donkeyCopy = new PPMImage(donkeyTest);
+    donkeyCopy.equals(donkeyTest);
+    donkeyTest.equals(donkeyCopy);
+  }
+
+  @Test
+  public void testFlipImage() {
+    this.init();
+    donkeyTest.flip(ImageProcessingModel.Orientations.Horizontal);
+    donkeyTest.equals(donkeyHorizontal);
+
+    this.init();
+    donkeyTest.flip(ImageProcessingModel.Orientations.Vertical);
+    donkeyTest.equals(donkeyVertical);
+  }
+
+  public void testBrightenDim(){
+    this.init();
+    donkeyTest.flip(ImageProcessingModel.Orientations.Horizontal);
+    donkeyTest.equals(donkeyHorizontal);
+
+    this.init();
+    donkeyTest.flip(ImageProcessingModel.Orientations.Vertical);
+    donkeyTest.equals(donkeyVertical);
   }
 
 }

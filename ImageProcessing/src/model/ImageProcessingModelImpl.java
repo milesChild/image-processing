@@ -72,11 +72,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
 
   @Override
   public void save(String path, String name) {
-    try {
-      this.imageLibrary.get(name).saveImage(path);
-    } catch (IOException ignored) {
-      throw new IllegalStateException();
-    }
+    this.imageLibrary.get(name).saveImage(path);
   }
 
   @Override
