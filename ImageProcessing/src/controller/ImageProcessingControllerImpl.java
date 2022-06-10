@@ -86,31 +86,35 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
       Function<Scanner, ImageProcessingCommand> cmd =
               knownCommands.getOrDefault(in, null);
       if (cmd == null) {
-        try {
-          this.view.renderMessage("Unknown or invalid command. Try Again."
-                  + System.lineSeparator());
-          s.nextLine();
-        } catch (IOException e) {
-          throw new IllegalStateException();
-        }
+        this.sendErrorMessage();
       } else {
         try {
           c = cmd.apply(s);
           c.execute(this.model);
         } catch (Exception e) {
-          try {
-            this.view.renderMessage("Unknown or invalid command. Try Again."
-                    + System.lineSeparator());
-            s.nextLine();
-          } catch (IOException i) {
-            throw new IllegalStateException();
-          }
+          this.sendErrorMessage();
         }
       }
     }
 
     if (quit) {
       this.quitProgram();
+    }
+  }
+
+  /**
+   * Attempts to send a message to the view. Helps the runProgram method when notifying the user of
+   * an error.
+   * @throws IllegalStateException if an error occurs when transmitting the message to the view
+   */
+  private void sendErrorMessage() throws IllegalStateException {
+    Scanner s = new Scanner(in);
+    try {
+      this.view.renderMessage("Unknown or invalid command. Try Again."
+              + System.lineSeparator());
+      s.nextLine();
+    } catch (IOException e) {
+      throw new IllegalStateException();
     }
   }
 
