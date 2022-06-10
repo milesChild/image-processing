@@ -64,7 +64,7 @@ public class ImageUtil {
     if (args.length > 0) {
       filename = args[0];
     } else {
-      filename = "Henock.ppm";
+      filename = "PPMimages/Henock.ppm";
     }
 
     ImageUtil.readPPM(filename);
