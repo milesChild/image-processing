@@ -69,7 +69,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyHorizontal, model.getImage("donkeyHorizontal"));
-    assertEquals(model.getImage("donkeyHorizontal"), model.getImage("copyHorizontal"));
+    assertEquals(model.getImage("donkeyHorizontal"),
+            model.getImage("copyHorizontal"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -85,7 +87,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyVertical, model.getImage("donkeyVertical"));
-    assertEquals(model.getImage("donkeyVertical"), model.getImage("copyVertical"));
+    assertEquals(model.getImage("donkeyVertical"),
+            model.getImage("copyVertical"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -101,7 +105,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyBrighterBy50, model.getImage("donkeyBrighten"));
-    assertEquals(model.getImage("donkeyBrighten"), model.getImage("copyBrighten"));
+    assertEquals(model.getImage("donkeyBrighten"),
+            model.getImage("copyBrighten"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -117,7 +123,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyDimBy50, model.getImage("donkeyDim"));
-    assertEquals(model.getImage("donkeyDim"), model.getImage("copyDim"));
+    assertEquals(model.getImage("donkeyDim"),
+            model.getImage("copyDim"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -133,7 +141,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyRedGrayscale, model.getImage("donkeyGrayscaleRed"));
-    assertEquals(model.getImage("donkeyGrayscaleRed"), model.getImage("copyGrayscale"));
+    assertEquals(model.getImage("donkeyGrayscaleRed"),
+            model.getImage("copyGrayscale"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -149,7 +159,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyGreenGrayscale, model.getImage("donkeyGrayscaleGreen"));
-    assertEquals(model.getImage("donkeyGrayscaleGreen"), model.getImage("copyGrayscale"));
+    assertEquals(model.getImage("donkeyGrayscaleGreen"),
+            model.getImage("copyGrayscale"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -165,7 +177,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyBlueGrayscale, model.getImage("donkeyGrayscaleBlue"));
-    assertEquals(model.getImage("donkeyGrayscaleBlue"), model.getImage("copyGrayscale"));
+    assertEquals(model.getImage("donkeyGrayscaleBlue"),
+            model.getImage("copyGrayscale"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -181,7 +195,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyIntensityGrayscale, model.getImage("donkeyGrayscaleIntensity"));
-    assertEquals(model.getImage("donkeyGrayscaleIntensity"), model.getImage("copyGrayscale"));
+    assertEquals(model.getImage("donkeyGrayscaleIntensity"),
+            model.getImage("copyGrayscale"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -197,7 +213,9 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyValueGrayscale, model.getImage("donkeyGrayscaleValue"));
-    assertEquals(model.getImage("donkeyGrayscaleValue"), model.getImage("copyGrayscale"));
+    assertEquals(model.getImage("donkeyGrayscaleValue"),
+            model.getImage("copyGrayscale"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
@@ -213,11 +231,13 @@ public class ControllerTest {
     controller.runProgram();
 
     assertEquals(this.donkeyLumaGrayscale, model.getImage("donkeyGrayscaleLuma"));
-    assertEquals(model.getImage("donkeyGrayscaleLuma"), model.getImage("copyGrayscale"));
+    assertEquals(model.getImage("donkeyGrayscaleLuma"),
+            model.getImage("copyGrayscale"));
+    assertEquals(appendable.toString(), "Program Ended.");
   }
 
   @Test
-  public void testInvalidInput(){
+  public void testInvalidInput1(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("loa SmallPPMimages/donkey.ppm donkey\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
@@ -225,6 +245,20 @@ public class ControllerTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
     controller.runProgram();
 
-    assertEquals(view.toString(), "Unknown or invalid command. Try Again.");
+    assertEquals(appendable.toString(),
+            "Unknown or invalid command. Try Again.\nProgram Ended.");
+  }
+
+  @Test
+  public void testInvalidInputAfterValidCommand(){
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load SmallPPMimages/donkey.ppm donkey\n pong\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(appendable.toString(),
+            "Unknown or invalid command. Try Again.\nProgram Ended.");
   }
 }

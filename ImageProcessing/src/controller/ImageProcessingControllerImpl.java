@@ -27,7 +27,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   private final ImageProcessingModel model;
   private final Readable in;
   private final ImageProcessingView view;
-  private final Map<String, Function<Scanner, ImageProcessingCommand>> knownCommands;
+  private final Map<String, Function<String[], ImageProcessingCommand>> knownCommands;
 
   /**
    * Default constructor for an image processing controller implementation which instantiates a
@@ -55,15 +55,15 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
    * Initializes the known commands that can be consulted to operate on the model.
    */
   private void initCommands() {
-    this.knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s.next(), s.next()));
-    this.knownCommands.put("vertical-flip", s -> new VerticalFlip(s.next(), s.next()));
+    this.knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s[1], s[2]));
+    this.knownCommands.put("vertical-flip", s -> new VerticalFlip(s[1], s[2]));
     this.knownCommands.put("brighten", s ->
-            new Brighten(s.nextInt(), s.next(), s.next()));
-    this.knownCommands.put("dim", s -> new Dim(s.nextInt(), s.next(), s.next()));
-    this.knownCommands.put("load", s -> new Load(s.next(), s.next()));
-    this.knownCommands.put("save", s -> new Save(s.next(), s.next()));
-    this.knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s.next()),
-            s.next(), s.next()));
+            new Brighten(Integer.parseInt(s[1]), s[2], s[3]));
+    this.knownCommands.put("dim", s -> new Dim(Integer.parseInt(s[1]), s[2], s[3]));
+    this.knownCommands.put("load", s -> new Load(s[1], s[2]));
+    this.knownCommands.put("save", s -> new Save(s[1], s[2]));
+    this.knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s[1]),
+            s[2], s[3]));
   }
 
   /**
@@ -74,31 +74,34 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     Scanner s = new Scanner(in);
     boolean quit = false;
 
-    while (s.hasNext()) {
+    while (s.hasNextLine()) {
       ImageProcessingCommand c;
-      String in = s.next();
+      String[] in = s.nextLine().split(" ");
 
-      // quit when prompted.
-      if (in.equalsIgnoreCase("q") || in.equalsIgnoreCase("quit")) {
-        quit = true;
+      for (String input : in) {
+        if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) {
+          quit = true;
+          break;
+        }
+      }
+
+      if (quit) {
+        this.quitProgram();
         break;
       }
-      Function<Scanner, ImageProcessingCommand> cmd =
-              knownCommands.getOrDefault(in, null);
+
+      Function<String[], ImageProcessingCommand> cmd =
+              knownCommands.getOrDefault(in[0], null);
       if (cmd == null) {
         this.sendErrorMessage();
       } else {
         try {
-          c = cmd.apply(s);
+          c = cmd.apply(in);
           c.execute(this.model);
         } catch (Exception e) {
           this.sendErrorMessage();
         }
       }
-    }
-
-    if (quit) {
-      this.quitProgram();
     }
   }
 
@@ -108,11 +111,9 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
    * @throws IllegalStateException if an error occurs when transmitting the message to the view
    */
   private void sendErrorMessage() throws IllegalStateException {
-    Scanner s = new Scanner(in);
     try {
       this.view.renderMessage("Unknown or invalid command. Try Again."
               + System.lineSeparator());
-      s.nextLine();
     } catch (IOException e) {
       throw new IllegalStateException();
     }
