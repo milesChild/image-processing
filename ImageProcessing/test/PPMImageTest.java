@@ -30,8 +30,8 @@ public class PPMImageTest {
     this.koalaRedGrayscale = new PPMImage("PPMimages/koala-red-greyscale.ppm");
     this.koalaGreenGrayscale = new PPMImage("PPMimages/koala-green-greyscale.ppm");
     this.koalaBlueGrayscale = new PPMImage("PPMimages/koala-blue-greyscale.ppm");
-    this.koalaIntensityGrayscale = new PPMImage("PPMimages/koala-intensity-greyscale.ppm");
-    this.koalaLumaGrayscale = new PPMImage("PPMimages/koala-luma-greyscale.ppm");
+    //this.koalaIntensityGrayscale = new PPMImage("PPMimages/koala-intensity-greyscale.ppm");
+    //this.koalaLumaGrayscale = new PPMImage("PPMimages/koala-luma-greyscale.ppm");
     this.koalaValueGrayscale = new PPMImage("PPMimages/koala-value-greyscale.ppm");
     this.koalaHorizontal = new PPMImage("PPMimages/koala-horizontal.ppm");
     this.koalaVertical = new PPMImage("PPMimages/koala-horizontal.ppm");
@@ -68,23 +68,46 @@ public class PPMImageTest {
     this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale);
     assertTrue(this.koala.equals(koalaBlueGrayscale));
 
-    this.init();
-    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale);
-    assertTrue(this.koala.equals(koalaIntensityGrayscale));
+//    this.init();
+//    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale);
+//    assertTrue(this.koala.equals(koalaIntensityGrayscale));
 
     this.init();
     this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale);
     assertTrue(this.koala.equals(koalaValueGrayscale));
 
-    this.init();
-    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
-    assertTrue(this.koala.equals(koalaLumaGrayscale));
+//    this.init();
+//    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
+//    assertTrue(this.koala.equals(koalaLumaGrayscale));
   }
 
   @Test
   public void testFlipHorizontal() {
     this.init();
+    this.koala.flip(ImageProcessingModel.Orientations.Horizontal);
+    assertTrue(this.koala.equals(koalaHorizontal));
   }
 
+  @Test
+  public void testFlipVertical() {
+    this.init();
+    this.koala.flip(ImageProcessingModel.Orientations.Vertical);
+    assertTrue(this.koala.equals(koalaVertical));
+  }
 
+  @Test
+  public void testFlipHorizontalVertical() {
+    this.init();
+    this.koala.flip(ImageProcessingModel.Orientations.Horizontal);
+    this.koala.flip(ImageProcessingModel.Orientations.Vertical);
+    assertTrue(this.koala.equals(koalaHorizontalVertical));
+  }
+
+  @Test
+  public void testFlipVerticalHorizontal() {
+    this.init();
+    this.koala.flip(ImageProcessingModel.Orientations.Vertical);
+    this.koala.flip(ImageProcessingModel.Orientations.Horizontal);
+    assertTrue(this.koala.equals(koalaVerticalHorizontal));
+  }
 }

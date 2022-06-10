@@ -13,6 +13,5 @@ public class ImageProcessingMain {
     Readable in = new InputStreamReader(System.in);
     ImageProcessingController controller = new ImageProcessingControllerImpl(model,in,view);
     controller.runProgram();
-
   }
 }
