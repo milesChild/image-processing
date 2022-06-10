@@ -11,185 +11,210 @@ import static org.junit.Assert.assertTrue;
  * Tests for the ImageProcessingModel class & its methods.
  */
 public class ModelTest {
-  PPMImage henockImage;
-  PPMImage henockImageCopy;
-  PPMImage koala;
-  PPMImage koalaRedGrayscale;
-  PPMImage koalaGreenGrayscale;
-  PPMImage koalaBlueGrayscale;
-  PPMImage koalaIntensityGrayscale;
-  PPMImage koalaLumaGrayscale;
-  PPMImage koalaValueGrayscale;
-  PPMImage koalaHorizontal;
-  PPMImage koalaVertical;
-  PPMImage koalaVerticalHorizontal;
-  PPMImage koalaHorizontalVertical;
-  PPMImage koalaBrighterBy50;
+  PPMImage donkeyTest;
+  PPMImage donkeyRedGrayscale = new PPMImage("SmallPPMImages/donkey-red-greyscale.ppm");
+  PPMImage donkeyGreenGrayscale = new PPMImage("SmallPPMImages/donkey-green-greyscale.ppm");
+  PPMImage donkeyBlueGrayscale = new PPMImage("SmallPPMImages/donkey-blue-greyscale.ppm");
+  PPMImage donkeyValueGrayscale = new PPMImage("SmallPPMImages/donkey-value-greyscale.ppm");
+  PPMImage donkeyIntensityGrayscale =
+          new PPMImage("SmallPPMImages/donkey-intensity-greyscale.ppm");
+  PPMImage donkeyLumaGrayscale = new PPMImage("SmallPPMImages/donkey-luma-greyscale.ppm");
+  PPMImage donkeyHorizontal = new PPMImage("SmallPPMImages/donkey-horizontal.ppm");
+  PPMImage donkeyBrighterBy50 = new PPMImage("SmallPPMImages/donkey-brighten-by-50.ppm");
+  PPMImage donkeyDimBy50 = new PPMImage("SmallPPMImages/donkey-dim-by-50.ppm");
 
-  public void init() {
-    this.henockImage = new PPMImage("PPMimages/Henock.ppm");
-    this.henockImageCopy = new PPMImage(henockImage);
+  @Test
+  public void testModelBrighten() {
+    // Create a new model that has no currently loaded images
+    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
 
-    this.koala = new PPMImage("PPMimages/Koala.ppm");
-    this.koalaRedGrayscale = new PPMImage("PPMimages/koala-red-greyscale.ppm");
-    this.koalaGreenGrayscale = new PPMImage("PPMimages/koala-green-greyscale.ppm");
-    this.koalaBlueGrayscale = new PPMImage("PPMimages/koala-blue-greyscale.ppm");
-    //this.koalaIntensityGrayscale = new PPMImage("PPMimages/koala-intensity-greyscale.ppm");
-    //this.koalaLumaGrayscale = new PPMImage("PPMimages/koala-luma-greyscale.ppm");
-    this.koalaValueGrayscale = new PPMImage("PPMimages/koala-value-greyscale.ppm");
-    this.koalaHorizontal = new PPMImage("PPMimages/koala-horizontal.ppm");
-    this.koalaVertical = new PPMImage("PPMimages/koala-horizontal.ppm");
-    this.koalaHorizontalVertical = new PPMImage("PPMimages/koala-horizontal-vertical.ppm");
-    this.koalaVerticalHorizontal = new PPMImage("PPMimages/koala-vertical-horizontal.ppm");
-    this.koalaBrighterBy50 = new PPMImage("PPMimages/koala-brighter-by-50.ppm");
+    // load donkey.ppm, brighten it by 50, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.brighten(50, "donkey", "donkeyBrighten");
+    model.save("TestCreatedImages/donkeyBrighten.ppm", "donkeyBrighten");
+
+    // get the image (deep copy) from the model
+    PPMImage testImage = model.getImage("donkeyBrighten");
+
+    // check if the deep copy is the same as the predefined test image
+    assertEquals(this.donkeyBrighterBy50, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyBrighten.ppm", "copyBrighten");
+    assertEquals(testImage, model.getImage("copyBrighten"));
   }
 
   @Test
-  public void testCopy() {
-    this.init();
-    assertEquals(henockImage, henockImageCopy);
-    assertEquals(henockImageCopy, henockImage);
+  public void testModelDim() {
+    // Create a new model that has no currently loaded images
+    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+
+    // load donkey.ppm, dim it by 50, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.dim(50, "donkey", "donkeyDim");
+    model.save("TestCreatedImages/donkeyDim.ppm", "donkeyDim");
+
+    // get the image (deep copy) from the model
+    PPMImage testImage = model.getImage("donkeyDim");
+
+    // check if the deep copy is the same as the predefined test image
+    assertEquals(this.donkeyDimBy50, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyDim.ppm", "copyDim");
+    assertEquals(testImage, model.getImage("copyDim"));
   }
 
-  @Test
-  public void testBrighten(){
-    this.init();
-    this.koala.brighten(50);
-    assertTrue(this.koala.equals(koalaBrighterBy50));
-  }
-
-  @Test
-  public void testGrayscale(){
-    this.init();
-    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale);
-    assertTrue(this.koala.equals(koalaRedGrayscale));
-
-    this.init();
-    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale);
-    assertTrue(this.koala.equals(koalaGreenGrayscale));
-
-    this.init();
-    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale);
-    assertTrue(this.koala.equals(koalaBlueGrayscale));
-
-//    this.init();
-//    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale);
-//    assertTrue(this.koala.equals(koalaIntensityGrayscale));
-
-    this.init();
-    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale);
-    assertTrue(this.koala.equals(koalaValueGrayscale));
-
-//    this.init();
-//    this.koala.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
-//    assertTrue(this.koala.equals(koalaLumaGrayscale));
-  }
-
-  @Test
-  public void testFlipHorizontal() {
-    this.init();
-    this.koala.flip(ImageProcessingModel.Orientations.Horizontal);
-    assertTrue(this.koala.equals(koalaHorizontal));
-  }
-
-  @Test
-  public void testFlipVertical() {
-    this.init();
-    this.koala.flip(ImageProcessingModel.Orientations.Vertical);
-    assertTrue(this.koala.equals(koalaVertical));
-  }
-
-  @Test
-  public void testFlipHorizontalVertical() {
-    this.init();
-    this.koala.flip(ImageProcessingModel.Orientations.Horizontal);
-    this.koala.flip(ImageProcessingModel.Orientations.Vertical);
-    assertTrue(this.koala.equals(koalaHorizontalVertical));
-  }
-
-  @Test
-  public void testFlipVerticalHorizontal() {
-    this.init();
-    this.koala.flip(ImageProcessingModel.Orientations.Vertical);
-    this.koala.flip(ImageProcessingModel.Orientations.Horizontal);
-    assertTrue(this.koala.equals(koalaVerticalHorizontal));
-  }
   @Test
   public void testModelHorizontal() {
-    this.init();
     // Create a new model that has no currently loaded images
     ImageProcessingModelImpl model = new ImageProcessingModelImpl();
 
-    // load Koala.ppm, flip it horizontally, and save the image
-    model.load("PPMimages/Koala.ppm", "koala");
-    model.flipHorizontally("koala", "horizontalKoalaTest");
-    model.save("TestOutputFiles/horizontalKoalaTest.ppm", "horizontalKoalaTest");
+    // load donkey.ppm, flip it horizontally, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.flipHorizontally("donkey", "donkeyHorizontal");
+    model.save("TestCreatedImages/donkeyHorizontal.ppm", "donkeyHorizontal");
 
     // get the image (deep copy) from the model
-    PPMImage testImage = model.getImage("horizontalKoalaTest");
+    PPMImage testImage = model.getImage("donkeyHorizontal");
 
     // check if the deep copy is the same as the predefined test image
-    assertTrue(this.koalaHorizontal.equals(testImage));
+    assertEquals(this.donkeyHorizontal, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyHorizontal.ppm", "copyHorizontal");
+    assertEquals(testImage, model.getImage("copyHorizontal"));
   }
 
   @Test
-  public void testModelVertical(){
-    this.init();
+  public void testModelGrayscaleRed() {
     // Create a new model that has no currently loaded images
     ImageProcessingModelImpl model = new ImageProcessingModelImpl();
 
-    // load Koala.ppm, flip it vertically, and save the image
-    model.load("PPMimages/Koala.ppm", "koala");
-    model.flipVertically("koala", "verticalKoalaTest");
-    model.save("TestOutputFiles/verticalKoalaTest.ppm", "verticalKoalaTest");
+    // load donkey.ppm, grayscale it to red pixel, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale, "donkey",
+            "donkeyRedGrayscale");
+    model.save("TestCreatedImages/donkeyRedGrayscale.ppm", "donkeyRedGrayscale");
 
     // get the image (deep copy) from the model
-    PPMImage testImage = model.getImage("verticalKoalaTest");
+    PPMImage testImage = model.getImage("donkeyRedGrayscale");
 
     // check if the deep copy is the same as the predefined test image
-    assertTrue(this.koalaVertical.equals(testImage));
+    assertEquals(this.donkeyRedGrayscale, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyRedGrayscale.ppm", "copyRed");
+    assertEquals(testImage, model.getImage("copyRed"));
   }
 
   @Test
-  public void testModelHorizontalVertical(){
-    this.init();
+  public void testModelGrayscaleGreen() {
     // Create a new model that has no currently loaded images
     ImageProcessingModelImpl model = new ImageProcessingModelImpl();
 
-    // load Koala.ppm, flip it vertically, and save the image
-    model.load("PPMimages/Koala.ppm", "koala");
-    model.flipVertically("koala", "verticalKoalaTest");
-    model.flipHorizontally("verticalKoalaTest", "horizontalVerticalKoalaTest");
-    model.save("TestOutputFiles/horizontalVerticalKoalaTest.ppm",
-            "horizontalVerticalKoalaTest");
+    // load donkey.ppm, grayscale it to red pixel, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale, "donkey",
+            "donkeyGreenGrayscale");
+    model.save("TestCreatedImages/donkeyGreenGrayscale.ppm", "donkeyGreenGrayscale");
 
     // get the image (deep copy) from the model
-    PPMImage testImage = model.getImage("horizontalVerticalKoalaTest");
+    PPMImage testImage = model.getImage("donkeyGreenGrayscale");
 
     // check if the deep copy is the same as the predefined test image
-    assertTrue(this.koalaHorizontalVertical.equals(testImage));
+    assertEquals(this.donkeyGreenGrayscale, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyGreenGrayscale.ppm", "copyGreen");
+    assertEquals(testImage, model.getImage("copyGreen"));
   }
 
   @Test
-  public void testModelVerticalHorizontal(){
-    this.init();
+  public void testModelGrayscaleBlue() {
     // Create a new model that has no currently loaded images
     ImageProcessingModelImpl model = new ImageProcessingModelImpl();
 
-    // load Koala.ppm, flip it vertically, and save the image
-    model.load("PPMimages/Koala.ppm", "koala");
-    model.flipHorizontally("koala", "horizontalKoalaTest");
-    model.flipVertically("horizontalKoalaTest", "verticalHorizontalKoalaTest");
-    model.save("TestOutputFiles/verticalHorizontalKoalaTest.ppm",
-            "verticalHorizontalKoalaTest");
+    // load donkey.ppm, grayscale it to red pixel, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale, "donkey",
+            "donkeyBlueGrayscale");
+    model.save("TestCreatedImages/donkeyBlueGrayscale.ppm", "donkeyBlueGrayscale");
 
     // get the image (deep copy) from the model
-    PPMImage testImage = model.getImage("verticalHorizontalKoalaTest");
+    PPMImage testImage = model.getImage("donkeyBlueGrayscale");
 
     // check if the deep copy is the same as the predefined test image
-    assertTrue(this.koalaVerticalHorizontal.equals(testImage));
+    assertEquals(this.donkeyBlueGrayscale, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyBlueGrayscale.ppm", "copyBlue");
+    assertEquals(testImage, model.getImage("copyBlue"));
   }
 
+  @Test
+  public void testModelGrayscaleIntensity() {
+    // Create a new model that has no currently loaded images
+    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
 
+    // load donkey.ppm, grayscale it to red pixel, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale, "donkey",
+            "donkeyIntensityGrayscale");
+    model.save("TestCreatedImages/donkeyIntensityGrayscale.ppm", "donkeyIntensityGrayscale");
 
+    // get the image (deep copy) from the model
+    PPMImage testImage = model.getImage("donkeyIntensityGrayscale");
+
+    // check if the deep copy is the same as the predefined test image
+    assertEquals(this.donkeyIntensityGrayscale, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyIntensityGrayscale.ppm", "copyIntensity");
+    assertEquals(testImage, model.getImage("copyIntensity"));
+  }
+
+  @Test
+  public void testModelGrayscaleValue() {
+    // Create a new model that has no currently loaded images
+    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+
+    // load donkey.ppm, grayscale it to red pixel, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale, "donkey",
+            "donkeyValueGrayscale");
+    model.save("TestCreatedImages/donkeyValueGrayscale.ppm", "donkeyValueGrayscale");
+
+    // get the image (deep copy) from the model
+    PPMImage testImage = model.getImage("donkeyValueGrayscale");
+
+    // check if the deep copy is the same as the predefined test image
+    assertEquals(this.donkeyValueGrayscale, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyValueGrayscale.ppm", "copyValue");
+    assertEquals(testImage, model.getImage("copyValue"));
+  }
+
+  @Test
+  public void testModelGrayscaleLuma() {
+    // Create a new model that has no currently loaded images
+    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+
+    // load donkey.ppm, grayscale it to red pixel, and save the image
+    model.load("SmallPPMImages/donkey.ppm", "donkey");
+    model.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale, "donkey",
+            "donkeyLumaGrayscale");
+    model.save("TestCreatedImages/donkeyLumaGrayscale.ppm", "donkeyLumaGrayscale");
+
+    // get the image (deep copy) from the model
+    PPMImage testImage = model.getImage("donkeyLumaGrayscale");
+
+    // check if the deep copy is the same as the predefined test image
+    assertEquals(this.donkeyLumaGrayscale, testImage);
+
+    // check if save worked correctly
+    model.load("TestCreatedImages/donkeyLumaGrayscale.ppm", "copyLuma");
+    assertEquals(testImage, model.getImage("copyLuma"));
+  }
 }

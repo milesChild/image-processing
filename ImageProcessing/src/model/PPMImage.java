@@ -150,18 +150,17 @@ public class PPMImage {
     }
   }
 
-  public boolean equals(PPMImage other){
-    if (width != other.width) return false;
-    if (height != other.height) return false;
-    if (maxValue != other.maxValue) return false;
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        if (!(this.pixelGrid[i][j].toString().equals(other.pixelGrid[i][j].toString()))){
-          return false;
-        }
-      }
-    }
-    return true;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    PPMImage ppmImage = (PPMImage) o;
+
+    if (width != ppmImage.width) return false;
+    if (height != ppmImage.height) return false;
+    if (maxValue != ppmImage.maxValue) return false;
+    return Arrays.deepEquals(pixelGrid, ppmImage.pixelGrid);
   }
 
   public int getHeight(){

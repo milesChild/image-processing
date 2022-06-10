@@ -23,18 +23,6 @@ public class PPMImageTest {
 
   public void init(){
     this.donkeyTest = new PPMImage("SmallPPMImages/donkey.ppm");
-    this.donkeyRedGrayscale = new PPMImage("SmallPPMImages/donkey-red-greyscale.ppm");
-    this.donkeyGreenGrayscale = new PPMImage("SmallPPMImages/donkey-green-greyscale.ppm");
-    this.donkeyBlueGrayscale = new PPMImage("SmallPPMImages/donkey-blue-greyscale.ppm");
-    this.donkeyValueGrayscale = new PPMImage("SmallPPMImages/donkey-value-greyscale.ppm");
-    this.donkeyIntensityGrayscale =
-            new PPMImage("SmallPPMImages/donkey-intensity-greyscale.ppm");
-    this.donkeyValueGrayscale = new PPMImage("SmallPPMImages/donkey-value-greyscale.ppm");
-    this.donkeyLumaGrayscale = new PPMImage("SmallPPMImages/donkey-luma-greyscale.ppm");
-    this.donkeyHorizontal = new PPMImage("SmallPPMImages/donkey-horizontal.ppm");
-    this.donkeyVertical = new PPMImage("SmallPPMImages/donkey-vertical.ppm");
-    this.donkeyBrighterBy50 = new PPMImage("SmallPPMImages/donkey-brighten-by-50.ppm");
-    this.donkeyDimBy50 = new PPMImage("SmallPPMImages/donkey-dim-by-50.ppm");
   }
 
   @Test
@@ -268,15 +256,15 @@ public class PPMImageTest {
     donkeyTest.brighten(50);
     donkeyTest.saveImage("TestCreatedImages/imageSaveTest.ppm");
     PPMImage testImage = new PPMImage("TestCreatedImages/imageSaveTest.ppm");
-    assertTrue(testImage.equals(donkeyBrighterBy50));
+    assertEquals(testImage, donkeyBrighterBy50);
   }
 
   @Test
   public void testCopyImageFullImage() {
     this.init();
     PPMImage donkeyCopy = new PPMImage(donkeyTest);
-    donkeyCopy.equals(donkeyTest);
-    assertTrue(donkeyTest.equals(donkeyCopy));
+    assertEquals(donkeyCopy, donkeyTest);
+    assertEquals(donkeyTest, donkeyCopy);
   }
 
   @Test
@@ -284,69 +272,69 @@ public class PPMImageTest {
     this.init();
     donkeyTest.flip(ImageProcessingModel.Orientations.Horizontal);
     donkeyTest.saveImage("SmallPPMImages/donkey-horizontal.ppm");
-    assertTrue(donkeyTest.equals(donkeyHorizontal));
+    assertEquals(donkeyTest, donkeyHorizontal);
   }
 
   @Test
   public void testFlipVerticalFullImage() {
     this.init();
     donkeyTest.flip(ImageProcessingModel.Orientations.Vertical);
-    assertTrue(donkeyTest.equals(donkeyVertical));
+    assertEquals(donkeyTest, donkeyVertical);
   }
 
   @Test
   public void testBrightenFullImage() {
     this.init();
     donkeyTest.brighten(50);
-    assertTrue(donkeyTest.equals(donkeyBrighterBy50));
+    assertEquals(donkeyTest, donkeyBrighterBy50);
   }
 
   @Test
   public void testDimFullImage() {
     this.init();
     donkeyTest.brighten(-50);
-    donkeyTest.equals(donkeyDimBy50);
+    assertEquals(donkeyTest, donkeyDimBy50);
   }
 
   @Test
   public void testRedGrayscaleFullImage() {
     this.init();
     donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale);
-    assertTrue(donkeyTest.equals(donkeyRedGrayscale));
+    assertEquals(donkeyTest, donkeyRedGrayscale);
   }
 
   @Test
   public void testGreenGrayscaleFullImage() {
     this.init();
     donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale);
-    assertTrue(donkeyTest.equals(donkeyGreenGrayscale));
+    assertEquals(donkeyTest, donkeyGreenGrayscale);
   }
 
   @Test
   public void testBlueGrayscaleFullImage() {
     this.init();
     donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale);
-    assertTrue(donkeyTest.equals(donkeyBlueGrayscale));
+    assertEquals(donkeyTest, donkeyBlueGrayscale);
   }
 
   @Test
   public void testValueGrayscaleFullImage() {
     this.init();
     donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale);
-    assertTrue(donkeyTest.equals(donkeyValueGrayscale));
+    assertEquals(donkeyTest, donkeyValueGrayscale);
   }
 
   @Test
   public void testIntensityGrayscaleFullImage() {
     this.init();
     donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale);
-    assertTrue(donkeyTest.equals(donkeyIntensityGrayscale));
+    assertEquals(donkeyTest, donkeyIntensityGrayscale);
   }
 
   @Test
   public void testLumaGrayscaleFullImage() {
     this.init();
     donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
-    assertTrue(donkeyTest.equals(donkeyLumaGrayscale));
+    assertEquals(donkeyTest, donkeyLumaGrayscale);
   }
 }

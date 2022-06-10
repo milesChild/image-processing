@@ -152,12 +152,4 @@ public class Pixel {
     if (green != pixel.green) return false;
     return blue == pixel.blue;
   }
-
-  @Override
-  public int hashCode() {
-    int result = red;
-    result = 31 * result + green;
-    result = 31 * result + blue;
-    return result;
-  }
 }
