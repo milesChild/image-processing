@@ -35,26 +35,48 @@ public class PixelTest {
   }
 
   @Test
-  public void testToString() {
+  public void testToStringRed() {
     this.init();
     assertEquals("255 0 0 ", this.red.toString());
-    assertEquals("0 0 255 ", this.blue.toString());
-    assertEquals("0 255 0 ", this.green.toString());
-    assertEquals("0 0 0 ", this.black.toString());
-    assertEquals("255 255 255 ", this.white.toString());
   }
+
+  @Test
+  public void testToStringGreen() {
+    this.init();
+    assertEquals("0 255 0 ", this.green.toString());
+  }
+
+  @Test
+  public void testToStringBlue() {
+    this.init();
+    assertEquals("0 0 255 ", this.blue.toString());
+  }
+
+  @Test
+  public void testToStringBlack() {
+    this.init();
+    assertEquals("0 0 0 ", this.black.toString());
+  }
+
+  @Test
+  public void testToStringWhite() {
+    this.init();
+    assertEquals("0 0 0 ", this.black.toString());
+  }
+
+
 
   @Test
   public void testSetComponents() {
     this.init();
     this.red.setComponents(30, 20, 10);
-    assertEquals(" 30 20 10", this.red.toString());
+    assertEquals("30 20 10 ", this.red.toString());
 
     this.green.setComponents(40, 40, 40);
-    assertEquals(" 40 40 40", this.green.toString());
+    assertEquals("40 40 40", this.green.toString());
 
     this.blue.setComponents(20, 30, 50);
-    assertEquals(" 20 30 50", this.blue.toString());
+    assertEquals("20 30 50 ", this.blue.toString());
   }
 
   @Test

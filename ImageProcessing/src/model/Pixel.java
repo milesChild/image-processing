@@ -94,6 +94,18 @@ public class Pixel {
     return new Pixel(this.red, this.green, this.blue, this.maxValue);
   }
 
+  public int getRed() {
+    return this.red;
+  }
+
+  public int getGreen(){
+    return this.green;
+  }
+
+  public int getBlue(){
+    return this.blue;
+  }
+
   public void setComponents(int redVal, int greenVal, int blueVal) throws IllegalArgumentException {
     if (redVal < 0 || redVal > this.maxValue) {
       throw new IllegalArgumentException("The red component must be an integer greater than 0 " +
@@ -110,5 +122,25 @@ public class Pixel {
     this.red = redVal;
     this.green = greenVal;
     this.blue = blueVal;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Pixel pixel = (Pixel) o;
+
+    if (red != pixel.red) return false;
+    if (green != pixel.green) return false;
+    return blue == pixel.blue;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = red;
+    result = 31 * result + green;
+    result = 31 * result + blue;
+    return result;
   }
 }
