@@ -107,10 +107,6 @@ public class Pixel {
     return this.red + " " + this.green + " " + this.blue + " ";
   }
 
-  public Pixel getPixel(){
-    return new Pixel(this.red, this.green, this.blue, this.maxValue);
-  }
-
   public int getRed() {
     return this.red;
   }

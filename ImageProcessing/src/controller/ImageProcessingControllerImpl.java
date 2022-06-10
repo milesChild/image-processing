@@ -27,7 +27,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   private final ImageProcessingModel model;
   private final Readable in;
   private final ImageProcessingView view;
-  Map<String, Function<Scanner, ImageProcessingCommand>> knownCommands;
+  private final Map<String, Function<Scanner, ImageProcessingCommand>> knownCommands;
 
   /**
    * Default constructor for an image processing controller implementation which instantiates a
@@ -47,6 +47,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     this.model = model;
     this.in = in;
     this.view = view;
+    this.knownCommands = new HashMap<>();
     initCommands();
   }
 
@@ -54,15 +55,14 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
    * Initializes the known commands that can be consulted to operate on the model.
    */
   private void initCommands() {
-    knownCommands = new HashMap<>();
-    knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s.next(), s.next()));
-    knownCommands.put("vertical-flip", s -> new VerticalFlip(s.next(), s.next()));
-    knownCommands.put("brighten", s ->
+    this.knownCommands.put("horizontal-flip", s -> new HorizontalFlip(s.next(), s.next()));
+    this.knownCommands.put("vertical-flip", s -> new VerticalFlip(s.next(), s.next()));
+    this.knownCommands.put("brighten", s ->
             new Brighten(s.nextInt(), s.next(), s.next()));
-    knownCommands.put("dim", s -> new Dim(s.nextInt(), s.next(), s.next()));
-    knownCommands.put("load", s -> new Load(s.next(), s.next()));
-    knownCommands.put("save", s -> new Save(s.next(), s.next()));
-    knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s.next()),
+    this.knownCommands.put("dim", s -> new Dim(s.nextInt(), s.next(), s.next()));
+    this.knownCommands.put("load", s -> new Load(s.next(), s.next()));
+    this.knownCommands.put("save", s -> new Save(s.next(), s.next()));
+    this.knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s.next()),
             s.next(), s.next()));
   }
 

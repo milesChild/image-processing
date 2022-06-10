@@ -11,7 +11,6 @@ import static org.junit.Assert.assertTrue;
  * Tests for the ImageProcessingModel class & its methods.
  */
 public class ModelTest {
-  PPMImage donkeyTest;
   PPMImage donkeyRedGrayscale = new PPMImage("SmallPPMImages/donkey-red-greyscale.ppm");
   PPMImage donkeyGreenGrayscale = new PPMImage("SmallPPMImages/donkey-green-greyscale.ppm");
   PPMImage donkeyBlueGrayscale = new PPMImage("SmallPPMImages/donkey-blue-greyscale.ppm");
@@ -23,10 +22,14 @@ public class ModelTest {
   PPMImage donkeyBrighterBy50 = new PPMImage("SmallPPMImages/donkey-brighten-by-50.ppm");
   PPMImage donkeyDimBy50 = new PPMImage("SmallPPMImages/donkey-dim-by-50.ppm");
 
+  @Test (expected = IllegalArgumentException.class)
+  public void testNullModel() {
+    ImageProcessingModel model = new ImageProcessingModelImpl(null);
+  }
   @Test
   public void testModelBrighten() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, brighten it by 50, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
@@ -47,7 +50,7 @@ public class ModelTest {
   @Test
   public void testModelDim() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, dim it by 50, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
@@ -68,7 +71,7 @@ public class ModelTest {
   @Test
   public void testModelHorizontal() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, flip it horizontally, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
@@ -89,7 +92,7 @@ public class ModelTest {
   @Test
   public void testModelGrayscaleRed() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
@@ -111,7 +114,7 @@ public class ModelTest {
   @Test
   public void testModelGrayscaleGreen() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
@@ -133,7 +136,7 @@ public class ModelTest {
   @Test
   public void testModelGrayscaleBlue() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
@@ -155,7 +158,7 @@ public class ModelTest {
   @Test
   public void testModelGrayscaleIntensity() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
@@ -177,7 +180,7 @@ public class ModelTest {
   @Test
   public void testModelGrayscaleValue() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
@@ -199,7 +202,7 @@ public class ModelTest {
   @Test
   public void testModelGrayscaleLuma() {
     // Create a new model that has no currently loaded images
-    ImageProcessingModelImpl model = new ImageProcessingModelImpl();
+    ImageProcessingModel model = new ImageProcessingModelImpl();
 
     // load donkey.ppm, grayscale it to red pixel, and save the image
     model.load("SmallPPMImages/donkey.ppm", "donkey");
