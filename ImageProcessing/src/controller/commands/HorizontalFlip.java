@@ -6,7 +6,7 @@ import model.ImageProcessingModel;
  * Command class to represent the horizontal-flip command, which horizontally-flips a specific
  * image and saves it as a new image.
  */
-public class HorizontalFlip extends AbstractCommand implements ImageProcessingCommand {
+public class HorizontalFlip extends AbstractCommand {
 
   /**
    * The default constructor for a horizontal flipping command, which calls upon the model to take
