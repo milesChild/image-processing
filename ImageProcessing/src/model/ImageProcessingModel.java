@@ -7,7 +7,18 @@ package model;
  * stored in the model's knownImages map.
  */
 public interface ImageProcessingModel {
-  enum Orientations { Vertical, Horizontal }
+
+  /**
+   * Enumeration to represent the two different orientation types an image can have: vertical or
+   * horizontal. These orientation types are referenced during flipping operations.
+   */
+  enum Orientations {Vertical, Horizontal}
+
+  /**
+   * Enumeration to represent the different grayscale conversion types, either red, green, blue,
+   * value, intensity, or luma. These types are used in the model when making grayscale image
+   * conversions.
+   */
   enum GrayscaleTypes {
     RedGrayscale,
     GreenGrayscale,
@@ -21,8 +32,9 @@ public interface ImageProcessingModel {
    * Method that calls on the PPMImage to flip an image vertically, saving it as a new image by
    * the provided name. Grabs the image to flip by getting the image in imageLibrary under the given
    * name, specified by the user.
+   *
    * @param from the name of the origin image
-   * @param to the new name for the flipped image
+   * @param to   the new name for the flipped image
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
   void flipVertically(String from, String to) throws IllegalArgumentException;
@@ -31,8 +43,9 @@ public interface ImageProcessingModel {
    * Method that calls on the PPMImage to flip an image horizontally, saving it as a new image by
    * the provided name. Grabs the image to flip by getting the image in imageLibrary under the given
    * name, specified by the user.
+   *
    * @param from the name of the origin image
-   * @param to the new name for the flipped image
+   * @param to   the new name for the flipped image
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
   void flipHorizontally(String from, String to) throws IllegalArgumentException;
@@ -41,9 +54,10 @@ public interface ImageProcessingModel {
    * Method that calls on the PPMImage to dim an image by a certain value, saving it as a new
    * image by the provided name. Grabs the image to dim by getting the image in imageLibrary
    * under the given name, specified by the user.
+   *
    * @param value the amount to dim the image by
-   * @param from the name of the image to dim
-   * @param to the name of the new, dimmed image that will be added to the imageLibrary
+   * @param from  the name of the image to dim
+   * @param to    the name of the new, dimmed image that will be added to the imageLibrary
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
   void dim(int value, String from, String to) throws IllegalArgumentException;
@@ -52,15 +66,17 @@ public interface ImageProcessingModel {
    * Method that calls on the PPMImage to brighten an image by a certain value, saving it as a new
    * image by the provided name. Grabs the image to brighten by getting the image in imageLibrary
    * under the given name, specified by the user.
+   *
    * @param value the amount to brighten the image by
-   * @param from the name of the image to brighten
-   * @param to the name of the new, brightened image that will be added to the imageLibrary
+   * @param from  the name of the image to brighten
+   * @param to    the name of the new, brightened image that will be added to the imageLibrary
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
   void brighten(int value, String from, String to) throws IllegalArgumentException;
 
   /**
    * Method that pulls a PPM image from the client's device and adds it to the imageLibrary.
+   *
    * @param path the path on the client's device to pull the image from
    * @param name the name to save the image as
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
@@ -70,6 +86,7 @@ public interface ImageProcessingModel {
   /**
    * Method that saves a PPM image from the imageLibrary (under the specified name) to client's
    * device under the specified path.
+   *
    * @param path the path on the client's device to pull the image from
    * @param name the name to save the image as
    * @throws IllegalArgumentException if there is no image of the given path
@@ -80,9 +97,10 @@ public interface ImageProcessingModel {
    * Method that calls on the PPMImage to convert an image to a grayscale type, saving it as a new
    * image by the provided name. Grabs the image to convert by getting the image in imageLibrary
    * under the given name, specified by the user.
+   *
    * @param choice the type of grayscale to convert to
-   * @param from the path of the image to convert to grayscale
-   * @param to the name of the new, grayscaled image that will be added to the imageLibrary
+   * @param from   the path of the image to convert to grayscale
+   * @param to     the name of the new, grayscaled image that will be added to the imageLibrary
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
   void grayscale(ImageProcessingModelImpl.GrayscaleTypes choice, String from, String to)
@@ -90,6 +108,7 @@ public interface ImageProcessingModel {
 
   /**
    * Returns a copy of the desired PPM image in the imageLibrary.
+   *
    * @param name the name of the image to copy
    * @return a copy of the PPMImage
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary

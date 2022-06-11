@@ -15,6 +15,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
 
   /**
    * Constructor which allows the user to load in a pre-existing database (map) of images.
+   *
    * @param images the images that the model will be allowed to operate with.
    */
   public ImageProcessingModelImpl(Map<String, PPMImage> images) throws IllegalArgumentException {
@@ -35,7 +36,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   @Override
   public void flipHorizontally(String from, String to) {
     PPMImage fromImage = this.imageLibrary.getOrDefault(from, null);
-    if (fromImage == null){
+    if (fromImage == null) {
       throw new IllegalArgumentException("Image does not exist in library. Try again.");
     }
     PPMImage newImage = new PPMImage(fromImage);
@@ -46,7 +47,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   @Override
   public void flipVertically(String from, String to) {
     PPMImage fromImage = this.imageLibrary.getOrDefault(from, null);
-    if (fromImage == null){
+    if (fromImage == null) {
       throw new IllegalArgumentException("Image does not exist in library. Try again.");
     }
     PPMImage newImage = new PPMImage(fromImage);
@@ -57,7 +58,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   @Override
   public void brighten(int value, String from, String to) {
     PPMImage fromImage = this.imageLibrary.getOrDefault(from, null);
-    if (fromImage == null){
+    if (fromImage == null) {
       throw new IllegalArgumentException("Image does not exist in library. Try again.");
     }
     PPMImage newImage = new PPMImage(fromImage);
@@ -66,9 +67,9 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   }
 
   @Override
-  public void grayscale(GrayscaleTypes choice, String from, String to){
+  public void grayscale(GrayscaleTypes choice, String from, String to) {
     PPMImage fromImage = this.imageLibrary.getOrDefault(from, null);
-    if (fromImage == null){
+    if (fromImage == null) {
       throw new IllegalArgumentException("Image does not exist in library. Try again.");
     }
     PPMImage newImage = new PPMImage(fromImage);
@@ -84,7 +85,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   @Override
   public void save(String path, String name) {
     PPMImage fromImage = this.imageLibrary.getOrDefault(name, null);
-    if (fromImage == null){
+    if (fromImage == null) {
       throw new IllegalArgumentException("Image does not exist in library. Try again.");
     }
     fromImage.saveImage(path);

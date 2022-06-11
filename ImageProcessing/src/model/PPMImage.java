@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -25,6 +26,7 @@ public class PPMImage {
   /**
    * Constructor for a PPM Image that creates a deep copy of the provided image. The constructed
    * image will have identical parameters to the old one.
+   *
    * @param fromImage the image to be copied
    * @throws IllegalArgumentException if the fromImage is null
    */
@@ -49,6 +51,7 @@ public class PPMImage {
 
   /**
    * Constructor for a PPM Image that creates an image given a specified computer path for an image.
+   *
    * @param path the computer path for the PPM image that is to be constructed
    * @throws IllegalArgumentException if image is not found from the given path
    */
@@ -100,6 +103,7 @@ public class PPMImage {
 
   /**
    * Brightens all the pixels in this PPM image's pixel grid given a specified value.
+   *
    * @param brightenValue the value to brighten each pixel by
    */
   public void brighten(int brightenValue) {
@@ -112,6 +116,7 @@ public class PPMImage {
 
   /**
    * Converts all the pixels in this PPM image's pixel grid given a specified grayscale choice.
+   *
    * @param grayscaleChoice the type of grayscale the image will be converted to
    */
   public void grayscale(ImageProcessingModel.GrayscaleTypes grayscaleChoice) {
@@ -125,9 +130,10 @@ public class PPMImage {
   /**
    * Flips the pixel grid in this PPM image horizontally or vertically,
    * given the specified flip choice.
+   *
    * @param orientation the type of flip that will be performed on this PPM image
    */
-  public void flip(ImageProcessingModelImpl.Orientations orientation){
+  public void flip(ImageProcessingModelImpl.Orientations orientation) {
     switch (orientation) {
       case Vertical:
         Collections.reverse(Arrays.asList(this.pixelGrid));
@@ -143,6 +149,7 @@ public class PPMImage {
 
   /**
    * Saves this PPM image to a specified path on the device.
+   *
    * @param path the device path the PPM image will be saved to
    */
   public void saveImage(String path) {
@@ -175,43 +182,66 @@ public class PPMImage {
   /**
    * Overriden equals method. A PPMImage equals another image if they have the same width, height,
    * max value, and the pixels in each grid are equal.
+   *
    * @param o the object that is being checked if it is equal against this PPMImage
    * @return true if the object is equal, false if the object is not equal
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     PPMImage ppmImage = (PPMImage) o;
 
-    if (width != ppmImage.width) return false;
-    if (height != ppmImage.height) return false;
-    if (maxValue != ppmImage.maxValue) return false;
+    if (width != ppmImage.width) {
+      return false;
+    }
+
+    if (height != ppmImage.height) {
+      return false;
+    }
+
+    if (maxValue != ppmImage.maxValue) {
+      return false;
+    }
+
     return Arrays.deepEquals(pixelGrid, ppmImage.pixelGrid);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.height, this.maxValue, this.width);
   }
 
   /**
    * Gets the height of this PPMImage.
+   *
    * @return the height of this image
    */
-  public int getHeight(){
+  public int getHeight() {
     return this.height;
   }
 
   /**
    * Gets the width of this PPMImage.
+   *
    * @return the width of this image
    */
-  public int getWidth(){
+  public int getWidth() {
     return this.width;
   }
 
   /**
    * Gets a deep copy of this PPMImage's pixel grid.
+   *
    * @return a copy of this image's pixel grid
    */
-  public Pixel[][] getPixelGrid(){
+  public Pixel[][] getPixelGrid() {
     Pixel[][] gridCopy = new Pixel[this.height][this.width];
     for (int i = 0; i < this.height; i++) {
       System.arraycopy(this.pixelGrid[i], 0, gridCopy[i], 0, this.width);

@@ -65,6 +65,7 @@ public class Pixel {
    * invalid grayscale type, the pixels simply will not change. Our design already notifies the user
    * that they have passed in an invalid command if they specify an invalid grayscale type.
    * We ensure that the method will never take in an invalid enumeration.
+   *
    * @param grayscale the grayscale type to convert the pixels to.
    * @throws IllegalArgumentException if the provided grayscale type is null
    */
@@ -111,11 +112,11 @@ public class Pixel {
     return this.red;
   }
 
-  public int getGreen(){
+  public int getGreen() {
     return this.green;
   }
 
-  public int getBlue(){
+  public int getBlue() {
     return this.blue;
   }
 
