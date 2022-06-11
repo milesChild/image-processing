@@ -66,7 +66,7 @@ public class ControllerTest {
 
   // testing runProgram
   @Test
-  public void testHorizontalFlipRun() {
+  public void testHorizontalFlipRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "horizontal-flip donkey donkeyHorizontal\n" +
@@ -83,7 +83,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testVerticalFlipRun() {
+  public void testVerticalFlipRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "vertical-flip donkey donkeyVertical\n" +
@@ -101,7 +101,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testBrightenRun() {
+  public void testBrightenRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "brighten 50 donkey donkeyBrighten\n" +
@@ -119,7 +119,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testDimRun() {
+  public void testDimRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "dim 50 donkey donkeyDim\n" +
@@ -137,7 +137,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testGrayscaleRedRun() {
+  public void testGrayscaleRedRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale red donkey donkeyGrayscaleRed\n" +
@@ -155,7 +155,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testGrayscaleGreenRun() {
+  public void testGrayscaleGreenRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale green donkey donkeyGrayscaleGreen\n" +
@@ -173,7 +173,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testGrayscaleBlueRun() {
+  public void testGrayscaleBlueRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale blue donkey donkeyGrayscaleBlue\n" +
@@ -191,7 +191,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testGrayscaleIntensityRun() {
+  public void testGrayscaleIntensityRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale intensity donkey donkeyGrayscaleIntensity\n" +
@@ -209,7 +209,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testGrayscaleValueRun() {
+  public void testGrayscaleValueRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale value donkey donkeyGrayscaleValue\n" +
@@ -227,7 +227,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testGrayscaleLumaRun() {
+  public void testGrayscaleLumaRun(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale luma donkey donkeyGrayscaleLuma\n" +
@@ -245,7 +245,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testInvalidInput1() {
+  public void testInvalidInput1(){
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("loa res/predefinedImages/donkey.ppm donkey\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
@@ -258,10 +258,9 @@ public class ControllerTest {
   }
 
   @Test
-  public void testInvalidInputAfterValidCommand() {
+  public void testInvalidInputAfterValidCommand(){
     Appendable appendable = new StringBuilder();
-    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n " +
-            "pong\n q");
+    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n pong\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);

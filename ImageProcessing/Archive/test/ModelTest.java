@@ -5,6 +5,7 @@ import model.ImageProcessingModelImpl;
 import model.PPMImage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the ImageProcessingModel class & its methods.
@@ -33,7 +34,6 @@ public class ModelTest {
   public void testNullModel() {
     ImageProcessingModel model = new ImageProcessingModelImpl(null);
   }
-
   @Test
   public void testModelBrighten() {
     // Create a new model that has no currently loaded images
