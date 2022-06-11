@@ -108,18 +108,37 @@ public class Pixel {
     return this.red + " " + this.green + " " + this.blue + " ";
   }
 
+  /**
+   * Gets the red component.
+   * @return the red component of this pixel.
+   */
   public int getRed() {
     return this.red;
   }
 
+  /**
+   * Gets the green component.
+   * @return the green component of this pixel.
+   */
   public int getGreen() {
     return this.green;
   }
 
+  /**
+   * Gets the blue component.
+   * @return the blue component of this pixel.
+   */
   public int getBlue() {
     return this.blue;
   }
 
+  /**
+   * Sets the components of this pixel according to the given red, green, and blue values.
+   * @param redVal the value that will be set to the red component
+   * @param greenVal the value that will be set to the green component
+   * @param blueVal the value that will be set to the blue component
+   * @throws IllegalArgumentException if any of the values are less than 0 or greater than 255
+   */
   public void setComponents(int redVal, int greenVal, int blueVal) throws IllegalArgumentException {
     if (redVal < 0 || redVal > this.maxValue) {
       throw new IllegalArgumentException("The red component must be an integer greater than 0 " +
@@ -140,13 +159,29 @@ public class Pixel {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
 
     Pixel pixel = (Pixel) o;
 
-    if (red != pixel.red) return false;
-    if (green != pixel.green) return false;
+    if (red != pixel.red) {
+      return false;
+    }
+    if (green != pixel.green) {
+      return false;
+    }
     return blue == pixel.blue;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = red;
+    result = 31 * result + green;
+    result = 31 * result + blue;
+    return result;
   }
 }
