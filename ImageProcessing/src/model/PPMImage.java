@@ -265,9 +265,9 @@ public class PPMImage {
       Pixel[] tempRow = new Pixel[this.width];
       for (int j = 0; j < this.width; j++) {
         // populate the tempRow with the new pixels
-        int filteredRed = this.applyKernel(kernel, i, j, pixelGrid[i][j].getRed());
-        int filteredGreen = this.applyKernel(kernel, i, j, pixelGrid[i][j].getGreen());
-        int filteredBlue = this.applyKernel(kernel, i, j, pixelGrid[i][j].getBlue());
+        int filteredRed = this.applyKernel(kernel, i, j, "r");
+        int filteredGreen = this.applyKernel(kernel, i, j, "g");
+        int filteredBlue = this.applyKernel(kernel, i, j, "b");
         Pixel filteredPixel = new Pixel(filteredRed, filteredGreen, filteredBlue, maxValue);
         tempRow[j] = filteredPixel;
       }
@@ -277,9 +277,32 @@ public class PPMImage {
     this.pixelGrid = copyGrid;
   }
 
-  private int applyKernel(double[][] kernel, int row, int col, int colorVal) {
+  private int applyKernel(double[][] kernel, int row, int col, String color) {
     int centerSlot = (kernel.length - 1) / 2;
+    int newPixelVal = 0;
 
+    for (int i = 0; i < kernel.length; i++) {
+      for (int j = 0; j < kernel.length; j++) {
+        // ensure cell exists in pixelGrid. if it does, continue
+        if(!(row - i < 0 || col - j < 0)) {
+          double kernelVal = kernel[i][j];
+          double pixelGridVal = 0;
+
+          if (color.equals("r")) {
+            pixelGridVal += pixelGrid[row - centerSlot + i][col - centerSlot + j].getRed();
+          }
+          if (color.equals("g")) {
+            pixelGridVal += pixelGrid[row - centerSlot + i][col - centerSlot + j].getGreen();
+          }
+          if (color.equals("b")) {
+            pixelGridVal += pixelGrid[row - centerSlot + i][col - centerSlot + j].getBlue();
+          }
+          newPixelVal += pixelGridVal * kernelVal;
+        }
+      }
+    }
+
+    return newPixelVal;
   }
 
   /**
