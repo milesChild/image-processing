@@ -72,11 +72,15 @@ public class PPMImage {
    * @throws IllegalArgumentException if image is not found from the given path
    */
   public PPMImage(String path) throws IllegalArgumentException {
-    String fileType = path.substring(path.length() - 4);
-    if (fileType.equals(".ppm")) {
+    String fileTypeThreeLetter = path.substring(path.length() - 4);
+    String fileTypeFourLetter = path.substring(path.length() - 5);
+    if (fileTypeThreeLetter.equals(".ppm")) {
       this.loadPPM(path);
     }
-    else if (fileType.equals(".jpg") || fileType.equals(".png") || fileType.equals(".bmp")){
+    else if (fileTypeThreeLetter.equals(".jpg")
+            || fileTypeThreeLetter.equals(".png")
+            || fileTypeThreeLetter.equals(".bmp")
+            || fileTypeFourLetter.equals(".jpeg")){
       this.loadCommonImage(path);
     }
     else {
