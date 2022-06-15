@@ -72,15 +72,11 @@ public class PPMImage {
    * @throws IllegalArgumentException if image is not found from the given path
    */
   public PPMImage(String path) throws IllegalArgumentException {
-    String fileTypeThreeLetter = path.substring(path.length() - 4);
-    String fileTypeFourLetter = path.substring(path.length() - 5);
-    if (fileTypeThreeLetter.equals(".ppm")) {
+    String fileType = path.substring(path.length() - 4);
+    if (fileType.equals(".ppm")) {
       this.loadPPM(path);
     }
-    else if (fileTypeThreeLetter.equals(".jpg")
-            || fileTypeThreeLetter.equals(".png")
-            || fileTypeThreeLetter.equals(".bmp")
-            || fileTypeFourLetter.equals(".jpeg")){
+    else if (fileType.equals(".jpg") || fileType.equals(".png") || fileType.equals(".bmp")){
       this.loadCommonImage(path);
     }
     else {
@@ -265,7 +261,8 @@ public class PPMImage {
     for (int i = 0; i < kernel.length; i++) {
       for (int j = 0; j < kernel.length; j++) {
         // ensure cell exists in pixelGrid. if it does, continue
-        if(!(row - centerSlot + i < 0) && !(col - centerSlot + j < 0)) {
+        if(!(row - centerSlot + i < 0 || row - centerSlot + i >= this.height)
+                && !(col - centerSlot + j < 0 || col - centerSlot + j >= this.width)) {
           double kernelVal = kernel[i][j];
           double pixelGridVal = 0;
 
