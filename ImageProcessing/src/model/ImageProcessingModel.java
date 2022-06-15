@@ -75,21 +75,23 @@ public interface ImageProcessingModel {
   void brighten(int value, String from, String to) throws IllegalArgumentException;
 
   /**
-   * Method that pulls a PPM image from the client's device and adds it to the imageLibrary.
+   * Method that saves an image from the imageLibrary by the provided name to the client's device.
+   * The file type that the image will be saved as will be determined by the user input for the
+   * image-path.
    *
-   * @param path the path on the client's device to pull the image from
-   * @param name the name to save the image as
+   * @param path the path on the client's device to save the image to
+   * @param name the name of the image to save
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
   void save(String path, String name) throws IllegalArgumentException;
 
   /**
-   * Method that saves a PPM image from the imageLibrary (under the specified name) to client's
-   * device under the specified path.
+   * Method that pulls an image from the client's device, delegates to the PPMImage class to
+   * immediately convert the image to a PPM, and adds it to the imageLibrary.
    *
    * @param path the path on the client's device to pull the image from
    * @param name the name to save the image as
-   * @throws IllegalArgumentException if there is no image of the given path
+   * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
   void load(String path, String name) throws IllegalArgumentException;
 
@@ -114,4 +116,50 @@ public interface ImageProcessingModel {
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
   PPMImage getImage(String name) throws IllegalArgumentException;
+
+  // Assignment 5 methods
+
+  /**
+   * Method that calls on the PPMImage to apply a blurring filter to an image, saving it as a new
+   * image by the provided name. Grabs the image to blur by getting the image in imageLibrary under
+   * the given name, specified by the user.
+   *
+   * @param from the name of the origin image
+   * @param to   the new name for the blurred image
+   * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
+   */
+  void blur(String from, String to) throws IllegalArgumentException;
+
+  /**
+   * Method that calls on the PPMImage to apply a sharpening filter to an image, saving it as a new
+   * image by the provided name. Grabs the image to sharpen by getting the image in imageLibrary
+   * under the given name, specified by the user.
+   *
+   * @param from the name of the origin image
+   * @param to   the new name for the sharpened image
+   * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
+   */
+  void sharpen(String from, String to) throws IllegalArgumentException;
+
+  /**
+   * Method that calls on the PPMImage to apply a sepia filter to an image, saving it as a new
+   * image by the provided name. Grabs the image to add the sepia filter to by getting the image in
+   * imageLibrary under the given name, specified by the user.
+   *
+   * @param from the name of the origin image
+   * @param to   the new name for the sepia-filtered image
+   * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
+   */
+  void sepia(String from, String to) throws IllegalArgumentException;
+
+  /**
+   * Method that calls on the PPMImage to apply a greyscale filter to an image, saving it as a new
+   * image by the provided name. Grabs the image to greyscale by getting the image in imageLibrary
+   * under the given name, specified by the user.
+   *
+   * @param from the name of the origin image
+   * @param to   the new name for the greyscaled image
+   * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
+   */
+  void greyscale(String from, String to) throws IllegalArgumentException;
 }

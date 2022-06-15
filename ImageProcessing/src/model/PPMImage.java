@@ -10,6 +10,16 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
 
+// TODO:
+// IMPLEMENT THE NEW LOAD METHODS (FOR EACH OF THE NEW FILE TYPES)
+// IMPLEMENT THE NEW SAVE METHODS (FOR EACH OF THE NEW FILE TYPES)
+// CHANGE THE FIELDS TO NOT BE FINAL?
+// IMPLEMENT THE LOGIC FOR EACH OF THE NEW OPERATIONS:
+//   - BLUR
+//   - SHARPEN
+//   - GREYSCALE
+//   - SEPIA
+
 /**
  * Class to represent a PPM (Portable Pix Map) image, which stores all the pixel values in a 2D
  * array of Pixels of a specified height and width. This program (currently) only supports
@@ -51,8 +61,10 @@ public class PPMImage {
 
   /**
    * Constructor for a PPM Image that creates an image given a specified computer path for an image.
+   * Delegates field initialization to helper methods based on the file type that is provided in
+   * the path. Supported file types: .ppm, .jpg, .png, .bmp
    *
-   * @param path the computer path for the PPM image that is to be constructed
+   * @param path the computer path for the image that is to be constructed as a PPM image
    * @throws IllegalArgumentException if image is not found from the given path
    */
   public PPMImage(String path) throws IllegalArgumentException {
@@ -64,6 +76,25 @@ public class PPMImage {
       throw new IllegalArgumentException("File " + path + " not found!");
     }
 
+    String fileType = path.substring(path.length() - 3);
+    switch (fileType) {
+      case "ppm":
+        this.loadPPM(path, sc);
+        break;
+      case "jpg":
+        this.loadJPG(path, sc);
+        break;
+      case "png":
+        this.loadPNG(path, sc);
+        break;
+      case "bmp":
+        this.loadBMP(path, sc);
+        break;
+    }
+
+  }
+
+  private void loadPPM(String path, Scanner sc) {
     StringBuilder builder = new StringBuilder();
     // read the file line by line, and populate a string. This will throw away any comment lines
     while (sc.hasNextLine()) {
@@ -99,6 +130,18 @@ public class PPMImage {
     }
 
     this.pixelGrid = pixelGrid;
+  }
+
+  private void loadJPG(String path, Scanner sc) {
+
+  }
+
+  private void loadPNG(String path, Scanner sc) {
+
+  }
+
+  private void loadBMP(String path, Scanner sc) {
+
   }
 
   /**
@@ -147,12 +190,48 @@ public class PPMImage {
     }
   }
 
+  public void blur() {
+
+  }
+
+  public void sharpen() {
+
+  }
+
+  public void greyscale() {
+
+  }
+
+  public void sepia() {
+
+  }
+
   /**
    * Saves this PPM image to a specified path on the device.
    *
    * @param path the device path the PPM image will be saved to
    */
   public void saveImage(String path) {
+    String fileType = path.substring(path.length() - 3);
+
+    switch (fileType) {
+      case "ppm":
+        this.saveAsPPM(path);
+        break;
+      case "jpg":
+        this.saveAsJPG(path);
+        break;
+      case "png":
+        this.saveAsPNG(path);
+        break;
+      case "bmp":
+        this.saveAsBMP(path);
+        break;
+    }
+
+  }
+
+  private void saveAsPPM(String path) {
     File newFile = new File(path);
 
     StringBuilder newFileContents = new StringBuilder();
@@ -177,6 +256,18 @@ public class PPMImage {
     } catch (IOException e) {
       throw new IllegalArgumentException();
     }
+  }
+
+  private void saveAsJPG(String path) {
+
+  }
+
+  private void saveAsPNG(String path) {
+
+  }
+
+  private void saveAsBMP(String path) {
+
   }
 
   /**

@@ -105,4 +105,51 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
     }
     return new PPMImage(this.imageLibrary.get(name));
   }
+
+  // Assignment 5 methods
+
+  @Override
+  public void blur(String from, String to) throws IllegalArgumentException {
+    PPMImage fromImage = this.imageLibrary.getOrDefault(from, null);
+    if (fromImage == null) {
+      throw new IllegalArgumentException("Image does not exist in library. Try again.");
+    }
+    PPMImage newImage = new PPMImage(fromImage);
+    newImage.blur();
+    this.imageLibrary.put(to, newImage);
+  }
+
+  @Override
+  public void sharpen(String from, String to) throws IllegalArgumentException {
+    PPMImage fromImage = this.imageLibrary.getOrDefault(from, null);
+    if (fromImage == null) {
+      throw new IllegalArgumentException("Image does not exist in library. Try again.");
+    }
+    PPMImage newImage = new PPMImage(fromImage);
+    newImage.sharpen();
+    this.imageLibrary.put(to, newImage);
+  }
+
+  @Override
+  public void sepia(String from, String to) throws IllegalArgumentException {
+    PPMImage fromImage = this.imageLibrary.getOrDefault(from, null);
+    if (fromImage == null) {
+      throw new IllegalArgumentException("Image does not exist in library. Try again.");
+    }
+    PPMImage newImage = new PPMImage(fromImage);
+    newImage.sepia();
+    this.imageLibrary.put(to, newImage);
+  }
+
+  @Override
+  public void greyscale(String from, String to) throws IllegalArgumentException {
+    PPMImage fromImage = this.imageLibrary.getOrDefault(from, null);
+    if (fromImage == null) {
+      throw new IllegalArgumentException("Image does not exist in library. Try again.");
+    }
+    PPMImage newImage = new PPMImage(fromImage);
+    newImage.greyscale();
+    this.imageLibrary.put(to, newImage);
+  }
+
 }

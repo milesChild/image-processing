@@ -6,13 +6,17 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
+import controller.commands.Blur;
 import controller.commands.Brighten;
 import controller.commands.Dim;
 import controller.commands.Grayscale;
+import controller.commands.Greyscale;
 import controller.commands.HorizontalFlip;
 import controller.commands.ImageProcessingCommand;
 import controller.commands.Load;
 import controller.commands.Save;
+import controller.commands.Sepia;
+import controller.commands.Sharpen;
 import controller.commands.VerticalFlip;
 import model.ImageProcessingModel;
 import view.ImageProcessingView;
@@ -64,6 +68,10 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     this.knownCommands.put("save", s -> new Save(s[1], s[2]));
     this.knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s[1]),
             s[2], s[3]));
+    this.knownCommands.put("blur", s -> new Blur(s[1], s[2]));
+    this.knownCommands.put("sharpen", s -> new Sharpen(s[1], s[2]));
+    this.knownCommands.put("greyscale", s -> new Greyscale(s[1], s[2]));
+    this.knownCommands.put("sepia", s -> new Sepia(s[1], s[2]));
   }
 
   /**
