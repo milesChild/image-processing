@@ -348,4 +348,11 @@ public class PPMImageTest {
     donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
     assertEquals(donkeyTest, donkeyLumaGrayscale);
   }
+
+  @Test
+  public void testJpegBlur(){
+    PPMImage image = new PPMImage("res/imageTest.jpeg");
+    image.blur();
+    image.saveImage("res/imageTestPNG.png");
+  }
 }
