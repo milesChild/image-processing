@@ -353,6 +353,23 @@ public class PPMImageTest {
   public void testJpegBlur(){
     PPMImage image = new PPMImage("res/imageTest.jpeg");
     image.blur();
+    image.blur();
+    image.blur();
+    image.blur();
+    image.blur();
+    image.blur();
+    image.blur();
+    image.blur();
+
     image.saveImage("res/imageTestPNG.png");
   }
+
+  @Test
+  public void testJpegSharpen(){
+    PPMImage image = new PPMImage("res/imageTest.jpeg");
+
+    image.saveImage("res/imageTestPNG.png");
+  }
+
+
 }

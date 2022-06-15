@@ -143,22 +143,39 @@ public class Pixel {
    * @param blueVal the value that will be set to the blue component
    * @throws IllegalArgumentException if any of the values are less than 0 or greater than 255
    */
+//  public void setComponents(int redVal, int greenVal, int blueVal) throws IllegalArgumentException {
+//    if (redVal < 0 || redVal > this.maxValue) {
+//      throw new IllegalArgumentException("The red component must be an integer greater than 0 " +
+//              "or less than the max value.");
+//    }
+//    if (greenVal < 0 || greenVal > this.maxValue) {
+//      throw new IllegalArgumentException("The green component must be an integer greater than 0 " +
+//              "or less than the max value.");
+//    }
+//    if (blueVal < 0 || blueVal > this.maxValue) {
+//      throw new IllegalArgumentException("The blue component must be an integer greater than 0 " +
+//              "or less than the max value.");
+//    }
+//    this.red = redVal;
+//    this.green = greenVal;
+//    this.blue = blueVal;
+//  }
   public void setComponents(int redVal, int greenVal, int blueVal) throws IllegalArgumentException {
-    if (redVal < 0 || redVal > this.maxValue) {
-      throw new IllegalArgumentException("The red component must be an integer greater than 0 " +
-              "or less than the max value.");
-    }
-    if (greenVal < 0 || greenVal > this.maxValue) {
-      throw new IllegalArgumentException("The green component must be an integer greater than 0 " +
-              "or less than the max value.");
-    }
-    if (blueVal < 0 || blueVal > this.maxValue) {
-      throw new IllegalArgumentException("The blue component must be an integer greater than 0 " +
-              "or less than the max value.");
-    }
-    this.red = redVal;
-    this.green = greenVal;
-    this.blue = blueVal;
+//    if (redVal > this.maxValue) {
+//      throw new IllegalArgumentException("The red component must be an integer " +
+//              "less than the max value.");
+//    }
+//    if (greenVal > this.maxValue) {
+//      throw new IllegalArgumentException("The green component must be an integer greater than 0 " +
+//              "or less than the max value.");
+//    }
+//    if (blueVal > this.maxValue) {
+//      throw new IllegalArgumentException("The blue component must be an integer greater than 0 " +
+//              "or less than the max value.");
+//    }
+    this.red = Math.min(Math.max(redVal, 0), 255);
+    this.green = Math.min(Math.max(greenVal, 0), 255);
+    this.blue = Math.min(Math.max(blueVal, 0), 255);
   }
 
   @Override

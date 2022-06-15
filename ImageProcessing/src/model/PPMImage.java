@@ -72,11 +72,13 @@ public class PPMImage {
    * @throws IllegalArgumentException if image is not found from the given path
    */
   public PPMImage(String path) throws IllegalArgumentException {
-    String fileType = path.substring(path.length() - 4);
-    if (fileType.equals(".ppm")) {
+    String fileTypeThreeLetter = path.substring(path.length() - 4);
+    String fileTypeFourLetter = path.substring(path.length() - 5);
+    if (fileTypeThreeLetter.equals(".ppm")) {
       this.loadPPM(path);
     }
-    else if (fileType.equals(".jpg") || fileType.equals(".png") || fileType.equals(".bmp")){
+    else if (fileTypeThreeLetter.equals(".jpg") || fileTypeThreeLetter.equals(".png")
+            || fileTypeThreeLetter.equals(".bmp") || fileTypeFourLetter.equals(".jpeg")){
       this.loadCommonImage(path);
     }
     else {
@@ -225,6 +227,12 @@ public class PPMImage {
   }
 
   public void greyscale() {
+    double[][] kernel = new double[][]{
+            new double[]{0.2126, 0.7152, 0.0722},
+            new double[]{0.2126, 0.7152, 0.0722},
+            new double[]{0.2126, 0.7152, 0.0722}
+    };
+    this.applyFilter(kernel);
 
   }
 
@@ -341,7 +349,7 @@ public class PPMImage {
     }
 
     try {
-      ImageIO.write(bufferedImage, path, newFile);
+      ImageIO.write(bufferedImage, path.split("\\.")[1], newFile);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
