@@ -261,7 +261,7 @@ public class PPMImage {
     for (int i = 0; i < kernel.length; i++) {
       for (int j = 0; j < kernel.length; j++) {
         // ensure cell exists in pixelGrid. if it does, continue
-        if(!(row - i < 0 || col - j < 0)) {
+        if(!(row - centerSlot + i < 0) && !(col - centerSlot + j < 0)) {
           double kernelVal = kernel[i][j];
           double pixelGridVal = 0;
 
