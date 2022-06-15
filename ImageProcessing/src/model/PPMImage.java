@@ -28,10 +28,10 @@ import java.util.Scanner;
  * array of pixels, {@code pixelGrid}.
  */
 public class PPMImage {
-  private final Pixel[][] pixelGrid;
-  private final int width;
-  private final int height;
-  private final int maxValue;
+  private Pixel[][] pixelGrid;
+  private int width;
+  private int height;
+  private int maxValue;
 
   /**
    * Constructor for a PPM Image that creates a deep copy of the provided image. The constructed
@@ -90,6 +90,8 @@ public class PPMImage {
       case "bmp":
         this.loadBMP(path, sc);
         break;
+      default:
+        throw new IllegalArgumentException("Unaccepted file type.");
     }
 
   }
@@ -191,11 +193,23 @@ public class PPMImage {
   }
 
   public void blur() {
-
+    double[][] kernel = new double[][]{
+            new double[]{0.0625, 0.125, 0.0625},
+            new double[]{0.125, 0.25, 0.125},
+            new double[]{0.0625, 0.125, 0.0625}
+    };
+    this.applyFilter(kernel);
   }
 
   public void sharpen() {
-
+    double[][] kernel = new double[][]{
+            new double[]{-0.125, -0.125, -0.125, -0.125, -0.125},
+            new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
+            new double[]{-0.125, 0.25, 1, 0.25, -0.125},
+            new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
+            new double[]{-0.125, -0.125, -0.125, -0.125, -0.125}
+    };
+    this.applyFilter(kernel);
   }
 
   public void greyscale() {
@@ -203,6 +217,33 @@ public class PPMImage {
   }
 
   public void sepia() {
+
+  }
+
+  private void applyFilter(double[][] kernel) {
+    // the new, filtered pixel array
+    Pixel[][] copyGrid = new Pixel[this.height][this.width];
+
+    // for every pixel in each row, change the red, green, and blue values (setComponents) based on
+    // a multiplication of every cell in the kernel array by the R, G, or B value in the pixel array
+    for(int i = 0; i < this.height; i++) {
+      Pixel[] tempRow = new Pixel[this.width];
+      for (int j = 0; j < this.width; j++) {
+        // populate the tempRow with the new pixels
+        int filteredRed = this.applyKernel(kernel, i, j, pixelGrid[i][j].getRed());
+        int filteredGreen = this.applyKernel(kernel, i, j, pixelGrid[i][j].getGreen());
+        int filteredBlue = this.applyKernel(kernel, i, j, pixelGrid[i][j].getBlue());
+        Pixel filteredPixel = new Pixel(filteredRed, filteredGreen, filteredBlue, maxValue);
+        tempRow[j] = filteredPixel;
+      }
+      copyGrid[i] = tempRow;
+    }
+
+    this.pixelGrid = copyGrid;
+  }
+
+  private int applyKernel(double[][] kernel, int row, int col, int colorVal) {
+    int centerSlot = (kernel.length - 1) / 2;
 
   }
 
