@@ -72,30 +72,15 @@ public class PPMImage {
    * @throws IllegalArgumentException if image is not found from the given path
    */
   public PPMImage(String path) throws IllegalArgumentException {
-    Scanner sc;
-
-    try {
-      sc = new Scanner(new FileInputStream(path));
-    } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("File " + path + " not found!");
+    String fileType = path.substring(path.length() - 4);
+    if (fileType.equals(".ppm")) {
+      this.loadPPM(path);
     }
-
-    String fileType = path.substring(path.length() - 3);
-    switch (fileType) {
-      case "ppm":
-        this.loadPPM(path);
-        break;
-      case "jpg":
-        this.loadJPG(path, sc);
-        break;
-      case "png":
-        this.loadPNG(path, sc);
-        break;
-      case "bmp":
-        this.loadBMP(path, sc);
-        break;
-      default:
-        throw new IllegalArgumentException("Unaccepted file type.");
+    else if (fileType.equals(".jpg") || fileType.equals(".png") || fileType.equals(".bmp")){
+      this.loadCommonImage(path);
+    }
+    else {
+      throw new IllegalArgumentException("Path does not end in a valid file type!");
     }
 
   }
@@ -145,7 +130,7 @@ public class PPMImage {
     this.pixelGrid = pixelGrid;
   }
 
-  private void loadJPG(String path) {
+  private void loadCommonImage(String path) {
     BufferedImage bufferedImage;
     try {
       bufferedImage = ImageIO.read(new File(path));
@@ -171,14 +156,6 @@ public class PPMImage {
       }
     }
     this.pixelGrid = pixelGrid;
-  }
-
-  private void loadPNG(String path, Scanner sc) {
-
-  }
-
-  private void loadBMP(String path, Scanner sc) {
-
   }
 
   /**
