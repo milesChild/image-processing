@@ -32,6 +32,10 @@ public class Pixel {
     this.setComponents(red, green, blue); // throws exception when R, G, or B > maxvalue
   }
 
+  /**
+   * Brightens each component of this pixel by the given value.
+   * @param brightenValue the value each component will be brightened by
+   */
   public void brighten(int brightenValue) {
     int newRed = this.red;
     int newGreen = this.green;

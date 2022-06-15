@@ -12,7 +12,10 @@ public interface ImageProcessingModel {
    * Enumeration to represent the two different orientation types an image can have: vertical or
    * horizontal. These orientation types are referenced during flipping operations.
    */
-  enum Orientations {Vertical, Horizontal}
+  enum Orientations {
+    Vertical,
+    Horizontal
+  }
 
   /**
    * Enumeration to represent the different grayscale conversion types, either red, green, blue,

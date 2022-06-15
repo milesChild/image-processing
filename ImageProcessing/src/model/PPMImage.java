@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,6 +11,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 // TODO:
 // IMPLEMENT THE NEW LOAD METHODS (FOR EACH OF THE NEW FILE TYPES)
@@ -79,7 +83,7 @@ public class PPMImage {
     String fileType = path.substring(path.length() - 3);
     switch (fileType) {
       case "ppm":
-        this.loadPPM(path, sc);
+        this.loadPPM(path);
         break;
       case "jpg":
         this.loadJPG(path, sc);
@@ -96,7 +100,14 @@ public class PPMImage {
 
   }
 
-  private void loadPPM(String path, Scanner sc) {
+  private void loadPPM(String path) {
+    Scanner sc;
+
+    try {
+      sc = new Scanner(new FileInputStream(path));
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File " + path + " not found!");
+    }
     StringBuilder builder = new StringBuilder();
     // read the file line by line, and populate a string. This will throw away any comment lines
     while (sc.hasNextLine()) {
@@ -120,9 +131,9 @@ public class PPMImage {
     this.height = sc.nextInt();
     this.maxValue = sc.nextInt();
 
-    Pixel[][] pixelGrid = new Pixel[height][width];
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    Pixel[][] pixelGrid = new Pixel[this.height][this.width];
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
@@ -134,8 +145,32 @@ public class PPMImage {
     this.pixelGrid = pixelGrid;
   }
 
-  private void loadJPG(String path, Scanner sc) {
+  private void loadJPG(String path) {
+    BufferedImage bufferedImage;
+    try {
+      bufferedImage = ImageIO.read(new File(path));
+    }
+    catch (IOException e){
+      throw new IllegalArgumentException("File " + path + " not found!");
+    }
 
+    this.height = bufferedImage.getHeight();
+    this.width = bufferedImage.getWidth();
+    this.maxValue = 255;
+
+    Pixel[][] pixelGrid = new Pixel[this.height][this.width];
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        Color color = new Color(bufferedImage.getRGB(j, i));
+        pixelGrid[i][j] = new Pixel(
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue(),
+                this.maxValue);
+
+      }
+    }
+    this.pixelGrid = pixelGrid;
   }
 
   private void loadPNG(String path, Scanner sc) {
@@ -253,23 +288,16 @@ public class PPMImage {
    * @param path the device path the PPM image will be saved to
    */
   public void saveImage(String path) {
-    String fileType = path.substring(path.length() - 3);
-
-    switch (fileType) {
-      case "ppm":
-        this.saveAsPPM(path);
-        break;
-      case "jpg":
-        this.saveAsJPG(path);
-        break;
-      case "png":
-        this.saveAsPNG(path);
-        break;
-      case "bmp":
-        this.saveAsBMP(path);
-        break;
+    String fileType = path.substring(path.length() - 4);
+    if (fileType.equals(".ppm")) {
+      this.saveAsPPM(path);
     }
-
+    else if (fileType.equals(".jpg") || fileType.equals(".bpm") || fileType.equals(".png")) {
+      this.saveAsCommonImage(path);
+    }
+    else {
+      throw new IllegalArgumentException("Illegal file type in path!");
+    }
   }
 
   private void saveAsPPM(String path) {
@@ -299,15 +327,23 @@ public class PPMImage {
     }
   }
 
-  private void saveAsJPG(String path) {
+  private void saveAsCommonImage(String path) {
+    File newFile = new File(path);
+    BufferedImage bufferedImage = new BufferedImage(
+            this.width, this.height, BufferedImage.TYPE_INT_RGB);
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        Color color = new Color(this.pixelGrid[i][j].getRed(), this.pixelGrid[i][j].getGreen(),
+                this.pixelGrid[i][j].getBlue());
+        bufferedImage.setRGB(j, i, color.getRGB());
+      }
+    }
 
-  }
-
-  private void saveAsPNG(String path) {
-
-  }
-
-  private void saveAsBMP(String path) {
+    try {
+      ImageIO.write(bufferedImage, path, newFile);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
 
   }
 

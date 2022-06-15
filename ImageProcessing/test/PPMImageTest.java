@@ -32,7 +32,7 @@ public class PPMImageTest {
   PPMImage donkeyDimBy50 =
           new PPMImage("res/predefinedImages/donkey-dim-by-50.ppm");
 
-  public void init() {
+  private void init() {
     this.donkeyTest = new PPMImage("res/predefinedImages/donkey.ppm");
   }
 
