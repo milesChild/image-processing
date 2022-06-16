@@ -226,18 +226,43 @@ public class PPMImage {
     this.applyFilter(kernel);
   }
 
+  public void applyColorTransformation(double[][] matrix){
+    // the new, filtered pixel array
+    Pixel[][] copyGrid = new Pixel[this.height][this.width];
+
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        Pixel oldPixel = this.pixelGrid[i][j];
+        int newRed = (int) (matrix[0][0] * oldPixel.getRed() + matrix[0][1] * oldPixel.getGreen()
+                + matrix[0][2] * oldPixel.getBlue());
+        int newGreen = (int) (matrix[1][0] * oldPixel.getRed() + matrix[1][1] * oldPixel.getGreen()
+                + matrix[1][2] * oldPixel.getBlue());
+        int newBlue = (int) (matrix[2][0] * oldPixel.getRed() + matrix[2][1] * oldPixel.getGreen()
+                + matrix[2][2] * oldPixel.getBlue());
+        Pixel newPixel = new Pixel(newRed, newGreen, newBlue, this.maxValue);
+        copyGrid[i][j] = newPixel;
+      }
+    }
+    this.pixelGrid = copyGrid;
+  }
+
   public void greyscale() {
-    double[][] kernel = new double[][]{
+    double[][] matrix = new double[][]{
             new double[]{0.2126, 0.7152, 0.0722},
             new double[]{0.2126, 0.7152, 0.0722},
             new double[]{0.2126, 0.7152, 0.0722}
     };
-    this.applyFilter(kernel);
+    this.applyColorTransformation(matrix);
 
   }
 
   public void sepia() {
-
+    double[][] matrix = new double[][]{
+            new double[]{0.393, 0.769, 0.189},
+            new double[]{0.349, 0.686, 0.168},
+            new double[]{0.272, 0.534, 0.131}
+    };
+    this.applyColorTransformation(matrix);
   }
 
   private void applyFilter(double[][] kernel) {

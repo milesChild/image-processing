@@ -367,6 +367,7 @@ public class PPMImageTest {
   @Test
   public void testJpegSharpen(){
     PPMImage image = new PPMImage("res/imageTest.jpeg");
+    image.greyscale();
 
     image.saveImage("res/imageTestPNG.png");
   }
