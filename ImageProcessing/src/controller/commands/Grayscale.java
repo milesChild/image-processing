@@ -24,6 +24,11 @@ public class Grayscale extends AbstractCommand {
     this.grayscaleChoice = grayscaleChoice;
   }
 
+  public Grayscale(String from, String to){
+    super(from, to);
+    this.grayscaleChoice = ImageProcessingModel.GrayscaleTypes.TransformationGrayscale;
+  }
+
   /**
    * Calls upon the model to execute the specified function (decided based on the actual
    * implementation of the abstract command), giving it the origin image
@@ -33,6 +38,11 @@ public class Grayscale extends AbstractCommand {
    */
   @Override
   public void execute(ImageProcessingModel model) {
-    model.grayscale(grayscaleChoice, from, to);
+    if (grayscaleChoice == ImageProcessingModel.GrayscaleTypes.TransformationGrayscale){
+      model.grayscale(from, to);
+    } else {
+      model.grayscale(grayscaleChoice, from, to);
+    }
+
   }
 }

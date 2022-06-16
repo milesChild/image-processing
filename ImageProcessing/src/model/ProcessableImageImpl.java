@@ -2,162 +2,53 @@ package model;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Scanner;
-
-import javax.imageio.ImageIO;
-
-// TODO:
-// IMPLEMENT THE NEW LOAD METHODS (FOR EACH OF THE NEW FILE TYPES)
-// IMPLEMENT THE NEW SAVE METHODS (FOR EACH OF THE NEW FILE TYPES)
-// CHANGE THE FIELDS TO NOT BE FINAL?
-// IMPLEMENT THE LOGIC FOR EACH OF THE NEW OPERATIONS:
-//   - BLUR
-//   - SHARPEN
-//   - GREYSCALE
-//   - SEPIA
 
 /**
- * Class to represent a PPM (Portable Pix Map) image, which stores all the pixel values in a 2D
- * array of Pixels of a specified height and width. This program (currently) only supports
- * manipulation of PPM-type images. This class stores all the actual image-manipulation
- * operations that can be conducted by the user; each operation will directly manipulate the 2D
- * array of pixels, {@code pixelGrid}.
+ * Class to represent an image, which stores all the pixel values in a 2D
+ * array of Pixels of a specified height and width.
+ * This class stores all the actual image-manipulation operations that can be conducted by the user;
+ * each operation will directly manipulate the 2D array of pixels, {@code pixelGrid}.
  */
-public class PPMImage {
+public class ProcessableImageImpl {
   private Pixel[][] pixelGrid;
-  private int width;
-  private int height;
-  private int maxValue;
+  private final int width;
+  private final int height;
+  private final int maxValue;
 
   /**
-   * Constructor for a PPM Image that creates a deep copy of the provided image. The constructed
-   * image will have identical parameters to the old one.
-   *
-   * @param fromImage the image to be copied
-   * @throws IllegalArgumentException if the fromImage is null
+   * Constructor for a ProcessableImageImpl that creates a deep copy of the provided image.
+   * The constructed image will have identical parameters to the old one.
+   * @param image the image to be copied
+   * @throws IllegalArgumentException if the image is null
    */
-  public PPMImage(PPMImage fromImage) throws IllegalArgumentException {
-    if (fromImage == null) {
+  public ProcessableImageImpl(ProcessableImageImpl image)
+          throws IllegalArgumentException {
+    if (image == null) {
       throw new IllegalArgumentException("Given null parameter.");
     }
     // deep copy of pixelGrid
-    Pixel[][] copyGrid = new Pixel[fromImage.height][fromImage.width];
-    for (int i = 0; i < fromImage.height; i++) {
-      Pixel[] tempRow = new Pixel[fromImage.width];
+    Pixel[][] copyGrid = new Pixel[image.height][image.width];
+    for (int i = 0; i < image.height; i++) {
+      Pixel[] tempRow = new Pixel[image.width];
 
-      System.arraycopy(fromImage.pixelGrid[i], 0, tempRow, 0, fromImage.width);
+      System.arraycopy(image.pixelGrid[i], 0, tempRow, 0, image.width);
       copyGrid[i] = tempRow;
     }
 
     this.pixelGrid = copyGrid;
-    this.width = fromImage.width;
-    this.height = fromImage.height;
-    this.maxValue = fromImage.maxValue;
+    this.width = image.width;
+    this.height = image.height;
+    this.maxValue = image.maxValue;
   }
 
-  /**
-   * Constructor for a PPM Image that creates an image given a specified computer path for an image.
-   * Delegates field initialization to helper methods based on the file type that is provided in
-   * the path. Supported file types: .ppm, .jpg, .png, .bmp
-   *
-   * @param path the computer path for the image that is to be constructed as a PPM image
-   * @throws IllegalArgumentException if image is not found from the given path
-   */
-  public PPMImage(String path) throws IllegalArgumentException {
-    String fileTypeThreeLetter = path.substring(path.length() - 4);
-    String fileTypeFourLetter = path.substring(path.length() - 5);
-    if (fileTypeThreeLetter.equals(".ppm")) {
-      this.loadPPM(path);
-    }
-    else if (fileTypeThreeLetter.equals(".jpg") || fileTypeThreeLetter.equals(".png")
-            || fileTypeThreeLetter.equals(".bmp") || fileTypeFourLetter.equals(".jpeg")){
-      this.loadCommonImage(path);
-    }
-    else {
-      throw new IllegalArgumentException("Path does not end in a valid file type!");
-    }
-
-  }
-
-  private void loadPPM(String path) {
-    Scanner sc;
-
-    try {
-      sc = new Scanner(new FileInputStream(path));
-    } catch (FileNotFoundException e) {
-      throw new IllegalArgumentException("File " + path + " not found!");
-    }
-    StringBuilder builder = new StringBuilder();
-    // read the file line by line, and populate a string. This will throw away any comment lines
-    while (sc.hasNextLine()) {
-      String s = sc.nextLine();
-      if (s.charAt(0) != '#') {
-        builder.append(s).append(System.lineSeparator());
-      }
-    }
-
-    //now set up the scanner to read from the string we just built
-    sc = new Scanner(builder.toString());
-
-    String token;
-
-    token = sc.next();
-    if (!token.equals("P3")) {
-      System.out.println("Invalid PPM file: plain RAW file should begin with P3.");
-    }
-
-    this.width = sc.nextInt();
-    this.height = sc.nextInt();
-    this.maxValue = sc.nextInt();
-
-    Pixel[][] pixelGrid = new Pixel[this.height][this.width];
-    for (int i = 0; i < this.height; i++) {
-      for (int j = 0; j < this.width; j++) {
-        int r = sc.nextInt();
-        int g = sc.nextInt();
-        int b = sc.nextInt();
-
-        pixelGrid[i][j] = new Pixel(r, g, b, this.maxValue);
-      }
-    }
-
+  public ProcessableImageImpl(Pixel[][] pixelGrid, int width, int height, int maxValue) {
     this.pixelGrid = pixelGrid;
-  }
-
-  private void loadCommonImage(String path) {
-    BufferedImage bufferedImage;
-    try {
-      bufferedImage = ImageIO.read(new File(path));
-    }
-    catch (IOException e){
-      throw new IllegalArgumentException("File " + path + " not found!");
-    }
-
-    this.height = bufferedImage.getHeight();
-    this.width = bufferedImage.getWidth();
-    this.maxValue = 255;
-
-    Pixel[][] pixelGrid = new Pixel[this.height][this.width];
-    for (int i = 0; i < this.height; i++) {
-      for (int j = 0; j < this.width; j++) {
-        Color color = new Color(bufferedImage.getRGB(j, i));
-        pixelGrid[i][j] = new Pixel(
-                color.getRed(),
-                color.getGreen(),
-                color.getBlue(),
-                this.maxValue);
-
-      }
-    }
-    this.pixelGrid = pixelGrid;
+    this.width = width;
+    this.height = height;
+    this.maxValue = maxValue;
   }
 
   /**
@@ -226,7 +117,7 @@ public class PPMImage {
     this.applyFilter(kernel);
   }
 
-  public void applyColorTransformation(double[][] matrix){
+  private void applyColorTransformation(double[][] matrix){
     // the new, filtered pixel array
     Pixel[][] copyGrid = new Pixel[this.height][this.width];
 
@@ -246,7 +137,7 @@ public class PPMImage {
     this.pixelGrid = copyGrid;
   }
 
-  public void greyscale() {
+  public void grayscale() {
     double[][] matrix = new double[][]{
             new double[]{0.2126, 0.7152, 0.0722},
             new double[]{0.2126, 0.7152, 0.0722},
@@ -316,27 +207,7 @@ public class PPMImage {
     return newPixelVal;
   }
 
-  /**
-   * Saves this PPM image to a specified path on the device.
-   *
-   * @param path the device path the PPM image will be saved to
-   */
-  public void saveImage(String path) {
-    String fileType = path.substring(path.length() - 4);
-    if (fileType.equals(".ppm")) {
-      this.saveAsPPM(path);
-    }
-    else if (fileType.equals(".jpg") || fileType.equals(".bpm") || fileType.equals(".png")) {
-      this.saveAsCommonImage(path);
-    }
-    else {
-      throw new IllegalArgumentException("Illegal file type in path!");
-    }
-  }
-
-  private void saveAsPPM(String path) {
-    File newFile = new File(path);
-
+  public String createPPMContents() {
     StringBuilder newFileContents = new StringBuilder();
     newFileContents.append("P3" + " ");
     newFileContents.append(this.width).append(" ");
@@ -351,18 +222,10 @@ public class PPMImage {
       }
     }
 
-    try {
-      FileWriter writer = new FileWriter(newFile);
-      newFile.createNewFile();
-      writer.write(newFileContents.toString());
-      writer.close();
-    } catch (IOException e) {
-      throw new IllegalArgumentException();
-    }
+    return newFileContents.toString();
   }
 
-  private void saveAsCommonImage(String path) {
-    File newFile = new File(path);
+  public BufferedImage createCommonImageContents() {
     BufferedImage bufferedImage = new BufferedImage(
             this.width, this.height, BufferedImage.TYPE_INT_RGB);
     for (int i = 0; i < this.height; i++) {
@@ -372,20 +235,14 @@ public class PPMImage {
         bufferedImage.setRGB(j, i, color.getRGB());
       }
     }
-
-    try {
-      ImageIO.write(bufferedImage, path.split("\\.")[1], newFile);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-
+    return bufferedImage;
   }
 
   /**
-   * Overriden equals method. A PPMImage equals another image if they have the same width, height,
+   * Overriden equals method. A ProcessableImageImpl equals another image if they have the same width, height,
    * max value, and the pixels in each grid are equal.
    *
-   * @param o the object that is being checked if it is equal against this PPMImage
+   * @param o the object that is being checked if it is equal against this ProcessableImageImpl
    * @return true if the object is equal, false if the object is not equal
    */
   @Override
@@ -398,21 +255,21 @@ public class PPMImage {
       return false;
     }
 
-    PPMImage ppmImage = (PPMImage) o;
+    ProcessableImageImpl processableImageImpl = (ProcessableImageImpl) o;
 
-    if (width != ppmImage.width) {
+    if (width != processableImageImpl.width) {
       return false;
     }
 
-    if (height != ppmImage.height) {
+    if (height != processableImageImpl.height) {
       return false;
     }
 
-    if (maxValue != ppmImage.maxValue) {
+    if (maxValue != processableImageImpl.maxValue) {
       return false;
     }
 
-    return Arrays.deepEquals(pixelGrid, ppmImage.pixelGrid);
+    return Arrays.deepEquals(pixelGrid, processableImageImpl.pixelGrid);
   }
 
   @Override
@@ -421,7 +278,7 @@ public class PPMImage {
   }
 
   /**
-   * Gets the height of this PPMImage.
+   * Gets the height of this ProcessableImageImpl.
    *
    * @return the height of this image
    */
@@ -430,7 +287,7 @@ public class PPMImage {
   }
 
   /**
-   * Gets the width of this PPMImage.
+   * Gets the width of this ProcessableImageImpl.
    *
    * @return the width of this image
    */
@@ -439,7 +296,7 @@ public class PPMImage {
   }
 
   /**
-   * Gets a deep copy of this PPMImage's pixel grid.
+   * Gets a deep copy of this ProcessableImageImpl's pixel grid.
    *
    * @return a copy of this image's pixel grid
    */

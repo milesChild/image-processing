@@ -1,4 +1,4 @@
-# image-processing
+# processableImageImpl-processing
 
 *Version 1: June 9, 2022*
  
@@ -9,7 +9,7 @@
 
 ## Project Description
 
-This is a basic image processing program which offers the client various options for loading, manipulating, and saving images. PPM images can be loaded into the program and various image-manipulating operations can be conducted on them through the use of console inputs. Examples of operations include multiple flipping operations, dim/brighten operations, and varoius color-conversion operations. A more detailed list of operations, how to use them via the console, and examples of image-manipulation will follow.
+This is a basic processableImageImpl processing program which offers the client various options for loading, manipulating, and saving images. PPM images can be loaded into the program and various processableImageImpl-manipulating operations can be conducted on them through the use of console inputs. Examples of operations include multiple flipping operations, dim/brighten operations, and varoius color-conversion operations. A more detailed list of operations, how to use them via the console, and examples of processableImageImpl-manipulation will follow.
 
 ***
 
@@ -28,7 +28,7 @@ Our model includes the following:
 
 **ImageProcessingModel Interface:**
 
-Interface for an ImageProcessingModel which contains the operations that can be conducted on images in any model implementation. Implementations will have a HashMap of known images that can be operated on, and the operations which change the appearance of images will call upon a particular PPM image that is stored in the model's knownImages map.
+Interface for an ImageProcessingModel which contains the operations that can be conducted on images in any model implementation. Implementations will have a HashMap of known images that can be operated on, and the operations which change the appearance of images will call upon a particular PPM processableImageImpl that is stored in the model's knownImages map.
 
 **ImageProcessingModelImpl Class:**
 
@@ -40,7 +40,7 @@ This class represents a Pixel, which is referenced throughout the entire rest of
 
 **PPMImage Class:**
 
-Class to represent a PPM (Portable Pix Map) image, which stores all the pixel values in a 2D array of Pixels of a specified height and width. This program (currently) only supports manipulation of PPM-type images. This class stores all the actual image-manipulation operations that can be conducted by the user; each operation will directly manipulate the 2D array of pixels, _pixelGrid_.
+Class to represent a PPM (Portable Pix Map) processableImageImpl, which stores all the pixel values in a 2D array of Pixels of a specified height and width. This program (currently) only supports manipulation of PPM-type images. This class stores all the actual processableImageImpl-manipulation operations that can be conducted by the user; each operation will directly manipulate the 2D array of pixels, _pixelGrid_.
 
 ## View:
 
@@ -55,7 +55,7 @@ Interface that will be implemented by the different view types (currently, we on
 
 **ImageTextViewImpl class:**
 
-Implementation of the image view class which offers a primitive method of displaying user commands and their results as strings on the command line. This class will accept orders from the controller in the form of strings to display to the user.
+Implementation of the processableImageImpl view class which offers a primitive method of displaying user commands and their results as strings on the command line. This class will accept orders from the controller in the form of strings to display to the user.
 
 
 ## Controller:
@@ -69,7 +69,7 @@ Our controller includes the following:
 **ImageProcessingController interface:**
 
 Interface that will be implemented by all of the controller implementations (currently, only one supported) and will hold all of the methods that must be 
-common amongst all implementations. Includes a runProgram() method that enables the client to pass in commands that will be transmitted to the model for image-manipulation, loading, and saving. User can _quit_ the program at any time by entering "q".
+common amongst all implementations. Includes a runProgram() method that enables the client to pass in commands that will be transmitted to the model for processableImageImpl-manipulation, loading, and saving. User can _quit_ the program at any time by entering "q".
 
 **ImageProcessingControllerImpl class:**
 
@@ -77,7 +77,7 @@ Primary implementation of the controller interface. This controller class is con
 
 **commands package:**
 
-This package includes various command objects that represent different manipulative-operations that can be conducted by the user. For example, the _Brighten_ class represents a brightening command that will increase the brightness of any image by the specified brightness-quotient and save it to a new file.
+This package includes various command objects that represent different manipulative-operations that can be conducted by the user. For example, the _Brighten_ class represents a brightening command that will increase the brightness of any processableImageImpl by the specified brightness-quotient and save it to a new file.
 
 The commands package has an ImageProcessingCommand interface that holds the execute(ImageProcessingModel model) method. This is the method that each of the class-implementations of this interface use to interact with the model. Each implementation represents a different type of command that the user can use when interacting with the program. 
 
@@ -85,21 +85,21 @@ This package also includes an AbstractCommand class which has abstracted out the
 
 **Commands:**
 
-Load, save, or manipulate an image, either adding or pulling it from the model's _imageLibrary_.
+Load, save, or manipulate an processableImageImpl, either adding or pulling it from the model's _imageLibrary_.
 
-> **Brighten:** allows user to brighten an image by a certain value and save it to a new name.
+> **Brighten:** allows user to brighten an processableImageImpl by a certain value and save it to a new name.
 > 
-> **Dim:** allows user to dim an image by a certain value and save it to a new name.
+> **Dim:** allows user to dim an processableImageImpl by a certain value and save it to a new name.
 > 
-> **Grayscale:** allows the user to convert an image to the specified grayscale type and save it to a new name.
+> **Grayscale:** allows the user to convert an processableImageImpl to the specified grayscale type and save it to a new name.
 > 
-> **HorizontalFlip:** allows the user to horizontally-flip an image and save it under a new name.
+> **HorizontalFlip:** allows the user to horizontally-flip an processableImageImpl and save it under a new name.
 > 
-> **VerticalFlip:** allows the user to vertically-flip an image and save it under a new name.
+> **VerticalFlip:** allows the user to vertically-flip an processableImageImpl and save it under a new name.
 > 
-> **Load:** allows the user to load in a new image from the specified image-path and add it to the current _imageLibrary_.
+> **Load:** allows the user to load in a new processableImageImpl from the specified processableImageImpl-path and add it to the current _imageLibrary_.
 > 
-> **Save:** allows the user to save an image that exists in the _imageLibrary_ to the specified image-path.
+> **Save:** allows the user to save an processableImageImpl that exists in the _imageLibrary_ to the specified processableImageImpl-path.
 > 
 
 ***
@@ -116,38 +116,38 @@ The syntax the user should use when using the console to interact with the progr
 
 > **Common references:**
 > 
-> - *image-path:* the path of the image on the user's device. For example, ImageProcessing/src/Henock.ppm
+> - *processableImageImpl-path:* the path of the processableImageImpl on the user's device. For example, ImageProcessing/src/Henock.ppm
 > 
-> - *image-name:* the name that will henceforth be how the user should refer to the image. For example, HenockImage
+> - *processableImageImpl-name:* the name that will henceforth be how the user should refer to the processableImageImpl. For example, HenockImage
 > 
 
-**Loading an image:**
+**Loading an processableImageImpl:**
 
-`load image-path image-name`
+`load processableImageImpl-path processableImageImpl-name`
 
-**Saving an image:**
+**Saving an processableImageImpl:**
 
-`save image-path image-name`
+`save processableImageImpl-path processableImageImpl-name`
 
-**Horizontally flipping an image:**
+**Horizontally flipping an processableImageImpl:**
 
-`horizontal-flip image-name new-image-name`
+`horizontal-flip processableImageImpl-name new-processableImageImpl-name`
 
-**Vertically flipping an image:**
+**Vertically flipping an processableImageImpl:**
 
-`vertical-flip image-name new-image-name`
+`vertical-flip processableImageImpl-name new-processableImageImpl-name`
 
-**Brighten an image:**
+**Brighten an processableImageImpl:**
 
-`brighten value image-name new-image-name`
+`brighten value processableImageImpl-name new-processableImageImpl-name`
 
-**Dim an image:**
+**Dim an processableImageImpl:**
 
-`dim value image-name new-image-name`
+`dim value processableImageImpl-name new-processableImageImpl-name`
 
-**Grayscale an image:**
+**Grayscale an processableImageImpl:**
 
-`grayscale grayscaleChoice image-name new-image-name`
+`grayscale grayscaleChoice processableImageImpl-name new-processableImageImpl-name`
 
 **Example Interaction**
 
@@ -157,7 +157,7 @@ The syntax the user should use when using the console to interact with the progr
 
 `save ImageProcessing/HenockBright.ppm henock-bright`
 
-*The above code will load the image Henock.ppm from the ImageProcessing project folder, brighten it by 10, and save it in the ImageProcessing project folder under the name HenockBright.ppm*
+*The above code will load the processableImageImpl Henock.ppm from the ImageProcessing project folder, brighten it by 10, and save it in the ImageProcessing project folder under the name HenockBright.ppm*
 
 ***
 
@@ -165,4 +165,4 @@ The syntax the user should use when using the console to interact with the progr
 - Miles: child.m@northeastern.edu
 - Aashir: khan.aas@northeastern.edu
 
-Note: The image provided in the code for grading purposes is our own image. We give ourselves permission to use our own image.
+Note: The processableImageImpl provided in the code for grading purposes is our own processableImageImpl. We give ourselves permission to use our own processableImageImpl.

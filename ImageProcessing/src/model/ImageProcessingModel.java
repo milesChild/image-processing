@@ -28,11 +28,14 @@ public interface ImageProcessingModel {
     BlueGrayscale,
     ValueGrayscale,
     IntensityGrayscale,
-    LumaGrayscale
+    LumaGrayscale,
+    TransformationGrayscale
   }
 
+  void addImage(String name, ProcessableImageImpl processableImageImpl);
+
   /**
-   * Method that calls on the PPMImage to flip an image vertically, saving it as a new image by
+   * Method that calls on the ProcessableImageImpl to flip an image vertically, saving it as a new image by
    * the provided name. Grabs the image to flip by getting the image in imageLibrary under the given
    * name, specified by the user.
    *
@@ -43,7 +46,7 @@ public interface ImageProcessingModel {
   void flipVertically(String from, String to) throws IllegalArgumentException;
 
   /**
-   * Method that calls on the PPMImage to flip an image horizontally, saving it as a new image by
+   * Method that calls on the ProcessableImageImpl to flip an image horizontally, saving it as a new image by
    * the provided name. Grabs the image to flip by getting the image in imageLibrary under the given
    * name, specified by the user.
    *
@@ -54,7 +57,7 @@ public interface ImageProcessingModel {
   void flipHorizontally(String from, String to) throws IllegalArgumentException;
 
   /**
-   * Method that calls on the PPMImage to dim an image by a certain value, saving it as a new
+   * Method that calls on the ProcessableImageImpl to dim an image by a certain value, saving it as a new
    * image by the provided name. Grabs the image to dim by getting the image in imageLibrary
    * under the given name, specified by the user.
    *
@@ -66,7 +69,7 @@ public interface ImageProcessingModel {
   void dim(int value, String from, String to) throws IllegalArgumentException;
 
   /**
-   * Method that calls on the PPMImage to brighten an image by a certain value, saving it as a new
+   * Method that calls on the ProcessableImageImpl to brighten an image by a certain value, saving it as a new
    * image by the provided name. Grabs the image to brighten by getting the image in imageLibrary
    * under the given name, specified by the user.
    *
@@ -78,28 +81,7 @@ public interface ImageProcessingModel {
   void brighten(int value, String from, String to) throws IllegalArgumentException;
 
   /**
-   * Method that saves an image from the imageLibrary by the provided name to the client's device.
-   * The file type that the image will be saved as will be determined by the user input for the
-   * image-path.
-   *
-   * @param path the path on the client's device to save the image to
-   * @param name the name of the image to save
-   * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
-   */
-  void save(String path, String name) throws IllegalArgumentException;
-
-  /**
-   * Method that pulls an image from the client's device, delegates to the PPMImage class to
-   * immediately convert the image to a PPM, and adds it to the imageLibrary.
-   *
-   * @param path the path on the client's device to pull the image from
-   * @param name the name to save the image as
-   * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
-   */
-  void load(String path, String name) throws IllegalArgumentException;
-
-  /**
-   * Method that calls on the PPMImage to convert an image to a grayscale type, saving it as a new
+   * Method that calls on the ProcessableImageImpl to convert an image to a grayscale type, saving it as a new
    * image by the provided name. Grabs the image to convert by getting the image in imageLibrary
    * under the given name, specified by the user.
    *
@@ -115,15 +97,15 @@ public interface ImageProcessingModel {
    * Returns a copy of the desired PPM image in the imageLibrary.
    *
    * @param name the name of the image to copy
-   * @return a copy of the PPMImage
+   * @return a copy of the ProcessableImageImpl
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
-  PPMImage getImage(String name) throws IllegalArgumentException;
+  ProcessableImageImpl getImage(String name) throws IllegalArgumentException;
 
   // Assignment 5 methods
 
   /**
-   * Method that calls on the PPMImage to apply a blurring filter to an image, saving it as a new
+   * Method that calls on the ProcessableImageImpl to apply a blurring filter to an image, saving it as a new
    * image by the provided name. Grabs the image to blur by getting the image in imageLibrary under
    * the given name, specified by the user.
    *
@@ -134,7 +116,7 @@ public interface ImageProcessingModel {
   void blur(String from, String to) throws IllegalArgumentException;
 
   /**
-   * Method that calls on the PPMImage to apply a sharpening filter to an image, saving it as a new
+   * Method that calls on the ProcessableImageImpl to apply a sharpening filter to an image, saving it as a new
    * image by the provided name. Grabs the image to sharpen by getting the image in imageLibrary
    * under the given name, specified by the user.
    *
@@ -145,7 +127,7 @@ public interface ImageProcessingModel {
   void sharpen(String from, String to) throws IllegalArgumentException;
 
   /**
-   * Method that calls on the PPMImage to apply a sepia filter to an image, saving it as a new
+   * Method that calls on the ProcessableImageImpl to apply a sepia filter to an image, saving it as a new
    * image by the provided name. Grabs the image to add the sepia filter to by getting the image in
    * imageLibrary under the given name, specified by the user.
    *
@@ -156,13 +138,13 @@ public interface ImageProcessingModel {
   void sepia(String from, String to) throws IllegalArgumentException;
 
   /**
-   * Method that calls on the PPMImage to apply a greyscale filter to an image, saving it as a new
-   * image by the provided name. Grabs the image to greyscale by getting the image in imageLibrary
-   * under the given name, specified by the user.
+   * Method that calls on the ProcessableImageImpl to apply a luma grayscale filter to an image,
+   * saving it as a new image by the provided name. Grabs the image to grayscale by getting the
+   * image in imageLibrary under the given name, specified by the user.
    *
    * @param from the name of the origin image
    * @param to   the new name for the greyscaled image
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
-  void greyscale(String from, String to) throws IllegalArgumentException;
+  void grayscale(String from, String to) throws IllegalArgumentException;
 }

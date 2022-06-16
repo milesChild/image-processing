@@ -1,24 +1,31 @@
 package controller;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
+import javax.imageio.ImageIO;
+
 import controller.commands.Blur;
 import controller.commands.Brighten;
 import controller.commands.Dim;
 import controller.commands.Grayscale;
-import controller.commands.Greyscale;
 import controller.commands.HorizontalFlip;
 import controller.commands.ImageProcessingCommand;
-import controller.commands.Load;
-import controller.commands.Save;
 import controller.commands.Sepia;
 import controller.commands.Sharpen;
 import controller.commands.VerticalFlip;
+import model.ProcessableImageImpl;
 import model.ImageProcessingModel;
+import model.Pixel;
 import view.ImageProcessingView;
 
 /**
@@ -64,13 +71,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     this.knownCommands.put("brighten", s ->
             new Brighten(Integer.parseInt(s[1]), s[2], s[3]));
     this.knownCommands.put("dim", s -> new Dim(Integer.parseInt(s[1]), s[2], s[3]));
-    this.knownCommands.put("load", s -> new Load(s[1], s[2]));
-    this.knownCommands.put("save", s -> new Save(s[1], s[2]));
     this.knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s[1]),
             s[2], s[3]));
     this.knownCommands.put("blur", s -> new Blur(s[1], s[2]));
     this.knownCommands.put("sharpen", s -> new Sharpen(s[1], s[2]));
-    this.knownCommands.put("greyscale", s -> new Greyscale(s[1], s[2]));
+    this.knownCommands.put("grayscaleFilter", s -> new Grayscale(s[1], s[2]));
     this.knownCommands.put("sepia", s -> new Sepia(s[1], s[2]));
   }
 
@@ -81,6 +86,8 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   public void runProgram() {
     Scanner s = new Scanner(in);
     boolean quit = false;
+    String userCommand;
+    Function<String[], ImageProcessingCommand> cmd;
 
     while (s.hasNextLine()) {
       ImageProcessingCommand c;
@@ -98,17 +105,32 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
         break;
       }
 
-      Function<String[], ImageProcessingCommand> cmd =
-              knownCommands.getOrDefault(in[0], null);
-      if (cmd == null) {
-        this.sendErrorMessage();
-      } else {
-        try {
-          c = cmd.apply(in);
-          c.execute(this.model);
-        } catch (Exception e) {
-          this.sendErrorMessage();
+      try {
+        userCommand = in[0];
+
+        if (userCommand.equals("load")) {
+          this.loadImage(in[1], in[2]);
+        } else if (userCommand.equals("save")) {
+          this.saveImage(in[1], in[2]);
         }
+        else {
+          cmd = knownCommands.getOrDefault(in[0], null);
+          if (cmd == null) {
+            this.sendErrorMessage();
+          }
+          else {
+            try {
+              c = cmd.apply(in);
+              c.execute(this.model);
+            }
+            catch (Exception e) {
+              this.sendErrorMessage();
+            }
+          }
+        }
+      }
+      catch (IndexOutOfBoundsException e){
+        this.sendErrorMessage();
       }
     }
   }
@@ -135,8 +157,6 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
    */
   private ImageProcessingModel.GrayscaleTypes stringToGrayscaleEnum(String userInput) {
     switch (userInput) {
-      case "value":
-        return ImageProcessingModel.GrayscaleTypes.ValueGrayscale;
       case "intensity":
         return ImageProcessingModel.GrayscaleTypes.IntensityGrayscale;
       case "luma":
@@ -162,4 +182,149 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
       throw new IllegalStateException();
     }
   }
+
+  /**
+   * Loads an image into the application given the path of the file as well as a name to refer
+   * the file to as. Given the file type, calls the relevant helper methods to load the image.
+   * @param path path of the file
+   * @param name name of what the image is to be called
+   */
+  private void loadImage(String path, String name) {
+    if (path.endsWith(".ppm")) {
+      this.loadPPM(path, name);
+    }
+    else if (path.endsWith(".jpg") || path.endsWith(".png")
+            || path.endsWith(".bmp") || path.endsWith(".jpeg")){
+      this.loadCommonImage(path, name);
+    }
+    else {
+      throw new IllegalArgumentException("Path does not end in a valid file type!");
+    }
+
+  }
+
+  /**
+   * Loads a PPM image into the application given the path of the file and the name that will refer
+   * to the file. Reads in the PPM image, creates a new
+   * @param path
+   * @param name
+   */
+  private void loadPPM(String path, String name) {
+    Scanner sc;
+
+    try {
+      sc = new Scanner(new FileInputStream(path));
+    } catch (FileNotFoundException e) {
+      throw new IllegalArgumentException("File " + path + " not found!");
+    }
+    StringBuilder builder = new StringBuilder();
+    // read the file line by line, and populate a string. This will throw away any comment lines
+    while (sc.hasNextLine()) {
+      String s = sc.nextLine();
+      if (s.charAt(0) != '#') {
+        builder.append(s).append(System.lineSeparator());
+      }
+    }
+
+    //now set up the scanner to read from the string we just built
+    sc = new Scanner(builder.toString());
+
+    String token;
+
+    token = sc.next();
+    if (!token.equals("P3")) {
+      System.out.println("Invalid PPM file: plain RAW file should begin with P3.");
+    }
+
+    int width = sc.nextInt();
+    int height = sc.nextInt();
+    int maxValue = sc.nextInt();
+
+    Pixel[][] pixelGrid = new Pixel[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        int r = sc.nextInt();
+        int g = sc.nextInt();
+        int b = sc.nextInt();
+
+        pixelGrid[i][j] = new Pixel(r, g, b, maxValue);
+      }
+    }
+    ProcessableImageImpl loadedProcessableImageImpl = new ProcessableImageImpl(pixelGrid, width, height, maxValue);
+    this.model.addImage(name, loadedProcessableImageImpl);
+  }
+
+  private void loadCommonImage(String path, String name) {
+    BufferedImage bufferedImage;
+    try {
+      bufferedImage = ImageIO.read(new File(path));
+    }
+    catch (IOException e){
+      throw new IllegalArgumentException("File " + path + " not found!");
+    }
+
+    int height = bufferedImage.getHeight();
+    int width = bufferedImage.getWidth();
+    int maxValue = 255;
+
+    Pixel[][] pixelGrid = new Pixel[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        Color color = new Color(bufferedImage.getRGB(j, i));
+        pixelGrid[i][j] = new Pixel(
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue(),
+                maxValue);
+
+      }
+    }
+    ProcessableImageImpl loadedProcessableImageImpl = new ProcessableImageImpl(pixelGrid, width, height, maxValue);
+    this.model.addImage(name, loadedProcessableImageImpl);
+
+  }
+
+  /**
+   * Saves this PPM image to a specified path on the device.
+   *
+   * @param path the device path the PPM image will be saved to
+   */
+  private void saveImage(String path, String imageName) throws IllegalArgumentException{
+    if (path.endsWith(".ppm")) {
+      this.saveAsPPM(path, imageName);
+    }
+    else if (path.endsWith(".jpg") || path.endsWith(".bmp") || path.endsWith(".png")) {
+      this.saveAsCommonImage(path, imageName);
+    }
+    else {
+      throw new IllegalArgumentException("Illegal file type in path!");
+    }
+  }
+
+  private void saveAsPPM(String path, String imageName) {
+    File newFile = new File(path);
+    String ppmContents = model.getImage(imageName).createPPMContents();
+
+    try {
+      FileWriter writer = new FileWriter(newFile);
+      newFile.createNewFile();
+      writer.write(ppmContents);
+      writer.close();
+    } catch (IOException e) {
+      throw new IllegalArgumentException();
+    }
+  }
+
+  private void saveAsCommonImage(String path, String imageName) {
+    BufferedImage bufferedImage = model.getImage(imageName).createCommonImageContents();
+    File newFile = new File(path);
+
+    try {
+      ImageIO.write(bufferedImage, path.split("\\.")[1], newFile);
+    } catch (IOException e) {
+      throw new IllegalArgumentException();
+    }
+
+  }
+
 }

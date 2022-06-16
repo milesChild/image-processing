@@ -138,44 +138,16 @@ public class Pixel {
 
   /**
    * Sets the components of this pixel according to the given red, green, and blue values.
+   * Sets component to 0 by default if a given value is less than 0. Sets component to this pixel's
+   * max value by default if the given value is greater than the max value.
    * @param redVal the value that will be set to the red component
    * @param greenVal the value that will be set to the green component
    * @param blueVal the value that will be set to the blue component
-   * @throws IllegalArgumentException if any of the values are less than 0 or greater than 255
    */
-//  public void setComponents(int redVal, int greenVal, int blueVal) throws IllegalArgumentException {
-//    if (redVal < 0 || redVal > this.maxValue) {
-//      throw new IllegalArgumentException("The red component must be an integer greater than 0 " +
-//              "or less than the max value.");
-//    }
-//    if (greenVal < 0 || greenVal > this.maxValue) {
-//      throw new IllegalArgumentException("The green component must be an integer greater than 0 " +
-//              "or less than the max value.");
-//    }
-//    if (blueVal < 0 || blueVal > this.maxValue) {
-//      throw new IllegalArgumentException("The blue component must be an integer greater than 0 " +
-//              "or less than the max value.");
-//    }
-//    this.red = redVal;
-//    this.green = greenVal;
-//    this.blue = blueVal;
-//  }
-  public void setComponents(int redVal, int greenVal, int blueVal) throws IllegalArgumentException {
-//    if (redVal > this.maxValue) {
-//      throw new IllegalArgumentException("The red component must be an integer " +
-//              "less than the max value.");
-//    }
-//    if (greenVal > this.maxValue) {
-//      throw new IllegalArgumentException("The green component must be an integer greater than 0 " +
-//              "or less than the max value.");
-//    }
-//    if (blueVal > this.maxValue) {
-//      throw new IllegalArgumentException("The blue component must be an integer greater than 0 " +
-//              "or less than the max value.");
-//    }
-    this.red = Math.min(Math.max(redVal, 0), 255);
-    this.green = Math.min(Math.max(greenVal, 0), 255);
-    this.blue = Math.min(Math.max(blueVal, 0), 255);
+  public void setComponents(int redVal, int greenVal, int blueVal) {
+    this.red = Math.min(Math.max(redVal, 0), this.maxValue);
+    this.green = Math.min(Math.max(greenVal, 0), this.maxValue);
+    this.blue = Math.min(Math.max(blueVal, 0), this.maxValue);
   }
 
   @Override

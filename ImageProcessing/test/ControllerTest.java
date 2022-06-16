@@ -1,12 +1,13 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.StringReader;
 
 import controller.ImageProcessingControllerImpl;
 import controller.ImageProcessingController;
+import model.ProcessableImageImpl;
 import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
-import model.PPMImage;
 import view.ImageProcessingView;
 import view.ImageTextViewImpl;
 
@@ -16,26 +17,59 @@ import static org.junit.Assert.assertEquals;
  * Tests for the ImageProcessingController class & its methods.
  */
 public class ControllerTest {
-  PPMImage donkeyRedGrayscale =
-          new PPMImage("res/predefinedImages/donkey-red-greyscale.ppm");
-  PPMImage donkeyGreenGrayscale =
-          new PPMImage("res/predefinedImages/donkey-green-greyscale.ppm");
-  PPMImage donkeyBlueGrayscale =
-          new PPMImage("res/predefinedImages/donkey-blue-greyscale.ppm");
-  PPMImage donkeyValueGrayscale =
-          new PPMImage("res/predefinedImages/donkey-value-greyscale.ppm");
-  PPMImage donkeyIntensityGrayscale =
-          new PPMImage("res/predefinedImages/donkey-intensity-greyscale.ppm");
-  PPMImage donkeyLumaGrayscale =
-          new PPMImage("res/predefinedImages/donkey-luma-greyscale.ppm");
-  PPMImage donkeyHorizontal =
-          new PPMImage("res/predefinedImages/donkey-horizontal.ppm");
-  PPMImage donkeyVertical =
-          new PPMImage("res/predefinedImages/donkey-vertical.ppm");
-  PPMImage donkeyBrighterBy50 =
-          new PPMImage("res/predefinedImages/donkey-brighten-by-50.ppm");
-  PPMImage donkeyDimBy50 =
-          new PPMImage("res/predefinedImages/donkey-dim-by-50.ppm");
+  ProcessableImageImpl donkeyRedGrayscale;
+  ProcessableImageImpl donkeyGreenGrayscale;
+  ProcessableImageImpl donkeyBlueGrayscale;
+  ProcessableImageImpl donkeyValueGrayscale;
+  ProcessableImageImpl donkeyIntensityGrayscale;
+  ProcessableImageImpl donkeyLumaGrayscale;
+  ProcessableImageImpl donkeyHorizontal;
+  ProcessableImageImpl donkeyVertical;
+  ProcessableImageImpl donkeyBrighterBy50;
+  ProcessableImageImpl donkeyDimBy50;
+  ProcessableImageImpl donkeySepiaFilter;
+  ProcessableImageImpl donkeyGrayscaleFilter;
+  ProcessableImageImpl donkeyBlurFilter;
+  ProcessableImageImpl donkeySharpenFilter;
+
+  @Before
+  public void init() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader(
+            "load res/predefinedImages/donkey-red-greyscale.ppm donkeyRedGrayscale\n" +
+            "load res/predefinedImages/donkey-green-greyscale.ppm donkeyGreenGrayscale\n" +
+            "load res/predefinedImages/donkey-blue-greyscale.ppm donkeyBlueGrayscale\n" +
+            "load res/predefinedImages/donkey-value-greyscale.ppm donkeyValueGrayscale\n" +
+            "load res/predefinedImages/donkey-intensity-greyscale.ppm donkeyIntensityGrayscale\n" +
+            "load res/predefinedImages/donkey-luma-greyscale.ppm donkeyLumaGrayscale\n" +
+            "load res/predefinedImages/donkey-horizontal.ppm donkeyHorizontal\n" +
+            "load res/predefinedImages/donkey-vertical.ppm donkeyVertical\n" +
+            "load res/predefinedImages/donkey-brighten-by-50.ppm donkeyBrighten\n" +
+            "load res/predefinedImages/donkey-dim-by-50.ppm donkeyDim\n" +
+            "load res/predefinedImages/donkeyBlur.ppm donkeyBlur\n" +
+            "load res/predefinedImages/donkeySharpen.ppm donkeySharpen\n" +
+            "load res/predefinedImages/donkeyGrayscaleFilter.ppm donkeyGrayscaleFilter\n" +
+            "load res/predefinedImages/donkeySepia.ppm donkeySepia\n");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+    donkeyRedGrayscale = model.getImage("donkeyRedGrayscale");
+    donkeyGreenGrayscale = model.getImage("donkeyGreenGrayscale");
+    donkeyBlueGrayscale = model.getImage("donkeyBlueGrayscale");
+    donkeyValueGrayscale = model.getImage("donkeyValueGrayscale");
+    donkeyIntensityGrayscale = model.getImage("donkeyIntensityGrayscale");
+    donkeyLumaGrayscale = model.getImage("donkeyLumaGrayscale");
+    donkeyVertical = model.getImage("donkeyVertical");
+    donkeyHorizontal = model.getImage("donkeyHorizontal");
+    donkeyBrighterBy50 = model.getImage("donkeyBrighten");
+    donkeyDimBy50 = model.getImage("donkeyDim");
+    donkeyGrayscaleFilter = model.getImage("donkeyGrayscaleFilter");
+    donkeySepiaFilter = model.getImage("donkeySepia");
+    donkeyBlurFilter = model.getImage("donkeyBlur");
+    donkeySharpenFilter = model.getImage("donkeySharpen");
+
+  }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidConstructionNullModel() {
@@ -70,8 +104,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "horizontal-flip donkey donkeyHorizontal\n" +
-            "save res/donkeyHorizontal.ppm donkeyHorizontal\n" +
-            "load res/donkeyHorizontal.ppm copyHorizontal\n q");
+            "save res/testImages/donkeyHorizontal.ppm donkeyHorizontal\n" +
+            "load res/testImages/donkeyHorizontal.ppm copyHorizontal\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -87,8 +121,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "vertical-flip donkey donkeyVertical\n" +
-            "save res/donkeyVertical.ppm donkeyVertical\n" +
-            "load res/donkeyVertical.ppm copyVertical\n q");
+            "save res/testImages/donkeyVertical.ppm donkeyVertical\n" +
+            "load res/testImages/donkeyVertical.ppm copyVertical\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -105,8 +139,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "brighten 50 donkey donkeyBrighten\n" +
-            "save res/donkeyBrighten.ppm donkeyBrighten\n" +
-            "load res/donkeyBrighten.ppm copyBrighten\n q");
+            "save res/testImages/donkeyBrighten.ppm donkeyBrighten\n" +
+            "load res/testImages/donkeyBrighten.ppm copyBrighten\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -123,8 +157,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "dim 50 donkey donkeyDim\n" +
-            "save res/donkeyDim.ppm donkeyDim\n" +
-            "load res/donkeyDim.ppm copyDim\n q");
+            "save res/testImages/donkeyDim.ppm donkeyDim\n" +
+            "load res/testImages/donkeyDim.ppm copyDim\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -141,8 +175,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale red donkey donkeyGrayscaleRed\n" +
-            "save res/donkeyGrayscaleRed.ppm donkeyGrayscaleRed\n" +
-            "load res/donkeyGrayscaleRed.ppm copyGrayscale\n q");
+            "save res/testImages/donkeyRedGrayscale.ppm donkeyGrayscaleRed\n" +
+            "load res/testImages/donkeyRedGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -159,8 +193,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale green donkey donkeyGrayscaleGreen\n" +
-            "save res/donkeyGrayscaleGreen.ppm donkeyGrayscaleGreen\n" +
-            "load res/donkeyGrayscaleGreen.ppm copyGrayscale\n q");
+            "save res/testImages/donkeyGreenGrayscale.ppm donkeyGrayscaleGreen\n" +
+            "load res/testImages/donkeyGreenGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -177,8 +211,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale blue donkey donkeyGrayscaleBlue\n" +
-            "save res/donkeyGrayscaleBlue.ppm donkeyGrayscaleBlue\n" +
-            "load res/donkeyGrayscaleBlue.ppm copyGrayscale\n q");
+            "save res/testImages/donkeyBlueGrayscale.ppm donkeyGrayscaleBlue\n" +
+            "load res/testImages/donkeyBlueGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -195,8 +229,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale intensity donkey donkeyGrayscaleIntensity\n" +
-            "save res/donkeyGrayscaleIntensity.ppm donkeyGrayscaleIntensity\n" +
-            "load res/donkeyGrayscaleIntensity.ppm copyGrayscale\n q");
+            "save res/testImages/donkeyIntensityGrayscale.ppm donkeyGrayscaleIntensity\n" +
+            "load res/testImages/donkeyIntensityGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -213,8 +247,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale value donkey donkeyGrayscaleValue\n" +
-            "save res/donkeyGrayscaleValue.ppm donkeyGrayscaleValue\n" +
-            "load res/donkeyGrayscaleValue.ppm copyGrayscale\n q");
+            "save res/testImages/donkeyValueGrayscale.ppm donkeyGrayscaleValue\n" +
+            "load res/testImages/donkeyValueGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -231,8 +265,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale luma donkey donkeyGrayscaleLuma\n" +
-            "save res/donkeyGrayscaleLuma.ppm donkeyGrayscaleLuma\n" +
-            "load res/donkeyGrayscaleLuma.ppm copyGrayscale\n q");
+            "save res/testImages/donkeyLumaGrayscale.ppm donkeyGrayscaleLuma\n" +
+            "load res/testImages/donkeyLumaGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -243,6 +277,79 @@ public class ControllerTest {
             model.getImage("copyGrayscale"));
     assertEquals(appendable.toString(), "Program Ended.");
   }
+
+  @Test
+  public void testGrayscaleFilterRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
+            "grayscaleFilter donkey donkeyGrayscaleFilter\n" +
+            "save res/testImages/donkeyFilterGrayscale.ppm donkeyGrayscaleFilter\n" +
+            "load res/testImages/donkeyFilterGrayscale.ppm copyGrayscale\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyGrayscaleFilter, model.getImage("donkeyGrayscaleFilter"));
+    assertEquals(model.getImage("donkeyGrayscaleFilter"),
+            model.getImage("copyGrayscale"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testSepiaFilterRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
+            "sepia donkey donkeySepiaFilter\n" +
+            "save res/testImages/donkeyFilterSepia.ppm donkeySepiaFilter\n" +
+            "load res/testImages/donkeyFilterSepia.ppm copySepia\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeySepiaFilter, model.getImage("donkeySepiaFilter"));
+    assertEquals(model.getImage("donkeySepiaFilter"),
+            model.getImage("copySepia"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testSharpenFilterRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
+            "sharpen donkey donkeySharpenFilter\n" +
+            "save res/testImages/donkeyFilterSharpen.ppm donkeySharpenFilter\n" +
+            "load res/testImages/donkeyFilterSharpen.ppm copySharpen\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeySharpenFilter, model.getImage("donkeySharpenFilter"));
+    assertEquals(model.getImage("donkeySharpenFilter"),
+            model.getImage("copySharpen"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testBlurFilterRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.ppm copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
 
   @Test
   public void testInvalidInput1() {

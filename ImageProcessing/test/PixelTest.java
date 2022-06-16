@@ -26,11 +26,6 @@ public class PixelTest {
     this.white = new Pixel(255, 255, 255, 255);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testInvalidInitNegativePixel() {
-    Pixel test = new Pixel(-2, 100, 100, 255);
-  }
-
   @Test
   public void testToStringRed() {
     this.init();
@@ -82,17 +77,20 @@ public class PixelTest {
     assertEquals("20 30 50 ", this.blue.toString());
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testInvalidOverMaxSecondsSetComponents() {
+  @Test
+  public void testSetComponentsNegative() {
     this.init();
-    this.green.setComponents(1000, 1000, 1000);
+    this.blue.setComponents(-1, 0, -90);
+    assertEquals("0 0 0 ", this.blue.toString());
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void testInvalidNegativeSetComponents() {
+  @Test
+  public void testSetComponentsMax() {
     this.init();
-    this.green.setComponents(-10, 255, 255);
+    this.blue.setComponents(255, 256, 100000);
+    assertEquals("255 255 255 ", this.blue.toString());
   }
+
 
   @Test
   public void testBrightenRed() {
