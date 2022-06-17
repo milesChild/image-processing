@@ -85,11 +85,7 @@ The syntax the user should use when using the console to interact with the progr
 
 `dim value processableImageImpl-name new-processableImageImpl-name`
 
-**Grayscale an processableImageImpl (simple filter application):**
-
-`grayscaleFilter processableImageImpl-name new-processableImageImpl-name`
-
-**Grayscale an processableImageImpl (specific grayscale type application):**
+**Grayscale an processableImageImpl:**
 
 `grayscale grayscaleChoice processableImageImpl-name new-processableImageImpl-name`
 
@@ -121,7 +117,7 @@ Note: The following grayscaleChoices should be typed as-is as arguments into the
 - value
 - intensity
 - luma
-- transformation
+- transformation (applies a grayscale filter)
 
 **Conditions**
 
