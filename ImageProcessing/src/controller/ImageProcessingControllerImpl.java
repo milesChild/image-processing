@@ -112,24 +112,20 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
           this.loadImage(in[1], in[2]);
         } else if (userCommand.equals("save")) {
           this.saveImage(in[1], in[2]);
-        }
-        else {
+        } else {
           cmd = knownCommands.getOrDefault(in[0], null);
           if (cmd == null) {
             this.sendErrorMessage();
-          }
-          else {
+          } else {
             try {
               c = cmd.apply(in);
               c.execute(this.model);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
               this.sendErrorMessage();
             }
           }
         }
-      }
-      catch (IndexOutOfBoundsException e){
+      } catch (IndexOutOfBoundsException e) {
         this.sendErrorMessage();
       }
     }
@@ -138,6 +134,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   /**
    * Attempts to send a message to the view. Helps the runProgram method when notifying the user of
    * an error.
+   *
    * @throws IllegalStateException if an error occurs when transmitting the message to the view
    */
   private void sendErrorMessage() throws IllegalStateException {
@@ -186,18 +183,17 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   /**
    * Loads an image into the application given the path of the file as well as a name to refer
    * the file to as. Given the file type, calls the relevant helper methods to load the image.
+   *
    * @param path path of the file
    * @param name name of what the image is to be called
    */
   private void loadImage(String path, String name) {
     if (path.endsWith(".ppm")) {
       this.loadPPM(path, name);
-    }
-    else if (path.endsWith(".jpg") || path.endsWith(".png")
-            || path.endsWith(".bmp") || path.endsWith(".jpeg")){
+    } else if (path.endsWith(".jpg") || path.endsWith(".png")
+            || path.endsWith(".bmp") || path.endsWith(".jpeg")) {
       this.loadCommonImage(path, name);
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Path does not end in a valid file type!");
     }
 
@@ -206,6 +202,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
   /**
    * Loads a PPM image into the application given the path of the file and the name that will refer
    * to the file. Reads in the PPM image, creates a new
+   *
    * @param path
    * @param name
    */
@@ -250,7 +247,8 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
         pixelGrid[i][j] = new Pixel(r, g, b, maxValue);
       }
     }
-    ProcessableImageImpl loadedProcessableImageImpl = new ProcessableImageImpl(pixelGrid, width, height, maxValue);
+    ProcessableImageImpl loadedProcessableImageImpl =
+            new ProcessableImageImpl(pixelGrid, width, height, maxValue);
     this.model.addImage(name, loadedProcessableImageImpl);
   }
 
@@ -258,8 +256,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     BufferedImage bufferedImage;
     try {
       bufferedImage = ImageIO.read(new File(path));
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       throw new IllegalArgumentException("File " + path + " not found!");
     }
 
@@ -279,28 +276,34 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
 
       }
     }
-    ProcessableImageImpl loadedProcessableImageImpl = new ProcessableImageImpl(pixelGrid, width, height, maxValue);
+    ProcessableImageImpl loadedProcessableImageImpl =
+            new ProcessableImageImpl(pixelGrid, width, height, maxValue);
     this.model.addImage(name, loadedProcessableImageImpl);
 
   }
 
   /**
-   * Saves this PPM image to a specified path on the device.
+   * Saves this processable image to a specified path on the device as the desired image file type.
+   * Depending on the file type specified by the user, the actual saving work will be delegated to
+   * one of two helpers: {@code saveAsPPM} or {@code saveAsCommonImage}.
    *
-   * @param path the device path the PPM image will be saved to
+   * @param path the device path the processable image will be saved to
    */
-  private void saveImage(String path, String imageName) throws IllegalArgumentException{
+  private void saveImage(String path, String imageName) throws IllegalArgumentException {
     if (path.endsWith(".ppm")) {
       this.saveAsPPM(path, imageName);
-    }
-    else if (path.endsWith(".jpg") || path.endsWith(".bmp") || path.endsWith(".png")) {
+    } else if (path.endsWith(".jpg") || path.endsWith(".bmp") || path.endsWith(".png")) {
       this.saveAsCommonImage(path, imageName);
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Illegal file type in path!");
     }
   }
 
+  /**
+   * Saves this processable image to a specified path on the device as a PPM image file.
+   *
+   * @param path the device path the processable image will be saved to
+   */
   private void saveAsPPM(String path, String imageName) {
     File newFile = new File(path);
     String ppmContents = model.getImage(imageName).createPPMContents();
@@ -315,6 +318,12 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     }
   }
 
+  /**
+   * Saves this processable image to a specified path on the device as an image file of the type
+   * specified by the user in the path.
+   *
+   * @param path the device path the processable image will be saved to
+   */
   private void saveAsCommonImage(String path, String imageName) {
     BufferedImage bufferedImage = model.getImage(imageName).createCommonImageContents();
     File newFile = new File(path);

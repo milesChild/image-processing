@@ -18,7 +18,8 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
    *
    * @param images the images that the model will be allowed to operate with.
    */
-  public ImageProcessingModelImpl(Map<String, ProcessableImageImpl> images) throws IllegalArgumentException {
+  public ImageProcessingModelImpl(Map<String, ProcessableImageImpl> images)
+          throws IllegalArgumentException {
     if (images == null) {
       throw new IllegalArgumentException("Given null parameter.");
     }
@@ -33,49 +34,64 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
     this.imageLibrary = new HashMap<>();
   }
 
-  public void addImage(String name, ProcessableImageImpl processableImageImpl){
+  public void addImage(String name, ProcessableImageImpl processableImageImpl) {
     this.imageLibrary.put(name, processableImageImpl);
   }
+
+  // image manipulation methods
+
   @Override
   public void flipHorizontally(String from, String to) {
-    ProcessableImageImpl fromProcessableImageImpl = this.imageLibrary.getOrDefault(from, null);
+    ProcessableImageImpl fromProcessableImageImpl =
+            this.imageLibrary.getOrDefault(from, null);
     if (fromProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl = new ProcessableImageImpl(fromProcessableImageImpl);
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromProcessableImageImpl);
     newProcessableImageImpl.flip(Orientations.Horizontal);
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 
   @Override
   public void flipVertically(String from, String to) {
-    ProcessableImageImpl fromProcessableImageImpl = this.imageLibrary.getOrDefault(from, null);
+    ProcessableImageImpl fromProcessableImageImpl =
+            this.imageLibrary.getOrDefault(from, null);
     if (fromProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl = new ProcessableImageImpl(fromProcessableImageImpl);
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromProcessableImageImpl);
     newProcessableImageImpl.flip(Orientations.Vertical);
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 
   @Override
   public void brighten(int value, String from, String to) {
-    ProcessableImageImpl fromProcessableImageImpl = this.imageLibrary.getOrDefault(from, null);
+    ProcessableImageImpl fromProcessableImageImpl =
+            this.imageLibrary.getOrDefault(from, null);
     if (fromProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl = new ProcessableImageImpl(fromProcessableImageImpl);
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromProcessableImageImpl);
     newProcessableImageImpl.brighten(value);
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 
   @Override
   public void grayscale(GrayscaleTypes choice, String from, String to) {
-    ProcessableImageImpl fromProcessableImageImpl = this.imageLibrary.getOrDefault(from, null);
+    ProcessableImageImpl fromProcessableImageImpl =
+            this.imageLibrary.getOrDefault(from, null);
     if (fromProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl = new ProcessableImageImpl(fromProcessableImageImpl);
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromProcessableImageImpl);
     newProcessableImageImpl.grayscale(choice);
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
@@ -86,58 +102,70 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   }
 
   @Override
-  public ProcessableImageImpl getImage(String name) throws IllegalArgumentException {
-    ProcessableImageImpl libProcessableImageImpl = this.imageLibrary.getOrDefault(name, null);
-    if (libProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
-    }
-    return new ProcessableImageImpl(this.imageLibrary.get(name));
-  }
-
-  // Assignment 5 methods
-
-  @Override
   public void blur(String from, String to) throws IllegalArgumentException {
-    ProcessableImageImpl fromProcessableImageImpl = this.imageLibrary.getOrDefault(from, null);
+    ProcessableImageImpl fromProcessableImageImpl =
+            this.imageLibrary.getOrDefault(from, null);
     if (fromProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl = new ProcessableImageImpl(fromProcessableImageImpl);
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromProcessableImageImpl);
     newProcessableImageImpl.blur();
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 
   @Override
   public void sharpen(String from, String to) throws IllegalArgumentException {
-    ProcessableImageImpl fromProcessableImageImpl = this.imageLibrary.getOrDefault(from, null);
+    ProcessableImageImpl fromProcessableImageImpl =
+            this.imageLibrary.getOrDefault(from, null);
     if (fromProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl = new ProcessableImageImpl(fromProcessableImageImpl);
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromProcessableImageImpl);
     newProcessableImageImpl.sharpen();
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 
   @Override
   public void sepia(String from, String to) throws IllegalArgumentException {
-    ProcessableImageImpl fromProcessableImageImpl = this.imageLibrary.getOrDefault(from, null);
+    ProcessableImageImpl fromProcessableImageImpl =
+            this.imageLibrary.getOrDefault(from, null);
     if (fromProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl = new ProcessableImageImpl(fromProcessableImageImpl);
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromProcessableImageImpl);
     newProcessableImageImpl.sepia();
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 
   @Override
   public void grayscale(String from, String to) throws IllegalArgumentException {
-    ProcessableImageImpl fromProcessableImageImpl = this.imageLibrary.getOrDefault(from, null);
+    ProcessableImageImpl fromProcessableImageImpl =
+            this.imageLibrary.getOrDefault(from, null);
     if (fromProcessableImageImpl == null) {
-      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library. Try again.");
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl = new ProcessableImageImpl(fromProcessableImageImpl);
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromProcessableImageImpl);
     newProcessableImageImpl.grayscale();
     this.imageLibrary.put(to, newProcessableImageImpl);
+  }
+
+  @Override
+  public ProcessableImageImpl getImage(String name) throws IllegalArgumentException {
+    ProcessableImageImpl libProcessableImageImpl =
+            this.imageLibrary.getOrDefault(name, null);
+    if (libProcessableImageImpl == null) {
+      throw new IllegalArgumentException("ProcessableImageImpl does not exist in library."
+              + " Try again.");
+    }
+    return new ProcessableImageImpl(this.imageLibrary.get(name));
   }
 
 }

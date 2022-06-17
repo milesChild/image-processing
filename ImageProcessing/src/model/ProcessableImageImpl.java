@@ -7,12 +7,12 @@ import java.util.Collections;
 import java.util.Objects;
 
 /**
- * Class to represent an image, which stores all the pixel values in a 2D
- * array of Pixels of a specified height and width.
+ * Class to represent an image, which stores all the pixel values in a 2D array of Pixels of a
+ * specified height and width.
  * This class stores all the actual image-manipulation operations that can be conducted by the user;
  * each operation will directly manipulate the 2D array of pixels, {@code pixelGrid}.
  */
-public class ProcessableImageImpl {
+public class ProcessableImageImpl implements ProcessableImage {
   private Pixel[][] pixelGrid;
   private final int width;
   private final int height;
@@ -44,6 +44,14 @@ public class ProcessableImageImpl {
     this.maxValue = image.maxValue;
   }
 
+  /**
+   * Constructor for a ProcessableImageImpl that accepts all parameters that are necessary for
+   * making a new ProcessableImageImpl individually.
+   * @param pixelGrid the 2D array of pixels that represents the actual image
+   * @param width the width of the rows in the image
+   * @param height the height of the columns in the image
+   * @param maxValue the maximum int value that any color channel in any given pixel can have
+   */
   public ProcessableImageImpl(Pixel[][] pixelGrid, int width, int height, int maxValue) {
     this.pixelGrid = pixelGrid;
     this.width = width;
@@ -51,11 +59,8 @@ public class ProcessableImageImpl {
     this.maxValue = maxValue;
   }
 
-  /**
-   * Brightens all the pixels in this PPM image's pixel grid given a specified value.
-   *
-   * @param brightenValue the value to brighten each pixel by
-   */
+  // image-manipulation methods
+
   public void brighten(int brightenValue) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -64,11 +69,6 @@ public class ProcessableImageImpl {
     }
   }
 
-  /**
-   * Converts all the pixels in this PPM image's pixel grid given a specified grayscale choice.
-   *
-   * @param grayscaleChoice the type of grayscale the image will be converted to
-   */
   public void grayscale(ImageProcessingModel.GrayscaleTypes grayscaleChoice) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -77,12 +77,6 @@ public class ProcessableImageImpl {
     }
   }
 
-  /**
-   * Flips the pixel grid in this PPM image horizontally or vertically,
-   * given the specified flip choice.
-   *
-   * @param orientation the type of flip that will be performed on this PPM image
-   */
   public void flip(ImageProcessingModelImpl.Orientations orientation) {
     switch (orientation) {
       case Vertical:
@@ -117,26 +111,6 @@ public class ProcessableImageImpl {
     this.applyFilter(kernel);
   }
 
-  private void applyColorTransformation(double[][] matrix){
-    // the new, filtered pixel array
-    Pixel[][] copyGrid = new Pixel[this.height][this.width];
-
-    for (int i = 0; i < this.height; i++) {
-      for (int j = 0; j < this.width; j++) {
-        Pixel oldPixel = this.pixelGrid[i][j];
-        int newRed = (int) (matrix[0][0] * oldPixel.getRed() + matrix[0][1] * oldPixel.getGreen()
-                + matrix[0][2] * oldPixel.getBlue());
-        int newGreen = (int) (matrix[1][0] * oldPixel.getRed() + matrix[1][1] * oldPixel.getGreen()
-                + matrix[1][2] * oldPixel.getBlue());
-        int newBlue = (int) (matrix[2][0] * oldPixel.getRed() + matrix[2][1] * oldPixel.getGreen()
-                + matrix[2][2] * oldPixel.getBlue());
-        Pixel newPixel = new Pixel(newRed, newGreen, newBlue, this.maxValue);
-        copyGrid[i][j] = newPixel;
-      }
-    }
-    this.pixelGrid = copyGrid;
-  }
-
   public void grayscale() {
     double[][] matrix = new double[][]{
             new double[]{0.2126, 0.7152, 0.0722},
@@ -155,6 +129,8 @@ public class ProcessableImageImpl {
     };
     this.applyColorTransformation(matrix);
   }
+
+  // helpers for the blur and sharpen methods
 
   private void applyFilter(double[][] kernel) {
     // the new, filtered pixel array
@@ -207,6 +183,34 @@ public class ProcessableImageImpl {
     return newPixelVal;
   }
 
+  // helper for the grayscale and sepia methods
+
+  /**
+   * Helper method that takes a matrix and uses it to transform the colors in each of the color
+   * channels for each pixel in the {@code pixelGrid}.
+   * @param matrix the 2D array of double values that will be used to compute the new color
+   *               values of the new image
+   */
+  private void applyColorTransformation(double[][] matrix){
+    // the new, filtered pixel array
+    Pixel[][] copyGrid = new Pixel[this.height][this.width];
+
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        Pixel oldPixel = this.pixelGrid[i][j];
+        int newRed = (int) (matrix[0][0] * oldPixel.getRed() + matrix[0][1] * oldPixel.getGreen()
+                + matrix[0][2] * oldPixel.getBlue());
+        int newGreen = (int) (matrix[1][0] * oldPixel.getRed() + matrix[1][1] * oldPixel.getGreen()
+                + matrix[1][2] * oldPixel.getBlue());
+        int newBlue = (int) (matrix[2][0] * oldPixel.getRed() + matrix[2][1] * oldPixel.getGreen()
+                + matrix[2][2] * oldPixel.getBlue());
+        Pixel newPixel = new Pixel(newRed, newGreen, newBlue, this.maxValue);
+        copyGrid[i][j] = newPixel;
+      }
+    }
+    this.pixelGrid = copyGrid;
+  }
+
   public String createPPMContents() {
     StringBuilder newFileContents = new StringBuilder();
     newFileContents.append("P3" + " ");
@@ -239,8 +243,8 @@ public class ProcessableImageImpl {
   }
 
   /**
-   * Overriden equals method. A ProcessableImageImpl equals another image if they have the same width, height,
-   * max value, and the pixels in each grid are equal.
+   * Overriden equals method. A ProcessableImageImpl equals another image if they have the same
+   * width, height, max value, and the pixels in each grid are equal.
    *
    * @param o the object that is being checked if it is equal against this ProcessableImageImpl
    * @return true if the object is equal, false if the object is not equal
@@ -277,29 +281,14 @@ public class ProcessableImageImpl {
     return Objects.hash(this.height, this.maxValue, this.width);
   }
 
-  /**
-   * Gets the height of this ProcessableImageImpl.
-   *
-   * @return the height of this image
-   */
   public int getHeight() {
     return this.height;
   }
 
-  /**
-   * Gets the width of this ProcessableImageImpl.
-   *
-   * @return the width of this image
-   */
   public int getWidth() {
     return this.width;
   }
 
-  /**
-   * Gets a deep copy of this ProcessableImageImpl's pixel grid.
-   *
-   * @return a copy of this image's pixel grid
-   */
   public Pixel[][] getPixelGrid() {
     Pixel[][] gridCopy = new Pixel[this.height][this.width];
     for (int i = 0; i < this.height; i++) {
