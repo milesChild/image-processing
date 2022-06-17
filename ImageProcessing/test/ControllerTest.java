@@ -42,7 +42,8 @@ public class ControllerTest {
                     "load res/predefinedImages/donkey-green-greyscale.ppm donkeyGreenGrayscale\n" +
                     "load res/predefinedImages/donkey-blue-greyscale.ppm donkeyBlueGrayscale\n" +
                     "load res/predefinedImages/donkey-value-greyscale.ppm donkeyValueGrayscale\n" +
-                    "load res/predefinedImages/donkey-intensity-greyscale.ppm donkeyIntensityGrayscale\n" +
+                    "load res/predefinedImages/donkey-intensity-greyscale.ppm " +
+                    "donkeyIntensityGrayscale\n" +
                     "load res/predefinedImages/donkey-luma-greyscale.ppm donkeyLumaGrayscale\n" +
                     "load res/predefinedImages/donkey-horizontal.ppm donkeyHorizontal\n" +
                     "load res/predefinedImages/donkey-vertical.ppm donkeyVertical\n" +
@@ -365,10 +366,10 @@ public class ControllerTest {
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
     PixelImpl[][] pixelGrid = new PixelImpl[][]{
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -448,9 +449,9 @@ public class ControllerTest {
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
     PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -530,9 +531,9 @@ public class ControllerTest {
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
     PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -594,9 +595,9 @@ public class ControllerTest {
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
     PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -622,9 +623,9 @@ public class ControllerTest {
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
     PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -650,9 +651,9 @@ public class ControllerTest {
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
     PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -678,9 +679,9 @@ public class ControllerTest {
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
     PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
-            new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
+      new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);

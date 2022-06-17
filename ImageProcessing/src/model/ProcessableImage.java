@@ -71,7 +71,7 @@ public interface ProcessableImage {
    * class and uses it to write a new .ppm file.
    *
    * @return a new .ppm file that uses the 2D array of pixels, height, width, and max value of the
-   * current image class
+   *         current image class
    */
   String createPPMContents();
 
@@ -80,7 +80,7 @@ public interface ProcessableImage {
    * BufferedImages of {@code TYPE_INT_RGB}.
    *
    * @return a new {@code BufferedImage} that is constructed with the pixels, height, and width of
-   * the current image class
+   *         the current image class
    */
   BufferedImage createCommonImageContents();
 
@@ -109,7 +109,7 @@ public interface ProcessableImage {
    * Gets a deep copy of the pixel grid, a 2D array of pixels, in the given image class.
    *
    * @return a deep copy of the 2D array of pixels, pixelGrid, as a new, identical 2D array of
-   * pixels
+   *         pixels
    */
   PixelImpl[][] getPixelGrid();
 

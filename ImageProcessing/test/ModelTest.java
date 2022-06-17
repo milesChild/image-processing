@@ -44,7 +44,8 @@ public class ModelTest {
                     "load res/predefinedImages/donkey-green-greyscale.ppm donkeyGreenGrayscale\n" +
                     "load res/predefinedImages/donkey-blue-greyscale.ppm donkeyBlueGrayscale\n" +
                     "load res/predefinedImages/donkey-value-greyscale.ppm donkeyValueGrayscale\n" +
-                    "load res/predefinedImages/donkey-intensity-greyscale.ppm donkeyIntensityGrayscale\n" +
+                    "load res/predefinedImages/donkey-intensity-greyscale.ppm " +
+                    "donkeyIntensityGrayscale\n" +
                     "load res/predefinedImages/donkey-luma-greyscale.ppm donkeyLumaGrayscale\n" +
                     "load res/predefinedImages/donkey-horizontal.ppm donkeyHorizontal\n" +
                     "load res/predefinedImages/donkey-vertical.ppm donkeyVertical\n" +

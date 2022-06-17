@@ -76,8 +76,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void grayscale() {
     double[][] matrix = new double[][]{new double[]{0.2126, 0.7152, 0.0722},
-            new double[]{0.2126, 0.7152, 0.0722},
-            new double[]{0.2126, 0.7152, 0.0722}
+      new double[]{0.2126, 0.7152, 0.0722},
+      new double[]{0.2126, 0.7152, 0.0722}
     };
     this.applyColorTransformation(matrix);
 
@@ -101,8 +101,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void blur() {
     double[][] kernel = new double[][]{new double[]{0.0625, 0.125, 0.0625},
-            new double[]{0.125, 0.25, 0.125},
-            new double[]{0.0625, 0.125, 0.0625}
+      new double[]{0.125, 0.25, 0.125},
+      new double[]{0.0625, 0.125, 0.0625}
     };
     this.applyFilter(kernel);
   }
@@ -110,10 +110,10 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void sharpen() {
     double[][] kernel = new double[][]{new double[]{-0.125, -0.125, -0.125, -0.125, -0.125},
-            new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
-            new double[]{-0.125, 0.25, 1, 0.25, -0.125},
-            new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
-            new double[]{-0.125, -0.125, -0.125, -0.125, -0.125}
+      new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
+      new double[]{-0.125, 0.25, 1, 0.25, -0.125},
+      new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
+      new double[]{-0.125, -0.125, -0.125, -0.125, -0.125}
     };
     this.applyFilter(kernel);
   }
@@ -121,8 +121,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void sepia() {
     double[][] matrix = new double[][]{new double[]{0.393, 0.769, 0.189},
-            new double[]{0.349, 0.686, 0.168},
-            new double[]{0.272, 0.534, 0.131}
+      new double[]{0.349, 0.686, 0.168},
+      new double[]{0.272, 0.534, 0.131}
     };
     this.applyColorTransformation(matrix);
   }
@@ -318,7 +318,10 @@ public class ProcessableImageImpl implements ProcessableImage {
     for (int i = 0; i < this.height; i++) {
       for (int j = 0; j < this.width; j++) {
         PixelImpl oldPixel = this.pixelGrid[i][j];
-        PixelImpl newPixel = new PixelImpl(oldPixel.getRed(), oldPixel.getGreen(), oldPixel.getBlue(),
+        PixelImpl newPixel = new PixelImpl(
+                oldPixel.getRed(),
+                oldPixel.getGreen(),
+                oldPixel.getBlue(),
                 this.maxValue);
         gridCopy[i][j] = newPixel;
       }

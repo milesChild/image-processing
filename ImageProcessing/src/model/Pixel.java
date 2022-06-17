@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * Interface representing a pixel of an image. The pixel of an image should be able to mutate itself
+ * through the given methods as well as return the values of its components.
+ */
 public interface Pixel {
 
   /**
@@ -37,6 +41,7 @@ public interface Pixel {
    * @return the blue component of this pixel.
    */
   int getBlue();
+
   /**
    * Sets the components of this pixel according to the given red, green, and blue values.
    * Sets component to 0 by default if a given value is less than 0. Sets component to this pixel's
