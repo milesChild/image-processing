@@ -6,6 +6,7 @@ import java.io.StringReader;
 import controller.ImageProcessingControllerImpl;
 import controller.ImageProcessingController;
 import model.Pixel;
+import model.ProcessableImage;
 import model.ProcessableImageImpl;
 import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
@@ -18,20 +19,20 @@ import static org.junit.Assert.assertEquals;
  * Tests for the ImageProcessingController class & its methods.
  */
 public class ControllerTest {
-  ProcessableImageImpl donkeyRedGrayscale;
-  ProcessableImageImpl donkeyGreenGrayscale;
-  ProcessableImageImpl donkeyBlueGrayscale;
-  ProcessableImageImpl donkeyValueGrayscale;
-  ProcessableImageImpl donkeyIntensityGrayscale;
-  ProcessableImageImpl donkeyLumaGrayscale;
-  ProcessableImageImpl donkeyHorizontal;
-  ProcessableImageImpl donkeyVertical;
-  ProcessableImageImpl donkeyBrighterBy50;
-  ProcessableImageImpl donkeyDimBy50;
-  ProcessableImageImpl donkeySepiaFilter;
-  ProcessableImageImpl donkeyGrayscaleFilter;
-  ProcessableImageImpl donkeyBlurFilter;
-  ProcessableImageImpl donkeySharpenFilter;
+  ProcessableImage donkeyRedGrayscale;
+  ProcessableImage donkeyGreenGrayscale;
+  ProcessableImage donkeyBlueGrayscale;
+  ProcessableImage donkeyValueGrayscale;
+  ProcessableImage donkeyIntensityGrayscale;
+  ProcessableImage donkeyLumaGrayscale;
+  ProcessableImage donkeyHorizontal;
+  ProcessableImage donkeyVertical;
+  ProcessableImage donkeyBrighterBy50;
+  ProcessableImage donkeyDimBy50;
+  ProcessableImage donkeySepiaFilter;
+  ProcessableImage donkeyGrayscaleFilter;
+  ProcessableImage donkeyBlurFilter;
+  ProcessableImage donkeySharpenFilter;
 
   @Before
   public void init() {

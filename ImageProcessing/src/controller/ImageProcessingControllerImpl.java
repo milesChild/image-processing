@@ -23,6 +23,7 @@ import controller.commands.ImageProcessingCommand;
 import controller.commands.Sepia;
 import controller.commands.Sharpen;
 import controller.commands.VerticalFlip;
+import model.ProcessableImage;
 import model.ProcessableImageImpl;
 import model.ImageProcessingModel;
 import model.Pixel;
@@ -286,9 +287,9 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
 
       }
     }
-    ProcessableImageImpl loadedProcessableImageImpl =
+    ProcessableImage loadedProcessableImage =
             new ProcessableImageImpl(pixelGrid, width, height, maxValue);
-    this.model.addImage(name, loadedProcessableImageImpl);
+    this.model.addImage(name, loadedProcessableImage);
 
   }
 

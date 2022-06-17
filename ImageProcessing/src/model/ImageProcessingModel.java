@@ -32,7 +32,7 @@ public interface ImageProcessingModel {
     TransformationGrayscale
   }
 
-  void addImage(String name, ProcessableImageImpl processableImageImpl);
+  void addImage(String name, ProcessableImage processableImage);
 
   /**
    * Method that calls on the ProcessableImageImpl to flip an image vertically, saving it as a new image by
@@ -100,7 +100,7 @@ public interface ImageProcessingModel {
    * @return a copy of the ProcessableImageImpl
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
-  ProcessableImageImpl getImage(String name) throws IllegalArgumentException;
+  ProcessableImage getImage(String name) throws IllegalArgumentException;
 
   // Assignment 5 methods
 
