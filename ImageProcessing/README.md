@@ -9,9 +9,17 @@
 
 ## Project Description
 
-This is a basic processableImageImpl processing program which offers the client various options for loading, manipulating, and saving images. PPM images can be loaded into the program and various processableImageImpl-manipulating operations can be conducted on them through the use of console inputs. Examples of operations include multiple flipping operations, dim/brighten operations, and varoius color-conversion operations. A more detailed list of operations, how to use them via the console, and examples of processableImageImpl-manipulation will follow.
+This is a basic processableImageImpl processing program which offers the client various options for loading, manipulating, and saving images. Images of various types can be loaded into the program and various processableImageImpl-manipulating operations can be conducted on them through the use of console inputs. Examples of operations include multiple flipping operations, dim/brighten operations, and varoius color-conversion operations. A more detailed list of operations, how to use them via the console, and examples of processableImageImpl-manipulation will follow.
 
 ***
+
+## Design Changes from Assignment 4 & New Design Decisions
+
+> Taking feedback from A4 into account and in an attempt to abstract as much code as possible, we renamed our PPMImage class to ProcessableImageImpl class and made an interface, ProcessableImage that holds all of the common commands.
+> 
+> Also in the ProcessableImageImpl class, we modified the constructors to be able to support loading in of any file type from a path. The constructor calls on the appropriate helper based on the image type the user wants to load in.
+> 
+> As soon as an image is loaded in, it is automatically converted into a ProcessableImageImpl object. This removes the necessity of having individual objects for each of the different file types that a user may load in.
 
 # Model, View, Controller Overview:
 
@@ -24,7 +32,9 @@ Our model includes the following:
 - ImageProcessingModel interface
 - ImageProcessingModelImpl class
 - Pixel class
-- PPMImage class
+- ProcessableImage interface
+- ProcessableImageImpl class
+
 
 **ImageProcessingModel Interface:**
 
@@ -38,9 +48,13 @@ The core implementation of the ImageProcessingModel interface. This model stores
 
 This class represents a Pixel, which is referenced throughout the entire rest of the project. PPM images are made up of pixels, each of which has a Red, Green, and Blue component. RGB values are stored in the format _0-255, 0-255, 0-255_, 255 being the maximum value for any particular color component. Users can also specify an alternate _maxValue_ for the color component.
 
-**PPMImage Class:**
+**ProcessableImage Interface:**
 
-Class to represent a PPM (Portable Pix Map) processableImageImpl, which stores all the pixel values in a 2D array of Pixels of a specified height and width. This program (currently) only supports manipulation of PPM-type images. This class stores all the actual processableImageImpl-manipulation operations that can be conducted by the user; each operation will directly manipulate the 2D array of pixels, _pixelGrid_.
+The interface to represent a processable image, which is the common image type that is used by the program when actual operations are conducted on an image. Regardless of the file type of image loaded into the program, it will automatically be converted (upon the load command) into a _ProcessableImageImpl_. This interface supports the ability to load and save various common types of image files and holds the common methods that an Image object will need for image manipulation.
+
+**ProcessableImageImpl Class:**
+
+Class to represent an image, which stores all the pixel values in a 2D array of Pixels of a specified height and width. This class stores all the actual image-manipulation operations that can be conducted by the user each operation will directly manipulate the 2D array of pixels, _pixelGrid_.
 
 ## View:
 
@@ -91,11 +105,17 @@ Load, save, or manipulate an processableImageImpl, either adding or pulling it f
 > 
 > **Dim:** allows user to dim an processableImageImpl by a certain value and save it to a new name.
 > 
-> **Grayscale:** allows the user to convert an processableImageImpl to the specified grayscale type and save it to a new name.
-> 
 > **HorizontalFlip:** allows the user to horizontally-flip an processableImageImpl and save it under a new name.
 > 
 > **VerticalFlip:** allows the user to vertically-flip an processableImageImpl and save it under a new name.
+> 
+> **Blur:** allows the user to apply a blurring filter to an processableImageImpl and save it under a new name.
+> 
+> **Sharpen:** allows the user to apply a sharpening filter to an processableImageImpl and save it under a new name.
+> 
+> **Grayscale:** allows the user to apply a grayscale conversion to an processableImageImpl and save it under a new name. The user can either apply a simple grayscaling filter to the image or specify a specific grayscaling type for the image they wish to filter.
+> 
+> **Sepia:** allows the user to apply a sepia filter to a processableImageImpl and save it under a new name.
 > 
 > **Load:** allows the user to load in a new processableImageImpl from the specified processableImageImpl-path and add it to the current _imageLibrary_.
 > 
@@ -145,9 +165,25 @@ The syntax the user should use when using the console to interact with the progr
 
 `dim value processableImageImpl-name new-processableImageImpl-name`
 
-**Grayscale an processableImageImpl:**
+**Grayscale an processableImageImpl (simple filter application):**
+
+`grayscaleFilter processableImageImpl-name new-processableImageImpl-name`
+
+**Grayscale an processableImageImpl (specific grayscale type application):**
 
 `grayscale grayscaleChoice processableImageImpl-name new-processableImageImpl-name`
+
+**Blur an processableImageImpl:**
+
+`blur processableImageImpl-name new-processableImageImpl-name`
+
+**Sharpen an processableImageImpl:**
+
+`sharpen processableImageImpl-name new-processableImageImpl-name`
+
+**Sepia an processableImageImpl:**
+
+`sepia processableImageImpl-name new-processableImageImpl-name`
 
 **Example Interaction**
 
