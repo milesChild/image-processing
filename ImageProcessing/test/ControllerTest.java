@@ -447,8 +447,7 @@ public class ControllerTest {
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
-    PixelImpl[][] pixelGrid = new PixelImpl[][]{
-            new PixelImpl[]{p1, p1, p1, p1},
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
@@ -530,8 +529,7 @@ public class ControllerTest {
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
-    PixelImpl[][] pixelGrid = new PixelImpl[][]{
-            new PixelImpl[]{p1, p1, p1, p1},
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
@@ -595,8 +593,7 @@ public class ControllerTest {
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
-    PixelImpl[][] pixelGrid = new PixelImpl[][]{
-            new PixelImpl[]{p1, p1, p1, p1},
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
@@ -624,8 +621,7 @@ public class ControllerTest {
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
-    PixelImpl[][] pixelGrid = new PixelImpl[][]{
-            new PixelImpl[]{p1, p1, p1, p1},
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
@@ -653,8 +649,7 @@ public class ControllerTest {
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
-    PixelImpl[][] pixelGrid = new PixelImpl[][]{
-            new PixelImpl[]{p1, p1, p1, p1},
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
@@ -682,8 +677,7 @@ public class ControllerTest {
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
-    PixelImpl[][] pixelGrid = new PixelImpl[][]{
-            new PixelImpl[]{p1, p1, p1, p1},
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},
             new PixelImpl[]{p1, p1, p1, p1},

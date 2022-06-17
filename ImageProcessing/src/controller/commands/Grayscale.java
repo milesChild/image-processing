@@ -15,8 +15,8 @@ public class Grayscale extends AbstractCommand {
    * This constructor will be called when the user specifies that they want to apply a certain type
    * of grayscale filter to an image.
    *
-   * @param from the name of the origin image
-   * @param to the name of the new image
+   * @param from            the name of the origin image
+   * @param to              the name of the new image
    * @param grayscaleChoice the type of grayscale conversion to use
    * @throws IllegalArgumentException if either of the provided parameters are null
    */
@@ -30,10 +30,11 @@ public class Grayscale extends AbstractCommand {
    * The default constructor for a grayscale image manipulation command. This constructor will be
    * called when the user foes not specify any specific grasycaling type and will call on the model
    * to apply a filter to the desired image.
+   *
    * @param from the name of the image to apply the grayscale filter to
-   * @param to the name that the new, filtered image will be stored under
+   * @param to   the name that the new, filtered image will be stored under
    */
-  public Grayscale(String from, String to){
+  public Grayscale(String from, String to) {
     super(from, to);
     this.grayscaleChoice = ImageProcessingModel.GrayscaleTypes.TransformationGrayscale;
   }
@@ -47,7 +48,7 @@ public class Grayscale extends AbstractCommand {
    */
   @Override
   public void execute(ImageProcessingModel model) {
-    if (grayscaleChoice == ImageProcessingModel.GrayscaleTypes.TransformationGrayscale){
+    if (grayscaleChoice == ImageProcessingModel.GrayscaleTypes.TransformationGrayscale) {
       model.grayscale(from, to);
     } else {
       model.grayscale(grayscaleChoice, from, to);

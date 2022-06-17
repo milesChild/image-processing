@@ -27,6 +27,14 @@ public interface ProcessableImage {
   void grayscale(ImageProcessingModel.GrayscaleTypes grayscaleChoice);
 
   /**
+   * Applies a filter to grayscale the pixels in a specific image and saves it as a new grayscaled
+   * image. The filter that will be applied is referred to as a "matrix", which is a 2D array of
+   * double values that will be used to compute the new int value for each color channel for each
+   * of the original pixels in the image.
+   */
+  void grayscale();
+
+  /**
    * Flips the pixel grid in this PPM image horizontally or vertically,
    * given the specified flip choice.
    *
@@ -51,14 +59,6 @@ public interface ProcessableImage {
   void sharpen();
 
   /**
-   * Applies a filter to grayscale the pixels in a specific image and saves it as a new grayscaled
-   * image. The filter that will be applied is referred to as a "matrix", which is a 2D array of
-   * double values that will be used to compute the new int value for each color channel for each
-   * of the original pixels in the image.
-   */
-  void grayscale();
-
-  /**
    * Applies a sepia filter to the pixels in a specific image and saves it as a new, filtered image.
    * The filter that will be applied is referred to as a "matrix", which is a 2D array of
    * double values that will be used to compute the new int value for each color channel for each
@@ -69,16 +69,18 @@ public interface ProcessableImage {
   /**
    * Used for saving processable images as .ppm files. Takes in the parameters of the given image
    * class and uses it to write a new .ppm file.
+   *
    * @return a new .ppm file that uses the 2D array of pixels, height, width, and max value of the
-   *         current image class
+   * current image class
    */
   String createPPMContents();
 
   /**
    * Used for saving processable images as many popular image file types. Always makes
    * BufferedImages of {@code TYPE_INT_RGB}.
+   *
    * @return a new {@code BufferedImage} that is constructed with the pixels, height, and width of
-   *         the current image class
+   * the current image class
    */
   BufferedImage createCommonImageContents();
 
@@ -105,9 +107,10 @@ public interface ProcessableImage {
 
   /**
    * Gets a deep copy of the pixel grid, a 2D array of pixels, in the given image class.
+   *
    * @return a deep copy of the 2D array of pixels, pixelGrid, as a new, identical 2D array of
-   *         pixels
+   * pixels
    */
   PixelImpl[][] getPixelGrid();
 
-  }
+}

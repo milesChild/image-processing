@@ -97,6 +97,20 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   }
 
   @Override
+  public void grayscale(String from, String to) throws IllegalArgumentException {
+    ProcessableImage fromImage =
+            this.imageLibrary.getOrDefault(from, null);
+    if (fromImage == null) {
+      throw new IllegalArgumentException("Image does not exist in library."
+              + " Try again.");
+    }
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromImage);
+    newProcessableImageImpl.grayscale();
+    this.imageLibrary.put(to, newProcessableImageImpl);
+  }
+
+  @Override
   public void dim(int value, String from, String to) {
     this.brighten(-value, from, to);
   }
@@ -140,20 +154,6 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
     ProcessableImageImpl newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.sepia();
-    this.imageLibrary.put(to, newProcessableImageImpl);
-  }
-
-  @Override
-  public void grayscale(String from, String to) throws IllegalArgumentException {
-    ProcessableImage fromImage =
-            this.imageLibrary.getOrDefault(from, null);
-    if (fromImage == null) {
-      throw new IllegalArgumentException("Image does not exist in library."
-              + " Try again.");
-    }
-    ProcessableImageImpl newProcessableImageImpl =
-            new ProcessableImageImpl(fromImage);
-    newProcessableImageImpl.grayscale();
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 

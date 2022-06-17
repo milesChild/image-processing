@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,6 +21,7 @@ public class ProcessableImageImpl implements ProcessableImage {
   /**
    * Constructor for a ProcessableImageImpl that creates a deep copy of the provided image.
    * The constructed image will have identical parameters to the old one.
+   *
    * @param image the image to be copied
    * @throws IllegalArgumentException if the image is null
    */
@@ -39,10 +40,11 @@ public class ProcessableImageImpl implements ProcessableImage {
   /**
    * Constructor for a ProcessableImageImpl that accepts all parameters that are necessary for
    * making a new ProcessableImageImpl individually.
+   *
    * @param pixelGrid the 2D array of pixels that represents the actual image
-   * @param width the width of the rows in the image
-   * @param height the height of the columns in the image
-   * @param maxValue the maximum int value that any color channel in any given pixel can have
+   * @param width     the width of the rows in the image
+   * @param height    the height of the columns in the image
+   * @param maxValue  the maximum int value that any color channel in any given pixel can have
    */
   public ProcessableImageImpl(PixelImpl[][] pixelGrid, int width, int height, int maxValue) {
     this.pixelGrid = pixelGrid;
@@ -72,6 +74,16 @@ public class ProcessableImageImpl implements ProcessableImage {
   }
 
   @Override
+  public void grayscale() {
+    double[][] matrix = new double[][]{new double[]{0.2126, 0.7152, 0.0722},
+            new double[]{0.2126, 0.7152, 0.0722},
+            new double[]{0.2126, 0.7152, 0.0722}
+    };
+    this.applyColorTransformation(matrix);
+
+  }
+
+  @Override
   public void flip(ImageProcessingModelImpl.Orientations orientation) {
     switch (orientation) {
       case Vertical:
@@ -88,8 +100,7 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   @Override
   public void blur() {
-    double[][] kernel = new double[][]{
-            new double[]{0.0625, 0.125, 0.0625},
+    double[][] kernel = new double[][]{new double[]{0.0625, 0.125, 0.0625},
             new double[]{0.125, 0.25, 0.125},
             new double[]{0.0625, 0.125, 0.0625}
     };
@@ -98,8 +109,7 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   @Override
   public void sharpen() {
-    double[][] kernel = new double[][]{
-            new double[]{-0.125, -0.125, -0.125, -0.125, -0.125},
+    double[][] kernel = new double[][]{new double[]{-0.125, -0.125, -0.125, -0.125, -0.125},
             new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
             new double[]{-0.125, 0.25, 1, 0.25, -0.125},
             new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
@@ -109,20 +119,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   }
 
   @Override
-  public void grayscale() {
-    double[][] matrix = new double[][]{
-            new double[]{0.2126, 0.7152, 0.0722},
-            new double[]{0.2126, 0.7152, 0.0722},
-            new double[]{0.2126, 0.7152, 0.0722}
-    };
-    this.applyColorTransformation(matrix);
-
-  }
-
-  @Override
   public void sepia() {
-    double[][] matrix = new double[][]{
-            new double[]{0.393, 0.769, 0.189},
+    double[][] matrix = new double[][]{new double[]{0.393, 0.769, 0.189},
             new double[]{0.349, 0.686, 0.168},
             new double[]{0.272, 0.534, 0.131}
     };
@@ -134,6 +132,7 @@ public class ProcessableImageImpl implements ProcessableImage {
   /**
    * Helper method that takes a kernel (given as a square matrix) and applies that kernel to every
    * pixel in this processable image.
+   *
    * @param kernel the kernel to be applied to each pixel in this image
    */
   private void applyFilter(double[][] kernel) {
@@ -142,7 +141,7 @@ public class ProcessableImageImpl implements ProcessableImage {
 
     // for every pixel in each row, change the red, green, and blue values (setComponents) based on
     // a multiplication of every cell in the kernel array by the R, G, or B value in the pixel array
-    for(int i = 0; i < this.height; i++) {
+    for (int i = 0; i < this.height; i++) {
       PixelImpl[] tempRow = new PixelImpl[this.width];
       for (int j = 0; j < this.width; j++) {
         // populate the tempRow with the new pixels
@@ -161,10 +160,11 @@ public class ProcessableImageImpl implements ProcessableImage {
   /**
    * Applies a given kernel to a given pixel's color component. Accesses the neighbors of the pixel
    * to complete the kernel calculation.
+   *
    * @param kernel the kernel to be applied to the targeted pixel
-   * @param row the row of the targeted pixel
-   * @param col the column of the targeted pixel
-   * @param color the color component of the targeted pixel that the kernel will be applied to
+   * @param row    the row of the targeted pixel
+   * @param col    the column of the targeted pixel
+   * @param color  the color component of the targeted pixel that the kernel will be applied to
    * @return the new color component value of the pixel
    */
   private int applyKernel(double[][] kernel, int row, int col, String color) {
@@ -174,7 +174,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     for (int i = 0; i < kernel.length; i++) {
       for (int j = 0; j < kernel.length; j++) {
         // ensure cell exists in pixelGrid. if it does, continue
-        if(!(row - centerSlot + i < 0 || row - centerSlot + i >= this.height)
+        if (!(row - centerSlot + i < 0 || row - centerSlot + i >= this.height)
                 && !(col - centerSlot + j < 0 || col - centerSlot + j >= this.width)) {
           double kernelVal = kernel[i][j];
           double pixelGridVal = 0;
@@ -201,10 +201,11 @@ public class ProcessableImageImpl implements ProcessableImage {
   /**
    * Helper method that takes a matrix and uses it to transform the colors in each of the color
    * channels for each pixel in the {@code pixelGrid}.
+   *
    * @param matrix the 2D array of double values that will be used to compute the new color
    *               values of the new image
    */
-  private void applyColorTransformation(double[][] matrix){
+  private void applyColorTransformation(double[][] matrix) {
     // the new, filtered pixel array
     PixelImpl[][] copyGrid = new PixelImpl[this.height][this.width];
 
@@ -307,7 +308,7 @@ public class ProcessableImageImpl implements ProcessableImage {
   }
 
   @Override
-  public int getMaxValue(){
+  public int getMaxValue() {
     return this.maxValue;
   }
 
