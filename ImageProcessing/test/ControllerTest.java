@@ -105,8 +105,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "horizontal-flip donkey donkeyHorizontal\n" +
-            "save res/testImages/donkeyHorizontal.ppm donkeyHorizontal\n" +
-            "load res/testImages/donkeyHorizontal.ppm copyHorizontal\n q");
+            "save test/testImages/donkeyHorizontal.ppm donkeyHorizontal\n" +
+            "load test/testImages/donkeyHorizontal.ppm copyHorizontal\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -122,8 +122,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "vertical-flip donkey donkeyVertical\n" +
-            "save res/testImages/donkeyVertical.ppm donkeyVertical\n" +
-            "load res/testImages/donkeyVertical.ppm copyVertical\n q");
+            "save test/testImages/donkeyVertical.ppm donkeyVertical\n" +
+            "load test/testImages/donkeyVertical.ppm copyVertical\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -140,8 +140,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "brighten 50 donkey donkeyBrighten\n" +
-            "save res/testImages/donkeyBrighten.ppm donkeyBrighten\n" +
-            "load res/testImages/donkeyBrighten.ppm copyBrighten\n q");
+            "save test/testImages/donkeyBrighten.ppm donkeyBrighten\n" +
+            "load test/testImages/donkeyBrighten.ppm copyBrighten\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -158,8 +158,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "dim 50 donkey donkeyDim\n" +
-            "save res/testImages/donkeyDim.ppm donkeyDim\n" +
-            "load res/testImages/donkeyDim.ppm copyDim\n q");
+            "save test/testImages/donkeyDim.ppm donkeyDim\n" +
+            "load test/testImages/donkeyDim.ppm copyDim\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -176,8 +176,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale red donkey donkeyGrayscaleRed\n" +
-            "save res/testImages/donkeyRedGrayscale.ppm donkeyGrayscaleRed\n" +
-            "load res/testImages/donkeyRedGrayscale.ppm copyGrayscale\n q");
+            "save test/testImages/donkeyRedGrayscale.ppm donkeyGrayscaleRed\n" +
+            "load test/testImages/donkeyRedGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -194,8 +194,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale green donkey donkeyGrayscaleGreen\n" +
-            "save res/testImages/donkeyGreenGrayscale.ppm donkeyGrayscaleGreen\n" +
-            "load res/testImages/donkeyGreenGrayscale.ppm copyGrayscale\n q");
+            "save test/testImages/donkeyGreenGrayscale.ppm donkeyGrayscaleGreen\n" +
+            "load test/testImages/donkeyGreenGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -212,8 +212,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale blue donkey donkeyGrayscaleBlue\n" +
-            "save res/testImages/donkeyBlueGrayscale.ppm donkeyGrayscaleBlue\n" +
-            "load res/testImages/donkeyBlueGrayscale.ppm copyGrayscale\n q");
+            "save test/testImages/donkeyBlueGrayscale.ppm donkeyGrayscaleBlue\n" +
+            "load test/testImages/donkeyBlueGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -230,8 +230,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale intensity donkey donkeyGrayscaleIntensity\n" +
-            "save res/testImages/donkeyIntensityGrayscale.ppm donkeyGrayscaleIntensity\n" +
-            "load res/testImages/donkeyIntensityGrayscale.ppm copyGrayscale\n q");
+            "save test/testImages/donkeyIntensityGrayscale.ppm donkeyGrayscaleIntensity\n" +
+            "load test/testImages/donkeyIntensityGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -248,8 +248,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale value donkey donkeyGrayscaleValue\n" +
-            "save res/testImages/donkeyValueGrayscale.ppm donkeyGrayscaleValue\n" +
-            "load res/testImages/donkeyValueGrayscale.ppm copyGrayscale\n q");
+            "save test/testImages/donkeyValueGrayscale.ppm donkeyGrayscaleValue\n" +
+            "load test/testImages/donkeyValueGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -266,8 +266,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale luma donkey donkeyGrayscaleLuma\n" +
-            "save res/testImages/donkeyLumaGrayscale.ppm donkeyGrayscaleLuma\n" +
-            "load res/testImages/donkeyLumaGrayscale.ppm copyGrayscale\n q");
+            "save test/testImages/donkeyLumaGrayscale.ppm donkeyGrayscaleLuma\n" +
+            "load test/testImages/donkeyLumaGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -284,8 +284,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "grayscale transformation donkey donkeyGrayscaleFilter\n" +
-            "save res/testImages/donkeyFilterGrayscale.ppm donkeyGrayscaleFilter\n" +
-            "load res/testImages/donkeyFilterGrayscale.ppm copyGrayscale\n q");
+            "save test/testImages/donkeyFilterGrayscale.ppm donkeyGrayscaleFilter\n" +
+            "load test/testImages/donkeyFilterGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -302,8 +302,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "sepia donkey donkeySepiaFilter\n" +
-            "save res/testImages/donkeyFilterSepia.ppm donkeySepiaFilter\n" +
-            "load res/testImages/donkeyFilterSepia.ppm copySepia\n q");
+            "save test/testImages/donkeyFilterSepia.ppm donkeySepiaFilter\n" +
+            "load test/testImages/donkeyFilterSepia.ppm copySepia\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -320,8 +320,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "sharpen donkey donkeySharpenFilter\n" +
-            "save res/testImages/donkeyFilterSharpen.ppm donkeySharpenFilter\n" +
-            "load res/testImages/donkeyFilterSharpen.ppm copySharpen\n q");
+            "save test/testImages/donkeyFilterSharpen.ppm donkeySharpenFilter\n" +
+            "load test/testImages/donkeyFilterSharpen.ppm copySharpen\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -338,8 +338,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.ppm copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.ppm copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -356,8 +356,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/blackTest.ppm square\n" +
             "blur square squareBlur\n" +
-            "save res/testImages/blackTestBlur.jpg squareBlur\n" +
-            "load res/testImages/blackTestBlur.jpg copyBlur\n q");
+            "save test/testImages/blackTestBlur.jpg squareBlur\n" +
+            "load test/testImages/blackTestBlur.jpg copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -385,8 +385,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.png copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.png copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -403,8 +403,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.bmp copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.bmp copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -421,8 +421,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.png donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.png copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.png copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -439,8 +439,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/blackTest.ppm square\n" +
             "blur square squareBlur\n" +
-            "save res/testImages/blackTestBlur.jpg squareBlur\n" +
-            "load res/testImages/blackTestBlur.jpg copyBlur\n q");
+            "save test/testImages/blackTestBlur.jpg squareBlur\n" +
+            "load test/testImages/blackTestBlur.jpg copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -468,8 +468,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.bmp copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.bmp copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -486,8 +486,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.bmp donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.bmp copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.bmp copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -504,8 +504,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.bmp donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.png copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.png copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -522,8 +522,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/blackTest.bmp square\n" +
             "blur square squareBlur\n" +
-            "save res/testImages/blackTestBlur.jpg squareBlur\n" +
-            "load res/testImages/blackTestBlur.jpg copyBlur\n q");
+            "save test/testImages/blackTestBlur.jpg squareBlur\n" +
+            "load test/testImages/blackTestBlur.jpg copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -551,8 +551,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.bmp donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.ppm copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.ppm copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -569,8 +569,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.png donkey\n" +
             "blur donkey donkeyBlurFilter\n" +
-            "save res/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
-            "load res/testImages/donkeyFilterBlur.ppm copyBlur\n q");
+            "save test/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
+            "load test/testImages/donkeyFilterBlur.ppm copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -587,8 +587,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/blackTest.jpg square\n" +
             "blur square squareBlur\n" +
-            "save res/testImages/blackTestBlur.jpg squareBlur\n" +
-            "load res/testImages/blackTestBlur.jpg copyBlur\n q");
+            "save test/testImages/blackTestBlur.jpg squareBlur\n" +
+            "load test/testImages/blackTestBlur.jpg copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -616,8 +616,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/blackTest.jpg square\n" +
             "blur square squareBlur\n" +
-            "save res/testImages/blackTest.png squareBlur\n" +
-            "load res/testImages/blackTest.png copyBlur\n q");
+            "save test/testImages/blackTest.png squareBlur\n" +
+            "load test/testImages/blackTest.png copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -645,8 +645,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/blackTest.jpg square\n" +
             "blur square squareBlur\n" +
-            "save res/testImages/blackTestBlur.bmp squareBlur\n" +
-            "load res/testImages/blackTestBlur.bmp copyBlur\n q");
+            "save test/testImages/blackTestBlur.bmp squareBlur\n" +
+            "load test/testImages/blackTestBlur.bmp copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -674,8 +674,8 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/blackTest.jpg square\n" +
             "blur square squareBlur\n" +
-            "save res/testImages/blackTestBlur.ppm squareBlur\n" +
-            "load res/testImages/blackTestBlur.ppm copyBlur\n q");
+            "save test/testImages/blackTestBlur.ppm squareBlur\n" +
+            "load test/testImages/blackTestBlur.ppm copyBlur\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
