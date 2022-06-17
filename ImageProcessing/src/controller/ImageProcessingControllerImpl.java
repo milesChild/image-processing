@@ -26,7 +26,7 @@ import controller.commands.VerticalFlip;
 import model.ProcessableImage;
 import model.ProcessableImageImpl;
 import model.ImageProcessingModel;
-import model.Pixel;
+import model.PixelImpl;
 import view.ImageProcessingView;
 
 /**
@@ -240,14 +240,14 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     int height = sc.nextInt();
     int maxValue = sc.nextInt();
 
-    Pixel[][] pixelGrid = new Pixel[height][width];
+    PixelImpl[][] pixelGrid = new PixelImpl[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
 
-        pixelGrid[i][j] = new Pixel(r, g, b, maxValue);
+        pixelGrid[i][j] = new PixelImpl(r, g, b, maxValue);
       }
     }
     ProcessableImageImpl loadedProcessableImageImpl =
@@ -275,11 +275,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     int width = bufferedImage.getWidth();
     int maxValue = 255;
 
-    Pixel[][] pixelGrid = new Pixel[height][width];
+    PixelImpl[][] pixelGrid = new PixelImpl[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         Color color = new Color(bufferedImage.getRGB(j, i));
-        pixelGrid[i][j] = new Pixel(
+        pixelGrid[i][j] = new PixelImpl(
                 color.getRed(),
                 color.getGreen(),
                 color.getBlue(),

@@ -3,13 +3,13 @@ import org.junit.Test;
 
 import java.io.StringReader;
 
-import controller.ImageProcessingControllerImpl;
 import controller.ImageProcessingController;
-import model.Pixel;
-import model.ProcessableImage;
-import model.ProcessableImageImpl;
+import controller.ImageProcessingControllerImpl;
 import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
+import model.PixelImpl;
+import model.ProcessableImage;
+import model.ProcessableImageImpl;
 import view.ImageProcessingView;
 import view.ImageTextViewImpl;
 
@@ -39,19 +39,19 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader(
             "load res/predefinedImages/donkey-red-greyscale.ppm donkeyRedGrayscale\n" +
-            "load res/predefinedImages/donkey-green-greyscale.ppm donkeyGreenGrayscale\n" +
-            "load res/predefinedImages/donkey-blue-greyscale.ppm donkeyBlueGrayscale\n" +
-            "load res/predefinedImages/donkey-value-greyscale.ppm donkeyValueGrayscale\n" +
-            "load res/predefinedImages/donkey-intensity-greyscale.ppm donkeyIntensityGrayscale\n" +
-            "load res/predefinedImages/donkey-luma-greyscale.ppm donkeyLumaGrayscale\n" +
-            "load res/predefinedImages/donkey-horizontal.ppm donkeyHorizontal\n" +
-            "load res/predefinedImages/donkey-vertical.ppm donkeyVertical\n" +
-            "load res/predefinedImages/donkey-brighten-by-50.ppm donkeyBrighten\n" +
-            "load res/predefinedImages/donkey-dim-by-50.ppm donkeyDim\n" +
-            "load res/predefinedImages/donkeyBlur.ppm donkeyBlur\n" +
-            "load res/predefinedImages/donkeySharpen.ppm donkeySharpen\n" +
-            "load res/predefinedImages/donkeyGrayscaleFilter.ppm donkeyGrayscaleFilter\n" +
-            "load res/predefinedImages/donkeySepia.ppm donkeySepia\n");
+                    "load res/predefinedImages/donkey-green-greyscale.ppm donkeyGreenGrayscale\n" +
+                    "load res/predefinedImages/donkey-blue-greyscale.ppm donkeyBlueGrayscale\n" +
+                    "load res/predefinedImages/donkey-value-greyscale.ppm donkeyValueGrayscale\n" +
+                    "load res/predefinedImages/donkey-intensity-greyscale.ppm donkeyIntensityGrayscale\n" +
+                    "load res/predefinedImages/donkey-luma-greyscale.ppm donkeyLumaGrayscale\n" +
+                    "load res/predefinedImages/donkey-horizontal.ppm donkeyHorizontal\n" +
+                    "load res/predefinedImages/donkey-vertical.ppm donkeyVertical\n" +
+                    "load res/predefinedImages/donkey-brighten-by-50.ppm donkeyBrighten\n" +
+                    "load res/predefinedImages/donkey-dim-by-50.ppm donkeyDim\n" +
+                    "load res/predefinedImages/donkeyBlur.ppm donkeyBlur\n" +
+                    "load res/predefinedImages/donkeySharpen.ppm donkeySharpen\n" +
+                    "load res/predefinedImages/donkeyGrayscaleFilter.ppm donkeyGrayscaleFilter\n" +
+                    "load res/predefinedImages/donkeySepia.ppm donkeySepia\n");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
@@ -363,12 +363,12 @@ public class ControllerTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
     controller.runProgram();
 
-    Pixel p1 = new Pixel(0,0,0,255);
-    Pixel[][] pixelGrid = new Pixel[][]{
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
+    PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -446,12 +446,12 @@ public class ControllerTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
     controller.runProgram();
 
-    Pixel p1 = new Pixel(0,0,0,255);
-    Pixel[][] pixelGrid = new Pixel[][]{
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
+    PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -529,12 +529,12 @@ public class ControllerTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
     controller.runProgram();
 
-    Pixel p1 = new Pixel(0,0,0,255);
-    Pixel[][] pixelGrid = new Pixel[][]{
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
+    PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -594,12 +594,12 @@ public class ControllerTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
     controller.runProgram();
 
-    Pixel p1 = new Pixel(0,0,0,255);
-    Pixel[][] pixelGrid = new Pixel[][]{
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
+    PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -623,12 +623,12 @@ public class ControllerTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
     controller.runProgram();
 
-    Pixel p1 = new Pixel(0,0,0,255);
-    Pixel[][] pixelGrid = new Pixel[][]{
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
+    PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -652,12 +652,12 @@ public class ControllerTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
     controller.runProgram();
 
-    Pixel p1 = new Pixel(0,0,0,255);
-    Pixel[][] pixelGrid = new Pixel[][]{
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
+    PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
@@ -681,12 +681,12 @@ public class ControllerTest {
     ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
     controller.runProgram();
 
-    Pixel p1 = new Pixel(0,0,0,255);
-    Pixel[][] pixelGrid = new Pixel[][]{
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
-            new Pixel[]{p1, p1, p1, p1},
+    PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
+    PixelImpl[][] pixelGrid = new PixelImpl[][]{
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
+            new PixelImpl[]{p1, p1, p1, p1},
     };
 
     ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);

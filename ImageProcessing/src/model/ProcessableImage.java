@@ -108,6 +108,6 @@ public interface ProcessableImage {
    * @return a deep copy of the 2D array of pixels, pixelGrid, as a new, identical 2D array of
    *         pixels
    */
-  Pixel[][] getPixelGrid();
+  PixelImpl[][] getPixelGrid();
 
   }

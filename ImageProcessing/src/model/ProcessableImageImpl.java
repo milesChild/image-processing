@@ -13,7 +13,7 @@ import java.util.Objects;
  * each operation will directly manipulate the 2D array of pixels, {@code pixelGrid}.
  */
 public class ProcessableImageImpl implements ProcessableImage {
-  private Pixel[][] pixelGrid;
+  private PixelImpl[][] pixelGrid;
   private final int width;
   private final int height;
   private final int maxValue;
@@ -44,7 +44,7 @@ public class ProcessableImageImpl implements ProcessableImage {
    * @param height the height of the columns in the image
    * @param maxValue the maximum int value that any color channel in any given pixel can have
    */
-  public ProcessableImageImpl(Pixel[][] pixelGrid, int width, int height, int maxValue) {
+  public ProcessableImageImpl(PixelImpl[][] pixelGrid, int width, int height, int maxValue) {
     this.pixelGrid = pixelGrid;
     this.width = width;
     this.height = height;
@@ -138,18 +138,18 @@ public class ProcessableImageImpl implements ProcessableImage {
    */
   private void applyFilter(double[][] kernel) {
     // the new, filtered pixel array
-    Pixel[][] copyGrid = new Pixel[this.height][this.width];
+    PixelImpl[][] copyGrid = new PixelImpl[this.height][this.width];
 
     // for every pixel in each row, change the red, green, and blue values (setComponents) based on
     // a multiplication of every cell in the kernel array by the R, G, or B value in the pixel array
     for(int i = 0; i < this.height; i++) {
-      Pixel[] tempRow = new Pixel[this.width];
+      PixelImpl[] tempRow = new PixelImpl[this.width];
       for (int j = 0; j < this.width; j++) {
         // populate the tempRow with the new pixels
         int filteredRed = this.applyKernel(kernel, i, j, "r");
         int filteredGreen = this.applyKernel(kernel, i, j, "g");
         int filteredBlue = this.applyKernel(kernel, i, j, "b");
-        Pixel filteredPixel = new Pixel(filteredRed, filteredGreen, filteredBlue, maxValue);
+        PixelImpl filteredPixel = new PixelImpl(filteredRed, filteredGreen, filteredBlue, maxValue);
         tempRow[j] = filteredPixel;
       }
       copyGrid[i] = tempRow;
@@ -206,18 +206,18 @@ public class ProcessableImageImpl implements ProcessableImage {
    */
   private void applyColorTransformation(double[][] matrix){
     // the new, filtered pixel array
-    Pixel[][] copyGrid = new Pixel[this.height][this.width];
+    PixelImpl[][] copyGrid = new PixelImpl[this.height][this.width];
 
     for (int i = 0; i < this.height; i++) {
       for (int j = 0; j < this.width; j++) {
-        Pixel oldPixel = this.pixelGrid[i][j];
+        PixelImpl oldPixel = this.pixelGrid[i][j];
         int newRed = (int) (matrix[0][0] * oldPixel.getRed() + matrix[0][1] * oldPixel.getGreen()
                 + matrix[0][2] * oldPixel.getBlue());
         int newGreen = (int) (matrix[1][0] * oldPixel.getRed() + matrix[1][1] * oldPixel.getGreen()
                 + matrix[1][2] * oldPixel.getBlue());
         int newBlue = (int) (matrix[2][0] * oldPixel.getRed() + matrix[2][1] * oldPixel.getGreen()
                 + matrix[2][2] * oldPixel.getBlue());
-        Pixel newPixel = new Pixel(newRed, newGreen, newBlue, this.maxValue);
+        PixelImpl newPixel = new PixelImpl(newRed, newGreen, newBlue, this.maxValue);
         copyGrid[i][j] = newPixel;
       }
     }
@@ -235,7 +235,7 @@ public class ProcessableImageImpl implements ProcessableImage {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        Pixel p1 = this.pixelGrid[i][j];
+        PixelImpl p1 = this.pixelGrid[i][j];
         newFileContents.append(p1.toString());
       }
     }
@@ -312,12 +312,12 @@ public class ProcessableImageImpl implements ProcessableImage {
   }
 
   @Override
-  public Pixel[][] getPixelGrid() {
-    Pixel[][] gridCopy = new Pixel[this.height][this.width];
+  public PixelImpl[][] getPixelGrid() {
+    PixelImpl[][] gridCopy = new PixelImpl[this.height][this.width];
     for (int i = 0; i < this.height; i++) {
       for (int j = 0; j < this.width; j++) {
-        Pixel oldPixel = this.pixelGrid[i][j];
-        Pixel newPixel = new Pixel(oldPixel.getRed(), oldPixel.getGreen(), oldPixel.getBlue(),
+        PixelImpl oldPixel = this.pixelGrid[i][j];
+        PixelImpl newPixel = new PixelImpl(oldPixel.getRed(), oldPixel.getGreen(), oldPixel.getBlue(),
                 this.maxValue);
         gridCopy[i][j] = newPixel;
       }
