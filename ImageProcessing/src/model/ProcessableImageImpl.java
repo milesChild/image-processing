@@ -29,16 +29,8 @@ public class ProcessableImageImpl implements ProcessableImage {
     if (image == null) {
       throw new IllegalArgumentException("Given null parameter.");
     }
-    // deep copy of pixelGrid
-    Pixel[][] copyGrid = new Pixel[image.getHeight()][image.getWidth()];
-    for (int i = 0; i < image.getHeight(); i++) {
-      Pixel[] tempRow = new Pixel[image.getWidth()];
 
-      System.arraycopy(image.getPixelGrid()[i], 0, tempRow, 0, image.getWidth());
-      copyGrid[i] = tempRow;
-    }
-
-    this.pixelGrid = copyGrid;
+    this.pixelGrid = image.getPixelGrid();
     this.width = image.getWidth();
     this.height = image.getHeight();
     this.maxValue = image.getMaxValue();
