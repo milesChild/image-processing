@@ -5,6 +5,7 @@ import java.io.StringReader;
 
 import controller.ImageProcessingControllerImpl;
 import controller.ImageProcessingController;
+import model.Pixel;
 import model.ProcessableImageImpl;
 import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
@@ -68,7 +69,6 @@ public class ControllerTest {
     donkeySepiaFilter = model.getImage("donkeySepia");
     donkeyBlurFilter = model.getImage("donkeyBlur");
     donkeySharpenFilter = model.getImage("donkeySharpen");
-
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -282,7 +282,7 @@ public class ControllerTest {
   public void testGrayscaleFilterRun() {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
-            "grayscaleFilter donkey donkeyGrayscaleFilter\n" +
+            "grayscale transformation donkey donkeyGrayscaleFilter\n" +
             "save res/testImages/donkeyFilterGrayscale.ppm donkeyGrayscaleFilter\n" +
             "load res/testImages/donkeyFilterGrayscale.ppm copyGrayscale\n q");
     ImageProcessingView view = new ImageTextViewImpl(appendable);
@@ -346,6 +346,353 @@ public class ControllerTest {
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
     assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadPPMSaveAsJPGAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/blackTest.ppm square\n" +
+            "blur square squareBlur\n" +
+            "save res/testImages/blackTestBlur.jpg squareBlur\n" +
+            "load res/testImages/blackTestBlur.jpg copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    Pixel p1 = new Pixel(0,0,0,255);
+    Pixel[][] pixelGrid = new Pixel[][]{
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+    };
+
+    ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
+    model.addImage("blackTest", image);
+
+    assertEquals(model.getImage("blackTest"), model.getImage("squareBlur"));
+    assertEquals(model.getImage("squareBlur"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadPPMSaveAsPNGAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.png copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadPPMSaveAsBMPAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.bmp copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadPNGSaveAsPNGAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.png donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.png copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadPNGSaveAsJPGAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/blackTest.ppm square\n" +
+            "blur square squareBlur\n" +
+            "save res/testImages/blackTestBlur.jpg squareBlur\n" +
+            "load res/testImages/blackTestBlur.jpg copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    Pixel p1 = new Pixel(0,0,0,255);
+    Pixel[][] pixelGrid = new Pixel[][]{
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+    };
+
+    ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
+    model.addImage("blackTest", image);
+
+    assertEquals(model.getImage("blackTest"), model.getImage("squareBlur"));
+    assertEquals(model.getImage("squareBlur"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadPNGSaveAsBMPAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.bmp copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadBMPSaveAsBMPAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.bmp donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.bmp copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadBMPSaveAsPNGAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.bmp donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.png copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadBMPSaveAsJPGAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/blackTest.bmp square\n" +
+            "blur square squareBlur\n" +
+            "save res/testImages/blackTestBlur.jpg squareBlur\n" +
+            "load res/testImages/blackTestBlur.jpg copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    Pixel p1 = new Pixel(0,0,0,255);
+    Pixel[][] pixelGrid = new Pixel[][]{
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+    };
+
+    ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
+    model.addImage("blackTest", image);
+
+    assertEquals(model.getImage("blackTest"), model.getImage("squareBlur"));
+    assertEquals(model.getImage("squareBlur"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadBMPSaveAsPPMAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.bmp donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.ppm copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadPNGSaveAsPPMAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/donkey.png donkey\n" +
+            "blur donkey donkeyBlurFilter\n" +
+            "save res/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
+            "load res/testImages/donkeyFilterBlur.ppm copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
+    assertEquals(model.getImage("donkeyBlurFilter"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadJPGSaveAsJPGAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/blackTest.jpg square\n" +
+            "blur square squareBlur\n" +
+            "save res/testImages/blackTestBlur.jpg squareBlur\n" +
+            "load res/testImages/blackTestBlur.jpg copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    Pixel p1 = new Pixel(0,0,0,255);
+    Pixel[][] pixelGrid = new Pixel[][]{
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+    };
+
+    ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
+    model.addImage("blackTest", image);
+
+    assertEquals(model.getImage("blackTest"), model.getImage("squareBlur"));
+    assertEquals(model.getImage("squareBlur"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadJPGSaveAsPNGAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/blackTest.jpg square\n" +
+            "blur square squareBlur\n" +
+            "save res/testImages/blackTest.png squareBlur\n" +
+            "load res/testImages/blackTest.png copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    Pixel p1 = new Pixel(0,0,0,255);
+    Pixel[][] pixelGrid = new Pixel[][]{
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+    };
+
+    ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
+    model.addImage("blackTest", image);
+
+    assertEquals(model.getImage("blackTest"), model.getImage("squareBlur"));
+    assertEquals(model.getImage("squareBlur"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadJPGSaveAsBMPAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/blackTest.jpg square\n" +
+            "blur square squareBlur\n" +
+            "save res/testImages/blackTestBlur.bmp squareBlur\n" +
+            "load res/testImages/blackTestBlur.bmp copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    Pixel p1 = new Pixel(0,0,0,255);
+    Pixel[][] pixelGrid = new Pixel[][]{
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+    };
+
+    ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
+    model.addImage("blackTest", image);
+
+    assertEquals(model.getImage("blackTest"), model.getImage("squareBlur"));
+    assertEquals(model.getImage("squareBlur"),
+            model.getImage("copyBlur"));
+    assertEquals(appendable.toString(), "Program Ended.");
+  }
+
+  @Test
+  public void testLoadJPGSaveAsPPMAfterCommandRun() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader("load res/predefinedImages/blackTest.jpg square\n" +
+            "blur square squareBlur\n" +
+            "save res/testImages/blackTestBlur.ppm squareBlur\n" +
+            "load res/testImages/blackTestBlur.ppm copyBlur\n q");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+
+    Pixel p1 = new Pixel(0,0,0,255);
+    Pixel[][] pixelGrid = new Pixel[][]{
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+            new Pixel[]{p1, p1, p1, p1},
+    };
+
+    ProcessableImageImpl image = new ProcessableImageImpl(pixelGrid, 4, 4, 255);
+    model.addImage("blackTest", image);
+
+    assertEquals(model.getImage("blackTest"), model.getImage("squareBlur"));
+    assertEquals(model.getImage("squareBlur"),
             model.getImage("copyBlur"));
     assertEquals(appendable.toString(), "Program Ended.");
   }

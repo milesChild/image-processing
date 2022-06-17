@@ -1,0 +1,76 @@
+load res/exampleImages/Henock.ppm henock
+save res/exampleImages/Henock.jpg henock
+save res/exampleImages/Henock.png henock
+save res/exampleImages/Henock.bmp henock
+save res/exampleImages/Henock.ppm henock
+brighten 50 henock henockBrighten
+dim 50 henock henockDim
+horizontal-flip henock henockHorizontal
+vertical-flip henock henockVertical
+grayscale red henock henockRed
+grayscale blue henock henockBlue
+grayscale green henock henockGreen
+grayscale luma henock henockLuma
+grayscale value henock henockValue
+grayscale intensity henock henockIntensity
+grayscale transformation henock henockTransformation
+blur henock henockBlur
+sharpen henock henockSharpen
+sepia henock henockSepia
+save res/exampleImages/HenockHorizontal.jpg henockHorizontal
+save res/exampleImages/HenockVertical.jpg henockVertical
+save res/examplesImages/HenockBlueGrayscale.jpg henockBlue
+save res/examplesImages/HenockGreenGrayscale.jpg henockGreen
+save res/examplesImages/HenockRedGrayscale.jpg henockRed
+save res/examplesImages/HenockLumaGrayscale.jpg henockLuma
+save res/examplesImages/HenockValueGrayscale.jpg henockValue
+save res/examplesImages/HenockIntensityGrayscale.jpg henockIntensity
+save res/examplesImages/HenockTransformationGrayscale.jpg henockTransformation
+save res/exampleImages/HenockBlur.jpg henockBlur
+save res/examplesImages/HenockSharpen.jpg henockSharpen
+save res/exampleImages/HenockSepia.jpg henockSepia
+save res/exampleImages/HenockBrighten.jpg henockBrighten
+save res/examplesImages/HenockDim.jpg henockDim
+save res/exampleImages/HenockHorizontal.png henockHorizontal
+save res/exampleImages/HenockVertical.png henockVertical
+save res/examplesImages/HenockBlueGrayscale.png henockBlue
+save res/examplesImages/HenockGreenGrayscale.png henockGreen
+save res/examplesImages/HenockRedGrayscale.png henockRed
+save res/examplesImages/HenockLumaGrayscale.png henockLuma
+save res/examplesImages/HenockValueGrayscale.png henockValue
+save res/examplesImages/HenockIntensityGrayscale.png henockIntensity
+save res/examplesImages/HenockTransformationGrayscale.png henockTransformation
+save res/exampleImages/HenockBlur.png henockBlur
+save res/examplesImages/HenockSharpen.png henockSharpen
+save res/exampleImages/HenockSepia.png henockSepia
+save res/exampleImages/HenockBrighten.png henockBrighten
+save res/examplesImages/HenockDim.png henockDim
+save res/exampleImages/HenockHorizontal.bmp henockHorizontal
+save res/exampleImages/HenockVertical.bmp henockVertical
+save res/examplesImages/HenockBlueGrayscale.bmp henockBlue
+save res/examplesImages/HenockGreenGrayscale.bmp henockGreen
+save res/examplesImages/HenockRedGrayscale.bmp henockRed
+save res/examplesImages/HenockLumaGrayscale.bmp henockLuma
+save res/examplesImages/HenockValueGrayscale.bmp henockValue
+save res/examplesImages/HenockIntensityGrayscale.bmp henockIntensity
+save res/examplesImages/HenockTransformationGrayscale.bmp henockTransformation
+save res/exampleImages/HenockBlur.bmp henockBlur
+save res/examplesImages/HenockSharpen.bmp henockSharpen
+save res/exampleImages/HenockSepia.bmp henockSepia
+save res/exampleImages/HenockBrighten.bmp henockBrighten
+save res/examplesImages/HenockDim.bmp henockDim
+save res/exampleImages/HenockHorizontal.ppm henockHorizontal
+save res/exampleImages/HenockVertical.ppm henockVertical
+save res/examplesImages/HenockBlueGrayscale.ppm henockBlue
+save res/examplesImages/HenockGreenGrayscale.ppm henockGreen
+save res/examplesImages/HenockRedGrayscale.ppm henockRed
+save res/examplesImages/HenockLumaGrayscale.ppm henockLuma
+save res/examplesImages/HenockValueGrayscale.ppm henockValue
+save res/examplesImages/HenockIntensityGrayscale.ppm henockIntensity
+save res/examplesImages/HenockTransformationGrayscale.ppm henockTransformation
+save res/exampleImages/HenockBlur.ppm henockBlur
+save res/examplesImages/HenockSharpen.ppm henockSharpen
+save res/exampleImages/HenockSepia.ppm henockSepia
+save res/exampleImages/HenockBrighten.ppm henockBrighten
+save res/examplesImages/HenockDim.ppm henockDim
+

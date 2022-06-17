@@ -24,24 +24,24 @@ public class ProcessableImageImpl implements ProcessableImage {
    * @param image the image to be copied
    * @throws IllegalArgumentException if the image is null
    */
-  public ProcessableImageImpl(ProcessableImageImpl image)
+  public ProcessableImageImpl(ProcessableImage image)
           throws IllegalArgumentException {
     if (image == null) {
       throw new IllegalArgumentException("Given null parameter.");
     }
     // deep copy of pixelGrid
-    Pixel[][] copyGrid = new Pixel[image.height][image.width];
-    for (int i = 0; i < image.height; i++) {
-      Pixel[] tempRow = new Pixel[image.width];
+    Pixel[][] copyGrid = new Pixel[image.getHeight()][image.getWidth()];
+    for (int i = 0; i < image.getHeight(); i++) {
+      Pixel[] tempRow = new Pixel[image.getWidth()];
 
-      System.arraycopy(image.pixelGrid[i], 0, tempRow, 0, image.width);
+      System.arraycopy(image.getPixelGrid()[i], 0, tempRow, 0, image.getWidth());
       copyGrid[i] = tempRow;
     }
 
     this.pixelGrid = copyGrid;
-    this.width = image.width;
-    this.height = image.height;
-    this.maxValue = image.maxValue;
+    this.width = image.getWidth();
+    this.height = image.getHeight();
+    this.maxValue = image.getMaxValue();
   }
 
   /**
@@ -61,6 +61,7 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   // image-manipulation methods
 
+  @Override
   public void brighten(int brightenValue) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -69,6 +70,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     }
   }
 
+  @Override
   public void grayscale(ImageProcessingModel.GrayscaleTypes grayscaleChoice) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -77,6 +79,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     }
   }
 
+  @Override
   public void flip(ImageProcessingModelImpl.Orientations orientation) {
     switch (orientation) {
       case Vertical:
@@ -91,6 +94,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     }
   }
 
+  @Override
   public void blur() {
     double[][] kernel = new double[][]{
             new double[]{0.0625, 0.125, 0.0625},
@@ -100,6 +104,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     this.applyFilter(kernel);
   }
 
+  @Override
   public void sharpen() {
     double[][] kernel = new double[][]{
             new double[]{-0.125, -0.125, -0.125, -0.125, -0.125},
@@ -111,6 +116,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     this.applyFilter(kernel);
   }
 
+  @Override
   public void grayscale() {
     double[][] matrix = new double[][]{
             new double[]{0.2126, 0.7152, 0.0722},
@@ -121,6 +127,7 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   }
 
+  @Override
   public void sepia() {
     double[][] matrix = new double[][]{
             new double[]{0.393, 0.769, 0.189},
@@ -132,6 +139,11 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   // helpers for the blur and sharpen methods
 
+  /**
+   * Helper method that takes a kernel (given as a square matrix) and applies that kernel to every
+   * pixel in this processable image.
+   * @param kernel the kernel to be applied to each pixel in this image
+   */
   private void applyFilter(double[][] kernel) {
     // the new, filtered pixel array
     Pixel[][] copyGrid = new Pixel[this.height][this.width];
@@ -154,6 +166,15 @@ public class ProcessableImageImpl implements ProcessableImage {
     this.pixelGrid = copyGrid;
   }
 
+  /**
+   * Applies a given kernel to a given pixel's color component. Accesses the neighbors of the pixel
+   * to complete the kernel calculation.
+   * @param kernel the kernel to be applied to the targeted pixel
+   * @param row the row of the targeted pixel
+   * @param col the column of the targeted pixel
+   * @param color the color component of the targeted pixel that the kernel will be applied to
+   * @return the new color component value of the pixel
+   */
   private int applyKernel(double[][] kernel, int row, int col, String color) {
     int centerSlot = (kernel.length - 1) / 2;
     int newPixelVal = 0;
@@ -211,6 +232,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     this.pixelGrid = copyGrid;
   }
 
+  @Override
   public String createPPMContents() {
     StringBuilder newFileContents = new StringBuilder();
     newFileContents.append("P3" + " ");
@@ -229,6 +251,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     return newFileContents.toString();
   }
 
+  @Override
   public BufferedImage createCommonImageContents() {
     BufferedImage bufferedImage = new BufferedImage(
             this.width, this.height, BufferedImage.TYPE_INT_RGB);
@@ -281,15 +304,22 @@ public class ProcessableImageImpl implements ProcessableImage {
     return Objects.hash(this.height, this.maxValue, this.width);
   }
 
+  @Override
   public int getHeight() {
     return this.height;
   }
 
+  @Override
   public int getWidth() {
     return this.width;
   }
 
-  // TODO: Remove?
+  @Override
+  public int getMaxValue(){
+    return this.maxValue;
+  }
+
+  @Override
   public Pixel[][] getPixelGrid() {
     Pixel[][] gridCopy = new Pixel[this.height][this.width];
     for (int i = 0; i < this.height; i++) {

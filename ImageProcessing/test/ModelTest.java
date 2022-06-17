@@ -1,225 +1,366 @@
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.StringReader;
+
+import controller.ImageProcessingController;
+import controller.ImageProcessingControllerImpl;
+import model.ImageProcessingModel;
+import model.ImageProcessingModelImpl;
+import model.Pixel;
+import model.ProcessableImage;
+import model.ProcessableImageImpl;
+import view.ImageProcessingView;
+import view.ImageTextViewImpl;
+
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for the ImageProcessingModel class & its methods.
+ * Tests for the ProcessableImageImpl class and ImageProcessingModelImpl class.
  */
 public class ModelTest {
-//  ProcessableImageImpl donkeyRedGrayscale =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-red-grayscale.ppm");
-//  ProcessableImageImpl donkeyGreenGrayscale =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-green-grayscale.ppm");
-//  ProcessableImageImpl donkeyBlueGrayscale =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-blue-grayscale.ppm");
-//  ProcessableImageImpl donkeyValueGrayscale =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-value-grayscale.ppm");
-//  ProcessableImageImpl donkeyIntensityGrayscale =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-intensity-grayscale.ppm");
-//  ProcessableImageImpl donkeyLumaGrayscale =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-luma-grayscale.ppm");
-//  ProcessableImageImpl donkeyHorizontal =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-horizontal.ppm");
-//  ProcessableImageImpl donkeyBrighterBy50 =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-brighten-by-50.ppm");
-//  ProcessableImageImpl donkeyDimBy50 =
-//          new ProcessableImageImpl("res/predefinedImages/donkey-dim-by-50.ppm");
-//
-//  @Test (expected = IllegalArgumentException.class)
-//  public void testNullModel() {
-//    ImageProcessingModel model = new ImageProcessingModelImpl(null);
-//  }
-//
-//  @Test
-//  public void testModelBrighten() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, brighten it by 50, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.brighten(50, "donkey", "donkeyBrighten");
-//    model.save("res/testImages/donkeyBrighten.ppm", "donkeyBrighten");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyBrighten");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyBrighterBy50, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyBrighten.ppm", "copyBrighten");
-//    assertEquals(testImage, model.getImage("copyBrighten"));
-//  }
-//
-//  @Test
-//  public void testModelDim() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, dim it by 50, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.dim(50, "donkey", "donkeyDim");
-//    model.save("res/testImages/donkeyDim.ppm", "donkeyDim");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyDim");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyDimBy50, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyDim.ppm", "copyDim");
-//    assertEquals(testImage, model.getImage("copyDim"));
-//  }
-//
-//  @Test
-//  public void testModelHorizontal() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, flip it horizontally, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.flipHorizontally("donkey", "donkeyHorizontal");
-//    model.save("res/testImages/donkeyHorizontal.ppm", "donkeyHorizontal");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyHorizontal");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyHorizontal, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyHorizontal.ppm", "copyHorizontal");
-//    assertEquals(testImage, model.getImage("copyHorizontal"));
-//  }
-//
-//  @Test
-//  public void testModelGrayscaleRed() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, grayscale it to red pixel, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale, "donkey",
-//            "donkeyRedGrayscale");
-//    model.save("res/testImages/donkeyRedGrayscale.ppm", "donkeyRedGrayscale");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyRedGrayscale");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyRedGrayscale, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyRedGrayscale.ppm", "copyRed");
-//    assertEquals(testImage, model.getImage("copyRed"));
-//  }
-//
-//  @Test
-//  public void testModelGrayscaleGreen() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, grayscale it to green pixel, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale, "donkey",
-//            "donkeyGreenGrayscale");
-//    model.save("res/testImages/donkeyGreenGrayscale.ppm", "donkeyGreenGrayscale");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyGreenGrayscale");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyGreenGrayscale, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyGreenGrayscale.ppm", "copyGreen");
-//    assertEquals(testImage, model.getImage("copyGreen"));
-//  }
-//
-//  @Test
-//  public void testModelGrayscaleBlue() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, grayscale it to blue pixel, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale, "donkey",
-//            "donkeyBlueGrayscale");
-//    model.save("res/testImages/donkeyBlueGrayscale.ppm", "donkeyBlueGrayscale");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyBlueGrayscale");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyBlueGrayscale, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyBlueGrayscale.ppm", "copyBlue");
-//    assertEquals(testImage, model.getImage("copyBlue"));
-//  }
-//
-//  @Test
-//  public void testModelGrayscaleIntensity() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, grayscale it to intensity, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale, "donkey",
-//            "donkeyIntensityGrayscale");
-//    model.save("res/testImages/donkeyIntensityGrayscale.ppm", "donkeyIntensityGrayscale");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyIntensityGrayscale");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyIntensityGrayscale, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyIntensityGrayscale.ppm", "copyIntensity");
-//    assertEquals(testImage, model.getImage("copyIntensity"));
-//  }
-//
-//  @Test
-//  public void testModelGrayscaleValue() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, grayscale it to value, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale, "donkey",
-//            "donkeyValueGrayscale");
-//    model.save("res/testImages/donkeyValueGrayscale.ppm", "donkeyValueGrayscale");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyValueGrayscale");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyValueGrayscale, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyValueGrayscale.ppm", "copyValue");
-//    assertEquals(testImage, model.getImage("copyValue"));
-//  }
-//
-//  @Test
-//  public void testModelGrayscaleLuma() {
-//    // Create a new model that has no currently loaded images
-//    ImageProcessingModel model = new ImageProcessingModelImpl();
-//
-//    // load donkey.ppm, grayscale it to luma, and save the image
-//    model.load("res/predefinedImages/donkey.ppm", "donkey");
-//    model.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale, "donkey",
-//            "donkeyLumaGrayscale");
-//    model.save("res/testImages/donkeyLumaGrayscale.ppm", "donkeyLumaGrayscale");
-//
-//    // get the image (deep copy) from the model
-//    ProcessableImageImpl testImage = model.getImage("donkeyLumaGrayscale");
-//
-//    // check if the deep copy is the same as the predefined test image
-//    assertEquals(this.donkeyLumaGrayscale, testImage);
-//
-//    // check if save worked correctly
-//    model.load("res/testImages/donkeyLumaGrayscale.ppm", "copyLuma");
-//    assertEquals(testImage, model.getImage("copyLuma"));
-//  }
+  ProcessableImage donkeyTest;
+  ProcessableImage donkeyRedGrayscale;
+  ProcessableImage donkeyGreenGrayscale;
+  ProcessableImage donkeyBlueGrayscale;
+  ProcessableImage donkeyValueGrayscale;
+  ProcessableImage donkeyIntensityGrayscale;
+  ProcessableImage donkeyLumaGrayscale;
+  ProcessableImage donkeyHorizontal;
+  ProcessableImage donkeyVertical;
+  ProcessableImage donkeyBrighterBy50;
+  ProcessableImage donkeyDimBy50;
+  ProcessableImage donkeySepiaFilter;
+  ProcessableImage donkeyGrayscaleFilter;
+  ProcessableImage donkeyBlurFilter;
+  ProcessableImage donkeySharpenFilter;
+
+  @Before
+  public void init() {
+    Appendable appendable = new StringBuilder();
+    Readable readable = new StringReader(
+            "load res/predefinedImages/donkey-red-greyscale.ppm donkeyRedGrayscale\n" +
+                    "load res/predefinedImages/donkey.ppm donkeyTest\n" +
+                    "load res/predefinedImages/donkey-green-greyscale.ppm donkeyGreenGrayscale\n" +
+                    "load res/predefinedImages/donkey-blue-greyscale.ppm donkeyBlueGrayscale\n" +
+                    "load res/predefinedImages/donkey-value-greyscale.ppm donkeyValueGrayscale\n" +
+                    "load res/predefinedImages/donkey-intensity-greyscale.ppm donkeyIntensityGrayscale\n" +
+                    "load res/predefinedImages/donkey-luma-greyscale.ppm donkeyLumaGrayscale\n" +
+                    "load res/predefinedImages/donkey-horizontal.ppm donkeyHorizontal\n" +
+                    "load res/predefinedImages/donkey-vertical.ppm donkeyVertical\n" +
+                    "load res/predefinedImages/donkey-brighten-by-50.ppm donkeyBrighten\n" +
+                    "load res/predefinedImages/donkey-dim-by-50.ppm donkeyDim\n" +
+                    "load res/predefinedImages/donkeyBlur.ppm donkeyBlur\n" +
+                    "load res/predefinedImages/donkeySharpen.ppm donkeySharpen\n" +
+                    "load res/predefinedImages/donkeyGrayscaleFilter.ppm donkeyGrayscaleFilter\n" +
+                    "load res/predefinedImages/donkeySepia.ppm donkeySepia\n");
+    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingModel model = new ImageProcessingModelImpl();
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    controller.runProgram();
+    donkeyTest = model.getImage("donkeyTest");
+    donkeyRedGrayscale = model.getImage("donkeyRedGrayscale");
+    donkeyGreenGrayscale = model.getImage("donkeyGreenGrayscale");
+    donkeyBlueGrayscale = model.getImage("donkeyBlueGrayscale");
+    donkeyValueGrayscale = model.getImage("donkeyValueGrayscale");
+    donkeyIntensityGrayscale = model.getImage("donkeyIntensityGrayscale");
+    donkeyLumaGrayscale = model.getImage("donkeyLumaGrayscale");
+    donkeyVertical = model.getImage("donkeyVertical");
+    donkeyHorizontal = model.getImage("donkeyHorizontal");
+    donkeyBrighterBy50 = model.getImage("donkeyBrighten");
+    donkeyDimBy50 = model.getImage("donkeyDim");
+    donkeyGrayscaleFilter = model.getImage("donkeyGrayscaleFilter");
+    donkeySepiaFilter = model.getImage("donkeySepia");
+    donkeyBlurFilter = model.getImage("donkeyBlur");
+    donkeySharpenFilter = model.getImage("donkeySharpen");
+  }
+
+  @Test
+  public void testCopyImage() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+        assertEquals(donkeyPixelGrid[i][j], donkeyCopyPixelGrid[i][j]);
+      }
+    }
+  }
+
+  @Test
+  public void testFlipHorizontal() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.flip(ImageProcessingModel.Orientations.Horizontal);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+        assertEquals(donkeyPixelGrid[i][j],
+                donkeyCopyPixelGrid[i][this.donkeyTest.getWidth() - j - 1]);
+      }
+    }
+  }
+
+  @Test
+  public void testFlipVertical() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.flip(ImageProcessingModel.Orientations.Vertical);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+        assertEquals(donkeyPixelGrid[i][j],
+                donkeyCopyPixelGrid[this.donkeyTest.getWidth() - i - 1][j]);
+      }
+    }
+  }
+
+  @Test
+  public void testBrightenMax() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.brighten(255);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+        assertEquals(donkeyCopyPixelGrid[i][j].getRed(), 255);
+        assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), 255);
+        assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), 255);
+      }
+    }
+  }
+
+  @Test
+  public void testDimMax() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.brighten(-255);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+        assertEquals(donkeyCopyPixelGrid[i][j].getRed(), 0);
+        assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), 0);
+        assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), 0);
+      }
+    }
+  }
+
+  @Test
+  public void testRedGrayscale() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+
+        Pixel p1 = donkeyPixelGrid[i][j];
+        assertEquals(donkeyCopyPixelGrid[i][j].getRed(), p1.getRed());
+        assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), p1.getRed());
+        assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), p1.getRed());
+      }
+    }
+  }
+
+  @Test
+  public void testGreenGrayscale() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+
+        Pixel p1 = donkeyPixelGrid[i][j];
+        assertEquals(donkeyCopyPixelGrid[i][j].getRed(), p1.getGreen());
+        assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), p1.getGreen());
+        assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), p1.getGreen());
+      }
+    }
+  }
+
+  @Test
+  public void testBlueGrayscale() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+
+        Pixel p1 = donkeyPixelGrid[i][j];
+        assertEquals(donkeyCopyPixelGrid[i][j].getRed(), p1.getBlue());
+        assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), p1.getBlue());
+        assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), p1.getBlue());
+      }
+    }
+  }
+
+  @Test
+  public void testValueGrayscale() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+        Pixel p1 = donkeyPixelGrid[i][j];
+        int tempMax = Math.max(p1.getRed(), p1.getBlue());
+        int finalMax = Math.max(tempMax, p1.getGreen());
+
+        assertEquals(donkeyCopyPixelGrid[i][j].getRed(), finalMax);
+        assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), finalMax);
+        assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), finalMax);
+      }
+    }
+  }
+
+  @Test
+  public void testIntensityGrayscale() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+        Pixel p1 = donkeyPixelGrid[i][j];
+        int intensityVal = (int) Math.round((p1.getRed() + p1.getGreen() + p1.getBlue()) / 3.0);
+
+        assertEquals(donkeyCopyPixelGrid[i][j].getRed(), intensityVal);
+        assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), intensityVal);
+        assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), intensityVal);
+      }
+    }
+  }
+
+  @Test
+  public void testLumaGrayscale() {
+    this.init();
+    ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
+      for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
+        Pixel p1 = donkeyPixelGrid[i][j];
+        int lumaVal = (int) Math.round(
+                (p1.getRed() * 0.2126 + p1.getGreen() * 0.7152 + p1.getBlue() * 0.0722));
+
+        assertEquals(donkeyCopyPixelGrid[i][j].getRed(), lumaVal);
+        assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), lumaVal);
+        assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), lumaVal);
+      }
+    }
+  }
+
+  @Test
+  public void testCopyImageFullImage() {
+    this.init();
+    ProcessableImage donkeyCopy = new ProcessableImageImpl(donkeyTest);
+    assertEquals(donkeyCopy, donkeyTest);
+    assertEquals(donkeyTest, donkeyCopy);
+  }
+
+  @Test
+  public void testFlipHorizontalFullImage() {
+    this.init();
+    donkeyTest.flip(ImageProcessingModel.Orientations.Horizontal);
+    assertEquals(donkeyTest, donkeyHorizontal);
+  }
+
+  @Test
+  public void testFlipVerticalFullImage() {
+    this.init();
+    donkeyTest.flip(ImageProcessingModel.Orientations.Vertical);
+    assertEquals(donkeyTest, donkeyVertical);
+  }
+
+  @Test
+  public void testBrightenFullImage() {
+    this.init();
+    donkeyTest.brighten(50);
+    assertEquals(donkeyTest, donkeyBrighterBy50);
+  }
+
+  @Test
+  public void testDimFullImage() {
+    this.init();
+    donkeyTest.brighten(-50);
+    assertEquals(donkeyTest, donkeyDimBy50);
+  }
+
+  @Test
+  public void testRedGrayscaleFullImage() {
+    this.init();
+    donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale);
+    assertEquals(donkeyTest, donkeyRedGrayscale);
+  }
+
+  @Test
+  public void testGreenGrayscaleFullImage() {
+    this.init();
+    donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale);
+    assertEquals(donkeyTest, donkeyGreenGrayscale);
+  }
+
+  @Test
+  public void testBlueGrayscaleFullImage() {
+    this.init();
+    donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale);
+    assertEquals(donkeyTest, donkeyBlueGrayscale);
+  }
+
+  @Test
+  public void testValueGrayscaleFullImage() {
+    this.init();
+    donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale);
+    assertEquals(donkeyTest, donkeyValueGrayscale);
+  }
+
+  @Test
+  public void testIntensityGrayscaleFullImage() {
+    this.init();
+    donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale);
+    assertEquals(donkeyTest, donkeyIntensityGrayscale);
+  }
+
+  @Test
+  public void testLumaGrayscaleFullImage() {
+    this.init();
+    donkeyTest.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
+    assertEquals(donkeyTest, donkeyLumaGrayscale);
+  }
+
+  @Test
+  public void testSepiaFullImage() {
+    this.init();
+    donkeyTest.sepia();
+    assertEquals(donkeyTest, donkeySepiaFilter);
+  }
+
+  @Test
+  public void testBlurFullImage() {
+    this.init();
+    donkeyTest.blur();
+    assertEquals(donkeyTest, donkeyBlurFilter);
+  }
+
+  @Test
+  public void testSharpenFullImage() {
+    this.init();
+    donkeyTest.sharpen();
+    assertEquals(donkeyTest, donkeySharpenFilter);
+  }
+
 }

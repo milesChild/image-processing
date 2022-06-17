@@ -75,7 +75,6 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
             s[2], s[3]));
     this.knownCommands.put("blur", s -> new Blur(s[1], s[2]));
     this.knownCommands.put("sharpen", s -> new Sharpen(s[1], s[2]));
-    this.knownCommands.put("grayscaleFilter", s -> new Grayscale(s[1], s[2]));
     this.knownCommands.put("sepia", s -> new Sepia(s[1], s[2]));
   }
 
@@ -154,6 +153,8 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
    */
   private ImageProcessingModel.GrayscaleTypes stringToGrayscaleEnum(String userInput) {
     switch (userInput) {
+      case "value":
+        return ImageProcessingModel.GrayscaleTypes.ValueGrayscale;
       case "intensity":
         return ImageProcessingModel.GrayscaleTypes.IntensityGrayscale;
       case "luma":
@@ -165,7 +166,7 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
       case "blue":
         return ImageProcessingModel.GrayscaleTypes.BlueGrayscale;
       default:
-        return ImageProcessingModel.GrayscaleTypes.ValueGrayscale;
+        return ImageProcessingModel.GrayscaleTypes.TransformationGrayscale;
     }
   }
 
@@ -201,10 +202,11 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
 
   /**
    * Loads a PPM image into the application given the path of the file and the name that will refer
-   * to the file. Reads in the PPM image, creates a new
+   * to the file.  Reads in the image, creates a new processable image, and adds the processable
+   * image to the model.
    *
-   * @param path
-   * @param name
+   * @param path the path of the ppm image to be loaded into the application
+   * @param name the name the ppm image will be referred to as
    */
   private void loadPPM(String path, String name) {
     Scanner sc;
@@ -252,6 +254,14 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
     this.model.addImage(name, loadedProcessableImageImpl);
   }
 
+  /**
+   * Loads a JPEG, JPG, PNG, or BMP image into the application given the path of the file and the
+   * name that will refer to the file. Reads in the image, creates a new processable image, and adds
+   * the processable image to the model.
+   *
+   * @param path the path of the ppm image to be loaded into the application
+   * @param name the name the ppm image will be referred to as
+   */
   private void loadCommonImage(String path, String name) {
     BufferedImage bufferedImage;
     try {
@@ -325,11 +335,12 @@ public class ImageProcessingControllerImpl implements ImageProcessingController 
    * @param path the device path the processable image will be saved to
    */
   private void saveAsCommonImage(String path, String imageName) {
+    String fileType = path.substring(path.length() - 3);
     BufferedImage bufferedImage = model.getImage(imageName).createCommonImageContents();
     File newFile = new File(path);
 
     try {
-      ImageIO.write(bufferedImage, path.split("\\.")[1], newFile);
+      ImageIO.write(bufferedImage, fileType, newFile);
     } catch (IOException e) {
       throw new IllegalArgumentException();
     }

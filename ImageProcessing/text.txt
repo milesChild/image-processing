@@ -1,2 +1,0 @@
-load res/Henock.ppm henock
-save res/Henock.jpg henock
