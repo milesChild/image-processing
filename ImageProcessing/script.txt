@@ -13,6 +13,7 @@ grayscale green henock henockGreen
 grayscale luma henock henockLuma
 grayscale value henock henockValue
 grayscale intensity henock henockIntensity
+grayscale transformation henock henockTransformation
 blur henock henockBlur
 sharpen henock henockSharpen
 sepia henock henockSepia
@@ -24,6 +25,7 @@ save res/exampleImages/HenockRedGrayscale.jpg henockRed
 save res/exampleImages/HenockLumaGrayscale.jpg henockLuma
 save res/exampleImages/HenockValueGrayscale.jpg henockValue
 save res/exampleImages/HenockIntensityGrayscale.jpg henockIntensity
+save res/exampleImages/HenockTransformationGrayscale.jpg henockTransformation
 save res/exampleImages/HenockBlur.jpg henockBlur
 save res/exampleImages/HenockSharpen.jpg henockSharpen
 save res/exampleImages/HenockSepia.jpg henockSepia
@@ -37,6 +39,7 @@ save res/exampleImages/HenockRedGrayscale.png henockRed
 save res/exampleImages/HenockLumaGrayscale.png henockLuma
 save res/exampleImages/HenockValueGrayscale.png henockValue
 save res/exampleImages/HenockIntensityGrayscale.png henockIntensity
+save res/exampleImages/HenockTransformationGrayscale.png henockTransformation
 save res/exampleImages/HenockBlur.png henockBlur
 save res/exampleImages/HenockSharpen.png henockSharpen
 save res/exampleImages/HenockSepia.png henockSepia
@@ -50,6 +53,7 @@ save res/exampleImages/HenockRedGrayscale.bmp henockRed
 save res/exampleImages/HenockLumaGrayscale.bmp henockLuma
 save res/exampleImages/HenockValueGrayscale.bmp henockValue
 save res/exampleImages/HenockIntensityGrayscale.bmp henockIntensity
+save res/exampleImages/HenockTransformationGrayscale.png henockTransformation
 save res/exampleImages/HenockBlur.bmp henockBlur
 save res/exampleImages/HenockSharpen.bmp henockSharpen
 save res/exampleImages/HenockSepia.bmp henockSepia
@@ -63,6 +67,7 @@ save res/exampleImages/HenockRedGrayscale.ppm henockRed
 save res/exampleImages/HenockLumaGrayscale.ppm henockLuma
 save res/exampleImages/HenockValueGrayscale.ppm henockValue
 save res/exampleImages/HenockIntensityGrayscale.ppm henockIntensity
+save res/exampleImages/HenockTransformationGrayscale.ppm henockTransformation
 save res/exampleImages/HenockBlur.ppm henockBlur
 save res/exampleImages/HenockSharpen.ppm henockSharpen
 save res/exampleImages/HenockSepia.ppm henockSepia
