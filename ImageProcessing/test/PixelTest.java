@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.ImageProcessingModel;
+import model.Pixel;
 import model.PixelImpl;
 
 import static org.junit.Assert.assertEquals;
@@ -11,11 +12,11 @@ import static org.junit.Assert.assertEquals;
  * image.
  */
 public class PixelTest {
-  PixelImpl red;
-  PixelImpl blue;
-  PixelImpl green;
-  PixelImpl black;
-  PixelImpl white;
+  Pixel red;
+  Pixel blue;
+  Pixel green;
+  Pixel black;
+  Pixel white;
 
   @Before
   public void init() {
