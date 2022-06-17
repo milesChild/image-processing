@@ -96,6 +96,7 @@ public interface ProcessableImage {
    */
   int getWidth();
 
+  // TODO: Remove?
   /**
    * Gets a deep copy of the pixel grid, a 2D array of pixels, in the given image class.
    * @return a deep copy of the 2D array of pixels, pixelGrid, as a new, identical 2D array of

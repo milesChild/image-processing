@@ -20,6 +20,8 @@ This is a basic processableImageImpl processing program which offers the client 
 > Also in the ProcessableImageImpl class, we modified the constructors to be able to support loading in of any file type from a path. The constructor calls on the appropriate helper based on the image type the user wants to load in.
 > 
 > As soon as an image is loaded in, it is automatically converted into a ProcessableImageImpl object. This removes the necessity of having individual objects for each of the different file types that a user may load in.
+> 
+> We decided to do image I/O in the controller implementation rather than the model. (i.e. we moved the load and save methods into the controller and out of the model)
 
 # Model, View, Controller Overview:
 

@@ -289,6 +289,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     return this.width;
   }
 
+  // TODO: Remove?
   public Pixel[][] getPixelGrid() {
     Pixel[][] gridCopy = new Pixel[this.height][this.width];
     for (int i = 0; i < this.height; i++) {
