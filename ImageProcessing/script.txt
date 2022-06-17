@@ -74,4 +74,3 @@ save res/exampleImages/HenockSepia.ppm henockSepia
 save res/exampleImages/HenockBrighten.ppm henockBrighten
 save res/exampleImages/HenockDim.ppm henockDim
 q
-

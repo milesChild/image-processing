@@ -315,8 +315,14 @@ public class ProcessableImageImpl implements ProcessableImage {
   public Pixel[][] getPixelGrid() {
     Pixel[][] gridCopy = new Pixel[this.height][this.width];
     for (int i = 0; i < this.height; i++) {
-      System.arraycopy(this.pixelGrid[i], 0, gridCopy[i], 0, this.width);
+      for (int j = 0; j < this.width; j++) {
+        Pixel oldPixel = this.pixelGrid[i][j];
+        Pixel newPixel = new Pixel(oldPixel.getRed(), oldPixel.getGreen(), oldPixel.getBlue(),
+                this.maxValue);
+        gridCopy[i][j] = newPixel;
+      }
     }
     return gridCopy;
   }
+
 }

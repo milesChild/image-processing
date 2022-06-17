@@ -26,26 +26,24 @@ public class ImageProcessingMain {
     ImageProcessingView view = new ImageTextViewImpl(System.out);
     Readable in;
 
-    if (args.length == 2 && args[0].equals("-file")){
+    if (args.length == 2 && args[0].equals("-file")) {
       String filePath = args[1];
       FileReader fileReader = null;
-      if (filePath.endsWith(".txt")){
+      if (filePath.endsWith(".txt")) {
         File file = new File(filePath);
         try {
-         fileReader = new FileReader(file);
-        }
-        catch (IOException e){
+          fileReader = new FileReader(file);
+        } catch (IOException e) {
           throw new IllegalArgumentException("File not found from given path!");
         }
       }
       in = fileReader;
 
-    }
-    else {
+    } else {
       in = new InputStreamReader(System.in);
     }
 
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model,in,view);
+    ImageProcessingController controller = new ImageProcessingControllerImpl(model, in, view);
     controller.runProgram();
   }
 }
