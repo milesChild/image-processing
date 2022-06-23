@@ -401,7 +401,7 @@ public class ProcessableImageImpl implements ProcessableImage {
       return combineSurroundingPixels((int) oldX, (int) oldY);
     }
 
-    PixelImpl oldPixel = this.pixelGrid[row][col];
+    PixelImpl oldPixel = this.pixelGrid[(int) oldX][(int) oldY];
 
     return new PixelImpl(oldPixel.getRed(), oldPixel.getGreen(), oldPixel.getBlue(), this.maxValue);
   }
@@ -450,6 +450,5 @@ public class ProcessableImageImpl implements ProcessableImage {
 
     return new PixelImpl(redTot / avg, greenTot / avg, blueTot / avg, this.maxValue);
   }
-
 
 }
