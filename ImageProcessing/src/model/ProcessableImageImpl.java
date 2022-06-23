@@ -14,8 +14,8 @@ import java.util.Objects;
  */
 public class ProcessableImageImpl implements ProcessableImage {
   private PixelImpl[][] pixelGrid;
-  private final int width;
-  private final int height;
+  private int width;
+  private int height;
   private final int maxValue;
 
   /**
@@ -450,5 +450,6 @@ public class ProcessableImageImpl implements ProcessableImage {
 
     return new PixelImpl(redTot / avg, greenTot / avg, blueTot / avg, this.maxValue);
   }
+
 
 }

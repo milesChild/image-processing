@@ -1,197 +1,150 @@
 package view;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 
 
-public class ImageGUIImpl extends JFrame implements ActionListener, ItemListener{
-  private JPanel mainPanel;
-  private JScrollPane mainScrollPane;
+import model.Pixel;
+import model.ProcessableImage;
 
-  private JPanel buttonPanel;
 
-  private JPanel imagePanel;
+public class ImageGUIImpl extends JFrame implements ImageProcessingView{
+  private final JLabel imageLabel;
 
-  private JLabel comboboxDisplay;
-  JLabel fileOpenDisplay;
+  private final JButton loadButton;
+  private final JButton saveButton;
+  private final JButton brightenButton;
+  private final JButton dimButton;
+  private final JButton blurButton;
+  private final JButton sharpenButton;
+  private final JButton horizontalFlipButton;
+  private final JButton verticalFlipButton;
+  private final JButton grayscaleButton;
+  private final JButton sepiaButton;
+
+
 
   public ImageGUIImpl() throws IOException {
+    super();
     setTitle("Process an Image!");
-    setSize(300, 400);
+    setSize(800, 800);
 
-    this.mainPanel = new JPanel();
-    this.mainPanel.setLayout(new GridLayout(1, 2));
-    this.mainScrollPane = new JScrollPane(this.mainPanel);
-    add(this.mainScrollPane);
+    JPanel mainPanel = new JPanel();
+    mainPanel.setLayout(new FlowLayout());
+    this.add(mainPanel);
 
+    JScrollPane mainScrollPane = new JScrollPane(mainPanel);
+    add(mainScrollPane);
 
+    JPanel imagePanel = new JPanel();
+    imagePanel.setBorder(BorderFactory.createTitledBorder("Selected Image:"));
+    mainPanel.add(imagePanel);
+    imagePanel.setLayout(new BoxLayout(imagePanel, BoxLayout.PAGE_AXIS));
 
-    this.imagePanel = new JPanel();
-    this.imagePanel.setLayout(new BoxLayout(this.imagePanel, BoxLayout.PAGE_AXIS));
+    this.imageLabel = new JLabel();
+    JScrollPane imageScrollable = new JScrollPane(this.imageLabel);
+    imageScrollable.setPreferredSize(new Dimension(400,400));
+    imagePanel.add(imageScrollable);
+    mainPanel.add(imagePanel);
 
-    JLabel picLabel = new JLabel("Image:");
-    this.imagePanel.add(picLabel);
-    BufferedImage myPicture = ImageIO.read(new File("res/exampleImages/Henock.jpg"));
-    JLabel picture = new JLabel(new ImageIcon(myPicture));
-    this.imagePanel.add(picture);
-    JLabel histogramLabel = new JLabel("Histogram:");
-    this.imagePanel.add(histogramLabel);
-    this.mainPanel.add(this.imagePanel);
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new GridLayout(16, 1));
+    buttonPanel.setBorder(BorderFactory.createTitledBorder("Image Functions:"));
 
-    this.buttonPanel = new JPanel();
-    this.buttonPanel.setLayout(new GridLayout(16, 1));
+    this.loadButton = new JButton("Load Image");
+    this.loadButton.setActionCommand("load");
+    buttonPanel.add(loadButton);
 
-//    JPanel fileopenPanel = new JPanel();
-//    fileopenPanel.setLayout(new FlowLayout());
-//    JButton fileOpenButton = new JButton("Open a file");
-//    fileOpenButton.setActionCommand("load");
-//    fileOpenButton.addActionListener(this);
-//    fileopenPanel.add(fileOpenButton);
-//    this.buttonPanel.add(fileopenPanel);
+    this.saveButton = new JButton("Save Image");
+    this.saveButton.setActionCommand("save");
+    buttonPanel.add(saveButton);
 
-    JButton loadButton = new JButton("Load Image");
-    loadButton.setPreferredSize(new Dimension(50, 30));
-    loadButton.setActionCommand("load");
-    loadButton.addActionListener(this);
-    this.buttonPanel.add(loadButton);
+    this.brightenButton = new JButton("Brighten");
+    this.brightenButton.setActionCommand("brighten");
+    buttonPanel.add(brightenButton);
 
-    JButton saveButton = new JButton("Save Image");
-    saveButton.setPreferredSize(new Dimension(50,30));
-    saveButton.setActionCommand("save");
-    this.buttonPanel.add(saveButton);
+    this.dimButton = new JButton("Dim");
+    this.dimButton.setActionCommand("dim");
+    buttonPanel.add(dimButton);
 
-    JButton brightenButton = new JButton("Brighten");
-    brightenButton.setPreferredSize(new Dimension(50, 30));
-    brightenButton.setActionCommand("brighten");
-    this.buttonPanel.add(brightenButton);
+    this.horizontalFlipButton = new JButton("Horizontal Flip");
+    this.horizontalFlipButton.setActionCommand("horizontal");
+    buttonPanel.add(horizontalFlipButton);
 
-    JButton dimButton = new JButton("Dim");
-    dimButton.setPreferredSize(new Dimension(50,30));
-    dimButton.setActionCommand("dim");
-    this.buttonPanel.add(dimButton);
+    this.verticalFlipButton = new JButton("Vertical Flip");
+    this.verticalFlipButton.setActionCommand("vertical");
+    buttonPanel.add(verticalFlipButton);
 
-//    // brighten and dim
-//    JPanel typeButtons = new JPanel();
-//    typeButtons.setLayout(new BoxLayout(typeButtons, BoxLayout.PAGE_AXIS));
-//    JPanel brightenGroup = new JPanel();
-//    brightenGroup.setLayout(new BoxLayout(brightenGroup, BoxLayout.LINE_AXIS));
-//    JButton brightenButton = new JButton("Brighten by:");
-//    brightenButton.setPreferredSize(new Dimension(100, 30));
-//    JTextField brightenValue = new JTextField();
-//    brightenGroup.add(brightenButton);
-//    brightenGroup.add(brightenValue);
-//    typeButtons.add(brightenGroup);
-//
-//    JPanel dimGroup = new JPanel();
-//    dimGroup.setLayout(new BoxLayout(dimGroup, BoxLayout.LINE_AXIS));
-//    JButton dimButton = new JButton("Dim by:");
-//    dimButton.setPreferredSize(new Dimension(100,30));
-//    JTextField dimValue = new JTextField();
-//    dimValue.setPreferredSize(new Dimension(1,5));
-//    dimGroup.add(dimButton);
-//    dimGroup.add(dimValue);
-//    typeButtons.add(dimGroup);
-//    this.buttonPanel.add(typeButtons);
+    this.grayscaleButton = new JButton("Grayscale");
+    this.grayscaleButton.setActionCommand("grayscale");
+    buttonPanel.add(grayscaleButton);
 
-//    // grayscale options
-//    JPanel grayscalePanel = new JPanel(new GridLayout(1,1));
-    JButton grayscaleButton = new JButton("Grayscale");
-    grayscaleButton.setActionCommand("grayscale");
-    this.buttonPanel.add(grayscaleButton);
-//
-//    JPanel grayscaleOptions = new JPanel(new GridLayout(0,1));
-//    ButtonGroup group = new ButtonGroup();
-//    JRadioButton filter = new JRadioButton("Filter");
-//    group.add(filter);
-//    grayscaleOptions.add(filter);
-//
-//    JRadioButton value = new JRadioButton("Value");
-//    group.add(value);
-//    grayscaleOptions.add(value);
-//
-//    JRadioButton intensity = new JRadioButton("Intensity");
-//    group.add(intensity);
-//    grayscaleOptions.add(intensity);
-//
-//    JRadioButton luma = new JRadioButton("Luma");
-//    group.add(luma);
-//    grayscaleOptions.add(luma);
-//
-//    JRadioButton red = new JRadioButton("Red Component");
-//    group.add(red);
-//    grayscaleOptions.add(red);
-//
-//    JRadioButton green = new JRadioButton("Green Component");
-//    group.add(green);
-//    grayscaleOptions.add(green);
-//
-//    JRadioButton blue = new JRadioButton("Blue Component");
-//    group.add(blue);
-//    grayscaleOptions.add(blue);
-//
-//    grayscalePanel.add(grayscaleOptions);
-//    this.buttonPanel.add(grayscalePanel);
+    this.blurButton = new JButton("Blur");
+    this.blurButton.setActionCommand("blur");
+    buttonPanel.add(blurButton);
 
-
-    JButton blurButton = new JButton("Blur");
-    blurButton.setActionCommand("blur");
-    this.buttonPanel.add(blurButton);
-
-    JButton sharpenButton = new JButton("Sharpen");
+    this.sharpenButton = new JButton("Sharpen");
     sharpenButton.setActionCommand("sharpen");
-    this.buttonPanel.add(sharpenButton);
+    buttonPanel.add(sharpenButton);
 
-    JButton sepiaButton = new JButton("Sepia");
-    sepiaButton.setActionCommand("sepia");
-    this.buttonPanel.add(sepiaButton);
+    this.sepiaButton = new JButton("Sepia");
+    this.sepiaButton.setActionCommand("sepia");
+    buttonPanel.add(sepiaButton);
 
-    this.mainPanel.add(this.buttonPanel);
+    mainPanel.add(buttonPanel);
+  }
 
+  public void displayImage(BufferedImage image) {
+//    BufferedImage bufferedImage = new BufferedImage(image.getWidth(), image.getHeight(),
+//            BufferedImage.TYPE_INT_RGB);
 
+    ImageIcon displayImage = new ImageIcon(image);
+    this.imageLabel.setIcon(displayImage);
+  }
+
+  public void setListener(ActionListener listener){
+    this.loadButton.addActionListener(listener);
+    this.saveButton.addActionListener(listener);
+    this.brightenButton.addActionListener(listener);
+    this.dimButton.addActionListener(listener);
+    this.blurButton.addActionListener(listener);
+    this.sharpenButton.addActionListener(listener);
+    this.grayscaleButton.addActionListener(listener);
+    this.horizontalFlipButton.addActionListener(listener);
+    this.verticalFlipButton.addActionListener(listener);
+    this.sepiaButton.addActionListener(listener);
+  }
+
+  public int getInputValue(String command){
+    String value = JOptionPane.showInputDialog("Enter " + command + " value:");
+    return Integer.parseInt(value);
   }
 
   /**
-   * Invoked when an action occurs.
+   * Method that accepts a string and displays it on the command line to the client.
    *
-   * @param e the event to be processed
+   * @param message the message to be displayed
+   * @throws IOException if transmission to the provided data destination fails
    */
   @Override
-  public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()){
-      case "load":
-        final JFileChooser fchooser = new JFileChooser(".");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "PPM, JPG, PNG, BMP Images", "jpg", "ppm", "bmp", "png");
-        fchooser.setFileFilter(filter);
-        int retvalue = fchooser.showOpenDialog(ImageGUIImpl.this);
-        if (retvalue == JFileChooser.APPROVE_OPTION) {
-          File f = fchooser.getSelectedFile();
-          fileOpenDisplay = new JLabel();
-          fileOpenDisplay.setText(f.getAbsolutePath());
-        }
-        break;
-    }
+  public void renderMessage(String message) throws IOException {
 
   }
 
-  /**
-   * Invoked when an item has been selected or deselected by the user.
-   * The code written for this method performs the operations
-   * that need to occur when an item is selected (or deselected).
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void itemStateChanged(ItemEvent e) {
-
-  }
+//  public String getGrayscaleSelection(){
+//
+//  }
 }

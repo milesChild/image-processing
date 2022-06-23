@@ -2,30 +2,18 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+import controller.ImageProcessingControllerImplGUI;
 import view.ImageGUIImpl;
 
 public class SwingTest {
   public static void main(String[] args) throws IOException {
-    ImageGUIImpl.setDefaultLookAndFeelDecorated(false);
-    ImageGUIImpl frame = new ImageGUIImpl();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setVisible(true);
+    ImageProcessingControllerImplGUI s = new ImageProcessingControllerImplGUI();
+
 
     try {
       // Set cross-platform Java L&F (also called "Metal")
       UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 
-      //UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName());
-
-      //   UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-      //    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-      //    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-      //    {
-      //       if ("Nimbus".equals(info.getName())) {
-      //          UIManager.setLookAndFeel(info.getClassName());
-      //         break;
-      //    }
-      // }
     } catch (UnsupportedLookAndFeelException e) {
       // handle exception
     } catch (ClassNotFoundException e) {
