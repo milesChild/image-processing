@@ -371,8 +371,8 @@ public class ProcessableImageImpl implements ProcessableImage {
       throw new IllegalArgumentException("Percent must be between 0 - 100");
     }
 
-    int newWidth = (this.height * (100 - percent)) / 100;
-    int newHeight = (this.width * (100 - percent)) / 100;
+    int newWidth = (this.width * (100 - percent)) / 100;
+    int newHeight = (this.height * (100 - percent)) / 100;
     PixelImpl[][] newPixelGrid = new PixelImpl[newHeight][newWidth];
 
     for (int i = 0; i < newHeight; i++) {
@@ -386,8 +386,8 @@ public class ProcessableImageImpl implements ProcessableImage {
     this.pixelGrid = newPixelGrid;
     // TODO: Make width and height non-final
     // reassign the width and height to the new width and height
-    //this.width = newWidth;
-    //this.height = newHeight;
+    this.width = newWidth;
+    this.height = newHeight;
   }
 
   private PixelImpl mappedPixel(int row, int col, int newWidth, int newHeight) {
