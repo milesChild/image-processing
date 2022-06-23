@@ -76,8 +76,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void grayscale() {
     double[][] matrix = new double[][]{new double[]{0.2126, 0.7152, 0.0722},
-      new double[]{0.2126, 0.7152, 0.0722},
-      new double[]{0.2126, 0.7152, 0.0722}
+            new double[]{0.2126, 0.7152, 0.0722},
+            new double[]{0.2126, 0.7152, 0.0722}
     };
     this.applyColorTransformation(matrix);
 
@@ -101,8 +101,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void blur() {
     double[][] kernel = new double[][]{new double[]{0.0625, 0.125, 0.0625},
-      new double[]{0.125, 0.25, 0.125},
-      new double[]{0.0625, 0.125, 0.0625}
+            new double[]{0.125, 0.25, 0.125},
+            new double[]{0.0625, 0.125, 0.0625}
     };
     this.applyFilter(kernel);
   }
@@ -110,10 +110,10 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void sharpen() {
     double[][] kernel = new double[][]{new double[]{-0.125, -0.125, -0.125, -0.125, -0.125},
-      new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
-      new double[]{-0.125, 0.25, 1, 0.25, -0.125},
-      new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
-      new double[]{-0.125, -0.125, -0.125, -0.125, -0.125}
+            new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
+            new double[]{-0.125, 0.25, 1, 0.25, -0.125},
+            new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
+            new double[]{-0.125, -0.125, -0.125, -0.125, -0.125}
     };
     this.applyFilter(kernel);
   }
@@ -121,8 +121,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void sepia() {
     double[][] matrix = new double[][]{new double[]{0.393, 0.769, 0.189},
-      new double[]{0.349, 0.686, 0.168},
-      new double[]{0.272, 0.534, 0.131}
+            new double[]{0.349, 0.686, 0.168},
+            new double[]{0.272, 0.534, 0.131}
     };
     this.applyColorTransformation(matrix);
   }
@@ -333,9 +333,10 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   /**
    * Generates the frequency values to be used when plotting a histogram for this processable image.
+   *
    * @return a list of four array lists, each of which are of size equal to the {@code maxValue} for
-   *         any of the given pixels in this processableImage. Each list stores the frequencies of
-   *         a given value for all values 0 -> {@code maxValue}
+   * any of the given pixels in this processableImage. Each list stores the frequencies of
+   * a given value for all values 0 -> {@code maxValue}
    */
   public int[][] generateHistogram() {
     int[] red = new int[this.maxValue];
@@ -353,7 +354,7 @@ public class ProcessableImageImpl implements ProcessableImage {
       }
     }
 
-    return new int[][] {red, green, blue, intensity};
+    return new int[][]{red, green, blue, intensity};
   }
 
 //  public ProcessableImage drawHistogram() {
@@ -363,5 +364,91 @@ public class ProcessableImageImpl implements ProcessableImage {
 //
 //    return new ProcessableImageImpl(histogram, 500, 100, this.maxValue);
 //  }
+
+  // downsizes this image by a certain percent, maintaining the same aspect ratio
+  public void downsize(int percent) throws IllegalArgumentException {
+    if (percent < 0 || percent > 100) {
+      throw new IllegalArgumentException("Percent must be between 0 - 100");
+    }
+
+    int newWidth = (this.height * (100 - percent)) / 100;
+    int newHeight = (this.width * (100 - percent)) / 100;
+    PixelImpl[][] newPixelGrid = new PixelImpl[newHeight][newWidth];
+
+    for (int i = 0; i < newHeight; i++) {
+      PixelImpl[] tempRow = new PixelImpl[newWidth];
+      for (int j = 0; j < newWidth; j++) {
+        PixelImpl mappedPixel = this.mappedPixel(i, j, newWidth, newHeight);
+        tempRow[j] = mappedPixel;
+      }
+      newPixelGrid[i] = tempRow;
+    }
+    this.pixelGrid = newPixelGrid;
+    // TODO: Make width and height non-final
+    // reassign the width and height to the new width and height
+    //this.width = newWidth;
+    //this.height = newHeight;
+  }
+
+  private PixelImpl mappedPixel(int row, int col, int newWidth, int newHeight) {
+    double oldX = ((double) row / (double) newWidth) * this.width;
+    double oldY = ((double) col / (double) newHeight) * this.height;
+
+    // if either of the mapped coordinates are floating-point numbers, then make the R, G, B values
+    // of the return pixel equal to the average of the pixels that surround this floating-point
+    // location
+    if (oldX % 1 != 0 || oldY % 1 != 0) {
+      return combineSurroundingPixels((int) oldX, (int) oldY);
+    }
+
+    PixelImpl oldPixel = this.pixelGrid[row][col];
+
+    return new PixelImpl(oldPixel.getRed(), oldPixel.getGreen(), oldPixel.getBlue(), this.maxValue);
+  }
+
+  private PixelImpl combineSurroundingPixels(int row, int col) {
+    int redTot = 0;
+    int greenTot = 0;
+    int blueTot = 0;
+    int avg = 4;
+
+    try {
+      PixelImpl upPixel = pixelGrid[row - 1][col];
+      redTot += upPixel.getRed();
+      greenTot += upPixel.getGreen();
+      blueTot += upPixel.getBlue();
+    } catch (IndexOutOfBoundsException e) {
+      avg--;
+    }
+
+    try {
+      PixelImpl downPixel = pixelGrid[row + 1][col];
+      redTot += downPixel.getRed();
+      greenTot += downPixel.getGreen();
+      blueTot += downPixel.getBlue();
+    } catch (IndexOutOfBoundsException e) {
+      avg--;
+    }
+
+    try {
+      PixelImpl leftPixel = pixelGrid[row][col - 1];
+      redTot += leftPixel.getRed();
+      greenTot += leftPixel.getGreen();
+      blueTot += leftPixel.getBlue();
+    } catch (IndexOutOfBoundsException e) {
+      avg--;
+    }
+
+    try {
+      PixelImpl rightPixel = pixelGrid[row][col + 1];
+      redTot += rightPixel.getRed();
+      greenTot += rightPixel.getGreen();
+      blueTot += rightPixel.getBlue();
+    } catch (IndexOutOfBoundsException e) {
+      avg--;
+    }
+
+    return new PixelImpl(redTot / avg, greenTot / avg, blueTot / avg, this.maxValue);
+  }
 
 }
