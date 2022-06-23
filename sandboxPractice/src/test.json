@@ -1,0 +1,1315 @@
+[
+  {
+    "participantId": 16,
+    "sessionId": 73,
+    "language": "French",
+    "rounds": [
+      335,
+      336
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130209
+  },
+  {
+    "participantId": 4,
+    "sessionId": 15,
+    "language": "Japanese",
+    "rounds": [
+      76
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130115
+  },
+  {
+    "participantId": 14,
+    "sessionId": 60,
+    "language": "French",
+    "rounds": [
+      280,
+      281
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129989
+  },
+  {
+    "participantId": 13,
+    "sessionId": 57,
+    "language": "German",
+    "rounds": [
+      263
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129988
+  },
+  {
+    "participantId": 5,
+    "sessionId": 22,
+    "language": "German",
+    "rounds": [
+      100,
+      101,
+      102,
+      103
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130477
+  },
+  {
+    "participantId": 22,
+    "sessionId": 98,
+    "language": "German",
+    "rounds": [
+      411
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130032
+  },
+  {
+    "participantId": 15,
+    "sessionId": 66,
+    "language": "German",
+    "rounds": [
+      307
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130060
+  },
+  {
+    "participantId": 9,
+    "sessionId": 43,
+    "language": "Japanese",
+    "rounds": [
+      202,
+      203,
+      204,
+      205,
+      206,
+      207
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131329
+  },
+  {
+    "participantId": 3,
+    "sessionId": 12,
+    "language": "Japanese",
+    "rounds": [
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131524
+  },
+  {
+    "participantId": 12,
+    "sessionId": 52,
+    "language": "French",
+    "rounds": [
+      241,
+      242,
+      243,
+      244,
+      245
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130365
+  },
+  {
+    "participantId": 9,
+    "sessionId": 44,
+    "language": "French",
+    "rounds": [
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130889
+  },
+  {
+    "participantId": 16,
+    "sessionId": 78,
+    "language": "French",
+    "rounds": [
+      354,
+      355,
+      356,
+      357,
+      358
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130300
+  },
+  {
+    "participantId": 0,
+    "sessionId": 0,
+    "language": "French",
+    "rounds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130615
+  },
+  {
+    "participantId": 4,
+    "sessionId": 16,
+    "language": "Japanese",
+    "rounds": [
+      77,
+      78,
+      79,
+      80,
+      81
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131020
+  },
+  {
+    "participantId": 7,
+    "sessionId": 30,
+    "language": "German",
+    "rounds": [
+      149,
+      150
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130291
+  },
+  {
+    "participantId": 12,
+    "sessionId": 54,
+    "language": "French",
+    "rounds": [
+      251,
+      252,
+      253
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130354
+  },
+  {
+    "participantId": 20,
+    "sessionId": 87,
+    "language": "French",
+    "rounds": [
+      385
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130044
+  },
+  {
+    "participantId": 21,
+    "sessionId": 94,
+    "language": "Japanese",
+    "rounds": [
+      407
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130125
+  },
+  {
+    "participantId": 2,
+    "sessionId": 7,
+    "language": "German",
+    "rounds": [
+      37,
+      38,
+      39
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130228
+  },
+  {
+    "participantId": 21,
+    "sessionId": 91,
+    "language": "German",
+    "rounds": [
+      397,
+      398
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130123
+  },
+  {
+    "participantId": 11,
+    "sessionId": 47,
+    "language": "French",
+    "rounds": [
+      219
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129938
+  },
+  {
+    "participantId": 0,
+    "sessionId": 1,
+    "language": "German",
+    "rounds": [
+      5,
+      6
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130331
+  },
+  {
+    "participantId": 15,
+    "sessionId": 67,
+    "language": "French",
+    "rounds": [
+      308
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129969
+  },
+  {
+    "participantId": 4,
+    "sessionId": 19,
+    "language": "French",
+    "rounds": [
+      88,
+      89
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130173
+  },
+  {
+    "participantId": 8,
+    "sessionId": 35,
+    "language": "German",
+    "rounds": [
+      162,
+      163,
+      164
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130336
+  },
+  {
+    "participantId": 20,
+    "sessionId": 88,
+    "language": "German",
+    "rounds": [
+      386,
+      387
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130223
+  },
+  {
+    "participantId": 21,
+    "sessionId": 89,
+    "language": "German",
+    "rounds": [
+      388,
+      389,
+      390,
+      391,
+      392,
+      393,
+      394
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130824
+  },
+  {
+    "participantId": 7,
+    "sessionId": 32,
+    "language": "French",
+    "rounds": [
+      156
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129980
+  },
+  {
+    "participantId": 18,
+    "sessionId": 82,
+    "language": "Japanese",
+    "rounds": [
+      369,
+      370,
+      371,
+      372
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130613
+  },
+  {
+    "participantId": 21,
+    "sessionId": 90,
+    "language": "German",
+    "rounds": [
+      395,
+      396
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130337
+  },
+  {
+    "participantId": 5,
+    "sessionId": 21,
+    "language": "Japanese",
+    "rounds": [
+      98,
+      99
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130381
+  },
+  {
+    "participantId": 17,
+    "sessionId": 79,
+    "language": "German",
+    "rounds": [
+      359,
+      360,
+      361,
+      362,
+      363,
+      364
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130723
+  },
+  {
+    "participantId": 16,
+    "sessionId": 75,
+    "language": "Japanese",
+    "rounds": [
+      340,
+      341,
+      342,
+      343,
+      344,
+      345,
+      346,
+      347
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131361
+  },
+  {
+    "participantId": 9,
+    "sessionId": 40,
+    "language": "French",
+    "rounds": [
+      191,
+      192,
+      193
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130306
+  },
+  {
+    "participantId": 11,
+    "sessionId": 49,
+    "language": "Japanese",
+    "rounds": [
+      226,
+      227,
+      228,
+      229,
+      230,
+      231,
+      232,
+      233
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131497
+  },
+  {
+    "participantId": 6,
+    "sessionId": 27,
+    "language": "German",
+    "rounds": [
+      133,
+      134,
+      135,
+      136,
+      137
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130640
+  },
+  {
+    "participantId": 3,
+    "sessionId": 14,
+    "language": "Japanese",
+    "rounds": [
+      75
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130162
+  },
+  {
+    "participantId": 15,
+    "sessionId": 68,
+    "language": "Japanese",
+    "rounds": [
+      309,
+      310,
+      311,
+      312
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130721
+  },
+  {
+    "participantId": 9,
+    "sessionId": 41,
+    "language": "Japanese",
+    "rounds": [
+      194,
+      195,
+      196,
+      197,
+      198,
+      199
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131005
+  },
+  {
+    "participantId": 18,
+    "sessionId": 81,
+    "language": "French",
+    "rounds": [
+      367,
+      368
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130211
+  },
+  {
+    "participantId": 4,
+    "sessionId": 18,
+    "language": "French",
+    "rounds": [
+      85,
+      86,
+      87
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130183
+  },
+  {
+    "participantId": 22,
+    "sessionId": 99,
+    "language": "Japanese",
+    "rounds": [
+      412
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130094
+  },
+  {
+    "participantId": 14,
+    "sessionId": 64,
+    "language": "French",
+    "rounds": [
+      300,
+      301,
+      302,
+      303,
+      304
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130485
+  },
+  {
+    "participantId": 16,
+    "sessionId": 74,
+    "language": "German",
+    "rounds": [
+      337,
+      338,
+      339
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130402
+  },
+  {
+    "participantId": 13,
+    "sessionId": 58,
+    "language": "German",
+    "rounds": [
+      264,
+      265,
+      266,
+      267,
+      268,
+      269,
+      270,
+      271
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131217
+  },
+  {
+    "participantId": 2,
+    "sessionId": 4,
+    "language": "French",
+    "rounds": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131041
+  },
+  {
+    "participantId": 12,
+    "sessionId": 50,
+    "language": "German",
+    "rounds": [
+      234,
+      235
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130127
+  },
+  {
+    "participantId": 18,
+    "sessionId": 80,
+    "language": "French",
+    "rounds": [
+      365,
+      366
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130007
+  },
+  {
+    "participantId": 12,
+    "sessionId": 53,
+    "language": "German",
+    "rounds": [
+      246,
+      247,
+      248,
+      249,
+      250
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130520
+  },
+  {
+    "participantId": 19,
+    "sessionId": 84,
+    "language": "French",
+    "rounds": [
+      375,
+      376,
+      377,
+      378
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130121
+  },
+  {
+    "participantId": 8,
+    "sessionId": 34,
+    "language": "French",
+    "rounds": [
+      158,
+      159,
+      160,
+      161
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130317
+  },
+  {
+    "participantId": 2,
+    "sessionId": 8,
+    "language": "French",
+    "rounds": [
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130715
+  },
+  {
+    "participantId": 8,
+    "sessionId": 33,
+    "language": "German",
+    "rounds": [
+      157
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130000
+  },
+  {
+    "participantId": 19,
+    "sessionId": 85,
+    "language": "Japanese",
+    "rounds": [
+      379,
+      380
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130407
+  },
+  {
+    "participantId": 11,
+    "sessionId": 46,
+    "language": "French",
+    "rounds": [
+      217,
+      218
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129987
+  },
+  {
+    "participantId": 22,
+    "sessionId": 96,
+    "language": "French",
+    "rounds": [
+      409
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130019
+  },
+  {
+    "participantId": 3,
+    "sessionId": 13,
+    "language": "French",
+    "rounds": [
+      71,
+      72,
+      73,
+      74
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130553
+  },
+  {
+    "participantId": 2,
+    "sessionId": 6,
+    "language": "French",
+    "rounds": [
+      34,
+      35,
+      36
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130156
+  },
+  {
+    "participantId": 6,
+    "sessionId": 25,
+    "language": "Japanese",
+    "rounds": [
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652132257
+  },
+  {
+    "participantId": 6,
+    "sessionId": 26,
+    "language": "French",
+    "rounds": [
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131073
+  },
+  {
+    "participantId": 14,
+    "sessionId": 63,
+    "language": "Japanese",
+    "rounds": [
+      296,
+      297,
+      298,
+      299
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130661
+  },
+  {
+    "participantId": 10,
+    "sessionId": 45,
+    "language": "German",
+    "rounds": [
+      216
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129985
+  },
+  {
+    "participantId": 6,
+    "sessionId": 23,
+    "language": "Japanese",
+    "rounds": [
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131545
+  },
+  {
+    "participantId": 9,
+    "sessionId": 39,
+    "language": "French",
+    "rounds": [
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130617
+  },
+  {
+    "participantId": 2,
+    "sessionId": 9,
+    "language": "Japanese",
+    "rounds": [
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652132129
+  },
+  {
+    "participantId": 8,
+    "sessionId": 36,
+    "language": "German",
+    "rounds": [
+      165,
+      166,
+      167,
+      168,
+      169,
+      170
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130819
+  },
+  {
+    "participantId": 21,
+    "sessionId": 93,
+    "language": "French",
+    "rounds": [
+      406
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129925
+  },
+  {
+    "participantId": 19,
+    "sessionId": 86,
+    "language": "French",
+    "rounds": [
+      381,
+      382,
+      383,
+      384
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130293
+  },
+  {
+    "participantId": 15,
+    "sessionId": 69,
+    "language": "German",
+    "rounds": [
+      313,
+      314,
+      315,
+      316,
+      317,
+      318,
+      319
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131111
+  },
+  {
+    "participantId": 2,
+    "sessionId": 5,
+    "language": "German",
+    "rounds": [
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130535
+  },
+  {
+    "participantId": 8,
+    "sessionId": 37,
+    "language": "German",
+    "rounds": [
+      171,
+      172,
+      173,
+      174,
+      175,
+      176
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130999
+  },
+  {
+    "participantId": 6,
+    "sessionId": 28,
+    "language": "Japanese",
+    "rounds": [
+      138,
+      139,
+      140,
+      141,
+      142
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130860
+  },
+  {
+    "participantId": 22,
+    "sessionId": 97,
+    "language": "German",
+    "rounds": [
+      410
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130018
+  },
+  {
+    "participantId": 4,
+    "sessionId": 17,
+    "language": "Japanese",
+    "rounds": [
+      82,
+      83,
+      84
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130492
+  },
+  {
+    "participantId": 15,
+    "sessionId": 70,
+    "language": "German",
+    "rounds": [
+      320,
+      321
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130279
+  },
+  {
+    "participantId": 13,
+    "sessionId": 59,
+    "language": "German",
+    "rounds": [
+      272,
+      273,
+      274,
+      275,
+      276,
+      277,
+      278,
+      279
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130881
+  },
+  {
+    "participantId": 0,
+    "sessionId": 2,
+    "language": "German",
+    "rounds": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131342
+  },
+  {
+    "participantId": 12,
+    "sessionId": 51,
+    "language": "German",
+    "rounds": [
+      236,
+      237,
+      238,
+      239,
+      240
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130900
+  },
+  {
+    "participantId": 4,
+    "sessionId": 20,
+    "language": "German",
+    "rounds": [
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130833
+  },
+  {
+    "participantId": 16,
+    "sessionId": 77,
+    "language": "Japanese",
+    "rounds": [
+      352,
+      353
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130273
+  },
+  {
+    "participantId": 16,
+    "sessionId": 71,
+    "language": "French",
+    "rounds": [
+      322,
+      323,
+      324,
+      325,
+      326,
+      327,
+      328
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130327
+  },
+  {
+    "participantId": 1,
+    "sessionId": 3,
+    "language": "German",
+    "rounds": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131569
+  },
+  {
+    "participantId": 8,
+    "sessionId": 38,
+    "language": "French",
+    "rounds": [
+      177,
+      178,
+      179,
+      180,
+      181,
+      182
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130609
+  },
+  {
+    "participantId": 2,
+    "sessionId": 10,
+    "language": "Japanese",
+    "rounds": [
+      53,
+      54,
+      55
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130612
+  },
+  {
+    "participantId": 7,
+    "sessionId": 31,
+    "language": "Japanese",
+    "rounds": [
+      151,
+      152,
+      153,
+      154,
+      155
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130965
+  },
+  {
+    "participantId": 14,
+    "sessionId": 61,
+    "language": "German",
+    "rounds": [
+      282,
+      283,
+      284,
+      285,
+      286,
+      287,
+      288,
+      289
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131649
+  },
+  {
+    "participantId": 13,
+    "sessionId": 56,
+    "language": "German",
+    "rounds": [
+      259,
+      260,
+      261,
+      262
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130373
+  },
+  {
+    "participantId": 6,
+    "sessionId": 24,
+    "language": "Japanese",
+    "rounds": [
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131944
+  },
+  {
+    "participantId": 19,
+    "sessionId": 83,
+    "language": "French",
+    "rounds": [
+      373,
+      374
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129995
+  },
+  {
+    "participantId": 7,
+    "sessionId": 29,
+    "language": "German",
+    "rounds": [
+      143,
+      144,
+      145,
+      146,
+      147,
+      148
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130885
+  },
+  {
+    "participantId": 16,
+    "sessionId": 76,
+    "language": "French",
+    "rounds": [
+      348,
+      349,
+      350,
+      351
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130241
+  },
+  {
+    "participantId": 16,
+    "sessionId": 72,
+    "language": "Japanese",
+    "rounds": [
+      329,
+      330,
+      331,
+      332,
+      333,
+      334
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131077
+  },
+  {
+    "participantId": 15,
+    "sessionId": 65,
+    "language": "Japanese",
+    "rounds": [
+      305,
+      306
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130367
+  },
+  {
+    "participantId": 14,
+    "sessionId": 62,
+    "language": "Japanese",
+    "rounds": [
+      290,
+      291,
+      292,
+      293,
+      294,
+      295
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131467
+  },
+  {
+    "participantId": 21,
+    "sessionId": 95,
+    "language": "French",
+    "rounds": [
+      408
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652129991
+  },
+  {
+    "participantId": 11,
+    "sessionId": 48,
+    "language": "French",
+    "rounds": [
+      220,
+      221,
+      222,
+      223,
+      224,
+      225
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130225
+  },
+  {
+    "participantId": 12,
+    "sessionId": 55,
+    "language": "French",
+    "rounds": [
+      254,
+      255,
+      256,
+      257,
+      258
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130390
+  },
+  {
+    "participantId": 21,
+    "sessionId": 92,
+    "language": "German",
+    "rounds": [
+      399,
+      400,
+      401,
+      402,
+      403,
+      404,
+      405
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131160
+  },
+  {
+    "participantId": 9,
+    "sessionId": 42,
+    "language": "French",
+    "rounds": [
+      200,
+      201
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652130177
+  },
+  {
+    "participantId": 3,
+    "sessionId": 11,
+    "language": "Japanese",
+    "rounds": [
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63
+    ],
+    "startTime": 1652129865,
+    "endTime": 1652131337
+  }
+]

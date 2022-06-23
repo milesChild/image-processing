@@ -329,4 +329,39 @@ public class ProcessableImageImpl implements ProcessableImage {
     return gridCopy;
   }
 
+  // assignment 6 methods
+
+  /**
+   * Generates the frequency values to be used when plotting a histogram for this processable image.
+   * @return a list of four array lists, each of which are of size equal to the {@code maxValue} for
+   *         any of the given pixels in this processableImage. Each list stores the frequencies of
+   *         a given value for all values 0 -> {@code maxValue}
+   */
+  public int[][] generateHistogram() {
+    int[] red = new int[this.maxValue];
+    int[] green = new int[this.maxValue];
+    int[] blue = new int[this.maxValue];
+    int[] intensity = new int[this.maxValue]; // the average of the above three arrays
+
+    for (int i = 0; i < this.pixelGrid.length; i++) {
+      for (int j = 0; j < this.pixelGrid[0].length; j++) {
+        Pixel curPixel = pixelGrid[i][j];
+        red[curPixel.getRed()]++;
+        green[curPixel.getGreen()]++;
+        blue[curPixel.getBlue()]++;
+        intensity[(curPixel.getRed() + curPixel.getGreen() + curPixel.getBlue()) / 3]++;
+      }
+    }
+
+    return new int[][] {red, green, blue, intensity};
+  }
+
+//  public ProcessableImage drawHistogram() {
+//    int[][] frequencies = this.generateHistogram(); // refreshes before drawing
+//    PixelImpl[][] histogram = new PixelImpl[3][this.maxValue];
+//
+//
+//    return new ProcessableImageImpl(histogram, 500, 100, this.maxValue);
+//  }
+
 }

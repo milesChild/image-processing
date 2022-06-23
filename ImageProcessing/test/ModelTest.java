@@ -14,6 +14,7 @@ import view.ImageProcessingView;
 import view.ImageTextViewImpl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the ProcessableImageImpl class and ImageProcessingModelImpl class.
@@ -363,5 +364,14 @@ public class ModelTest {
     donkeyTest.sharpen();
     assertEquals(donkeyTest, donkeySharpenFilter);
   }
+
+//  @Test
+//  public void testGenerateHistogram() {
+//    int[][] test = this.donkeyGrayscaleFilter.generateHistogram();
+//    assertEquals(1, test[0][89]);
+//    assertEquals(1, test[1][89]);
+//    assertEquals(1, test[2][89]);
+//    assertEquals(1, test[3][89]);
+//  }
 
 }
