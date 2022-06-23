@@ -357,13 +357,35 @@ public class ProcessableImageImpl implements ProcessableImage {
     return new int[][]{red, green, blue, intensity};
   }
 
-//  public ProcessableImage drawHistogram() {
-//    int[][] frequencies = this.generateHistogram(); // refreshes before drawing
-//    PixelImpl[][] histogram = new PixelImpl[3][this.maxValue];
-//
-//
-//    return new ProcessableImageImpl(histogram, 500, 100, this.maxValue);
-//  }
+  // TODO: Make a histogram field in this class. The constructor will just call this.drawHistogram()
+  //       on the last line.
+  public void drawHistogram() {
+    int[][] frequencies = this.generateHistogram(); // refreshes before drawing
+    PixelImpl[][] histogram = new PixelImpl[100][this.maxValue];
+
+    // for every x value in the histogram, go up the y for the amount of the frequency and make
+    // pixels that are either black, red, green, or blue
+    for (int i = histogram.length - 1; i >= 0; i--) {
+      for (int j = 0; j < histogram[0].length; j++) {
+        // for each of the rows in frequencies, get the frequency @ j and print up in i in the
+        // respective color, decrementing on each print until the frequencies runs out
+        for (int k = 0; k < frequencies[0][j]; k++) { // red
+          histogram[i - k][j] = new PixelImpl(255, 0, 0, this.maxValue);
+        }
+        for (int k = 0; k < frequencies[0][j]; k++) { // green
+          histogram[i - k][j] = new PixelImpl(0, 255, 0, this.maxValue);
+        }
+        for (int k = 0; k < frequencies[0][j]; k++) { // blue
+          histogram[i - k][j] = new PixelImpl(0, 0, 255, this.maxValue);
+        }
+        for (int k = 0; k < frequencies[0][j]; k++) { // intensity
+          histogram[i - k][j] = new PixelImpl(255, 255, 255, this.maxValue);
+        }
+      }
+    }
+
+    //this.histogram = new ProcessableImageImpl(histogram, some w, some l, this.maxValue);
+  }
 
   // downsizes this image by a certain percent, maintaining the same aspect ratio
   public void downsize(int percent) throws IllegalArgumentException {
