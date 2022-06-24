@@ -1,8 +1,6 @@
 package controller;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,158 +10,20 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
 import model.ImageProcessingModel;
-import model.ImageProcessingModelImpl;
-import model.Pixel;
 import model.PixelImpl;
 import model.ProcessableImage;
 import model.ProcessableImageImpl;
-import view.ImageGUIImpl;
-import view.ImageProcessingView;
 
-public class ImageProcessingControllerImplGUI implements ActionListener {
-  private ImageProcessingModel model;
-  private ImageGUIImpl view;
-  private String currentKey;
+abstract class AbstractImageProcessingController implements ImageProcessingController {
+  protected ImageProcessingModel model;
 
-  public ImageProcessingControllerImplGUI() throws IOException {
-    this.model = new ImageProcessingModelImpl();
-    this.view = new ImageGUIImpl();
-    this.view.setListener(this);
-    this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.view.setVisible(true);
-  }
-
-  /**
-   * Invoked when an action occurs.
-   *
-   * @param e the event to be processed
-   */
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()){
-      case "load": {
-        final JFileChooser fchooser = new JFileChooser(".");
-        int retvalue = fchooser.showOpenDialog(view);
-        if (retvalue == JFileChooser.APPROVE_OPTION) {
-          File f = fchooser.getSelectedFile();
-          String imageFilePath = f.getAbsolutePath();
-          BufferedImage image = this.loadCommonImage(imageFilePath, "initialImage");
-          this.currentKey = "initialImage";
-          this.view.displayImage(this.convertToBuffered("initialImage"));
-        }
-        break;
-      }
-      case "save": {
-        final JFileChooser fchooser = new JFileChooser(".");
-        int retvalue = fchooser.showSaveDialog(view);
-        if (retvalue == JFileChooser.APPROVE_OPTION) {
-          File f = fchooser.getSelectedFile();
-          String saveFilePath = f.getAbsolutePath();
-          this.saveImage(saveFilePath, this.currentKey);
-        }
-        break;
-      }
-      case "vertical": {
-        this.model.flipVertically(this.currentKey, "verticalFlip");
-        this.currentKey = "verticalFlip";
-        this.view.displayImage(this.convertToBuffered("verticalFlip"));
-        break;
-      }
-      case "horizontal": {
-        this.model.flipHorizontally(this.currentKey, "horizontalFlip");
-        this.currentKey = "horizontalFlip";
-        this.view.displayImage(this.convertToBuffered("horizontalFlip"));
-        break;
-      }
-      case "blur": {
-        this.model.blur(this.currentKey, "blur");
-        this.currentKey = "blur";
-        this.view.displayImage(this.convertToBuffered("blur"));
-        break;
-      }
-      case "sharpen": {
-        this.model.sharpen(this.currentKey, "sharpen");
-        this.currentKey = "sharpen";
-        this.view.displayImage(this.convertToBuffered("sharpen"));
-        break;
-      }
-      case "sepia": {
-        this.model.sepia(this.currentKey, "sepia");
-        this.currentKey = "sepia";
-        this.view.displayImage(this.convertToBuffered("sepia"));
-        break;
-      }
-      case "greyscale": {
-        this.model.grayscale(this.currentKey, "greyscale");
-        this.currentKey = "greyscale";
-        this.view.displayImage(this.convertToBuffered("greyscale"));
-        break;
-      }
-//      case "greyscaleRed": {
-//        this.model.greyScale(this.currentKey, "red", GreyScaleEnum.RED);
-//        Image editedImage = this.model.getImage("red");
-//        this.currentKey = "red";
-//        this.view.displayImage(editedImage);
-//        break;
-//      }
-//      case "greyscaleGreen": {
-//        this.model.greyScale(this.currentKey, "green", GreyScaleEnum.GREEN);
-//        Image editedImage = this.model.getImage("green");
-//        this.currentKey = "green";
-//        this.view.displayImage(editedImage);
-//        break;
-//      }
-//      case "greyscaleBlue": {
-//        this.model.greyScale(this.currentKey, "blue", GreyScaleEnum.BLUE);
-//        Image editedImage = this.model.getImage("blue");
-//        this.currentKey = "blue";
-//        this.view.displayImage(editedImage);
-//        break;
-//      }
-//      case "greyscaleLuma": {
-//        this.model.greyScale(this.currentKey, "luma", GreyScaleEnum.LUMA);
-//        Image editedImage = this.model.getImage("luma");
-//        this.currentKey = "luma";
-//        this.view.displayImage(editedImage);
-//        break;
-//      }
-//      case "greyscaleValue": {
-//        this.model.greyScale(this.currentKey, "value", GreyScaleEnum.VALUE);
-//        Image editedImage = this.model.getImage("value");
-//        this.currentKey = "value";
-//        this.view.displayImage(editedImage);
-//        break;
-//      }
-//      case "greyscaleIntensity": {
-//        this.model.greyScale(this.currentKey, "intensity", GreyScaleEnum.INTENSITY);
-//        Image editedImage = this.model.getImage("intensity");
-//        this.currentKey = "intensity";
-//        this.view.displayImage(editedImage);
-//        break;
-//      }
-//
-//      case "darken": {
-//        int increment = this.view.getIncrement();
-//        this.model.darken(this.currentKey, increment, "darken");
-//        Image editedImage = this.model.getImage("darken");
-//        this.currentKey = "darken";
-//        this.view.displayImage(editedImage);
-//        break;
-//      }
-
-      case "brighten": {
-        int increment = this.view.getInputValue("brighten");
-        this.model.brighten(increment, this.currentKey, "brighten");
-        this.currentKey = "brighten";
-        this.view.displayImage(this.convertToBuffered("brighten"));
-        break;
-      }
-
+  AbstractImageProcessingController(ImageProcessingModel model) {
+    if (model == null){
+      throw new IllegalArgumentException("Model cannot be null");
     }
-
+    this.model = model;
   }
 
   /**
@@ -173,7 +33,7 @@ public class ImageProcessingControllerImplGUI implements ActionListener {
    * @param path path of the file
    * @param name name of what the image is to be called
    */
-  private void loadImage(String path, String name) {
+  protected void loadImage(String path, String name) {
     if (path.endsWith(".ppm")) {
       this.loadPPM(path, name);
     } else if (path.endsWith(".jpg") || path.endsWith(".png")
@@ -286,7 +146,7 @@ public class ImageProcessingControllerImplGUI implements ActionListener {
    *
    * @param path the device path the processable image will be saved to
    */
-  private void saveImage(String path, String imageName) throws IllegalArgumentException {
+  protected void saveImage(String path, String imageName) throws IllegalArgumentException {
     if (path.endsWith(".ppm")) {
       this.saveAsPPM(path, imageName);
     } else if (path.endsWith(".jpg") || path.endsWith(".bmp") || path.endsWith(".png")) {
@@ -333,11 +193,4 @@ public class ImageProcessingControllerImplGUI implements ActionListener {
     }
 
   }
-
-  private BufferedImage convertToBuffered(String imageName){
-    ProcessableImage image = this.model.getImage(imageName);
-    return image.createCommonImageContents();
-  }
-
-
 }

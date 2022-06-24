@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,7 +13,8 @@ import java.util.Objects;
  * each operation will directly manipulate the 2D array of pixels, {@code pixelGrid}.
  */
 public class ProcessableImageImpl implements ProcessableImage {
-  private PixelImpl[][] pixelGrid;
+  private Pixel[][] pixelGrid;
+  private int [][] histogramArrays;
   private int width;
   private int height;
   private final int maxValue;
@@ -207,11 +208,11 @@ public class ProcessableImageImpl implements ProcessableImage {
    */
   private void applyColorTransformation(double[][] matrix) {
     // the new, filtered pixel array
-    PixelImpl[][] copyGrid = new PixelImpl[this.height][this.width];
+    Pixel[][] copyGrid = new PixelImpl[this.height][this.width];
 
     for (int i = 0; i < this.height; i++) {
       for (int j = 0; j < this.width; j++) {
-        PixelImpl oldPixel = this.pixelGrid[i][j];
+        Pixel oldPixel = this.pixelGrid[i][j];
         int newRed = (int) (matrix[0][0] * oldPixel.getRed() + matrix[0][1] * oldPixel.getGreen()
                 + matrix[0][2] * oldPixel.getBlue());
         int newGreen = (int) (matrix[1][0] * oldPixel.getRed() + matrix[1][1] * oldPixel.getGreen()
@@ -236,7 +237,7 @@ public class ProcessableImageImpl implements ProcessableImage {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        PixelImpl p1 = this.pixelGrid[i][j];
+        Pixel p1 = this.pixelGrid[i][j];
         newFileContents.append(p1.toString());
       }
     }
@@ -313,12 +314,12 @@ public class ProcessableImageImpl implements ProcessableImage {
   }
 
   @Override
-  public PixelImpl[][] getPixelGrid() {
-    PixelImpl[][] gridCopy = new PixelImpl[this.height][this.width];
+  public Pixel[][] getPixelGrid() {
+    Pixel[][] gridCopy = new PixelImpl[this.height][this.width];
     for (int i = 0; i < this.height; i++) {
       for (int j = 0; j < this.width; j++) {
-        PixelImpl oldPixel = this.pixelGrid[i][j];
-        PixelImpl newPixel = new PixelImpl(
+        Pixel oldPixel = this.pixelGrid[i][j];
+        Pixel newPixel = new PixelImpl(
                 oldPixel.getRed(),
                 oldPixel.getGreen(),
                 oldPixel.getBlue(),
@@ -333,19 +334,15 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   /**
    * Generates the frequency values to be used when plotting a histogram for this processable image.
-   *
-   * @return a list of four array lists, each of which are of size equal to the {@code maxValue} for
-   * any of the given pixels in this processableImage. Each list stores the frequencies of
-   * a given value for all values 0 -> {@code maxValue}
    */
-  public int[][] generateHistogram() {
-    int[] red = new int[this.maxValue];
-    int[] green = new int[this.maxValue];
-    int[] blue = new int[this.maxValue];
-    int[] intensity = new int[this.maxValue]; // the average of the above three arrays
+  public void generateHistogram() {
+    int[] red = new int[this.maxValue + 1];
+    int[] green = new int[this.maxValue + 1];
+    int[] blue = new int[this.maxValue + 1];
+    int[] intensity = new int[this.maxValue + 1]; // the average of the above three arrays
 
-    for (int i = 0; i < this.pixelGrid.length; i++) {
-      for (int j = 0; j < this.pixelGrid[0].length; j++) {
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
         Pixel curPixel = pixelGrid[i][j];
         red[curPixel.getRed()]++;
         green[curPixel.getGreen()]++;
@@ -353,38 +350,52 @@ public class ProcessableImageImpl implements ProcessableImage {
         intensity[(curPixel.getRed() + curPixel.getGreen() + curPixel.getBlue()) / 3]++;
       }
     }
-
-    return new int[][]{red, green, blue, intensity};
+    this.histogramArrays = new int[][]{red, green, blue, intensity};
   }
 
-  // TODO: Make a histogram field in this class. The constructor will just call this.drawHistogram()
-  //       on the last line.
-  public void drawHistogram() {
-    int[][] frequencies = this.generateHistogram(); // refreshes before drawing
-    PixelImpl[][] histogram = new PixelImpl[100][this.maxValue];
-
-    // for every x value in the histogram, go up the y for the amount of the frequency and make
-    // pixels that are either black, red, green, or blue
-    for (int i = histogram.length - 1; i >= 0; i--) {
-      for (int j = 0; j < histogram[0].length; j++) {
-        // for each of the rows in frequencies, get the frequency @ j and print up in i in the
-        // respective color, decrementing on each print until the frequencies runs out
-        for (int k = 0; k < frequencies[0][j]; k++) { // red
-          histogram[i - k][j] = new PixelImpl(255, 0, 0, this.maxValue);
-        }
-        for (int k = 0; k < frequencies[0][j]; k++) { // green
-          histogram[i - k][j] = new PixelImpl(0, 255, 0, this.maxValue);
-        }
-        for (int k = 0; k < frequencies[0][j]; k++) { // blue
-          histogram[i - k][j] = new PixelImpl(0, 0, 255, this.maxValue);
-        }
-        for (int k = 0; k < frequencies[0][j]; k++) { // intensity
-          histogram[i - k][j] = new PixelImpl(255, 255, 255, this.maxValue);
-        }
+  /**
+   * Gets the max frequency value in an array of frequencies.
+   * @param frequencies array of integer values (frequencies of a component of a pixel)
+   * @return the largest frequency value in the array
+   */
+  private int getMaxFrequency(int[] frequencies){
+    int max = 0;
+    for (int frequency : frequencies) {
+      if (frequency > max) {
+        max = frequency;
       }
     }
+    return max;
+  }
 
-    //this.histogram = new ProcessableImageImpl(histogram, some w, some l, this.maxValue);
+  public BufferedImage drawHistogram(){
+    this.generateHistogram();
+    return this.makeGraph(this.histogramArrays[0],
+            this.histogramArrays[1],
+            this.histogramArrays[2],
+            this.histogramArrays[3]);
+  }
+
+  // TODO: clamp histogram within the window correctly
+  private BufferedImage makeGraph(int[] red, int[] blue, int[] green, int[] intensity) {
+    int max = Math.max(Math.max(this.getMaxFrequency(red), this.getMaxFrequency(green)),
+            Math.max(this.getMaxFrequency(blue), this.getMaxFrequency(intensity)));
+    BufferedImage bi = new BufferedImage(this.maxValue, max, BufferedImage.TYPE_INT_RGB);
+    Graphics2D graph = bi.createGraphics();
+    this.drawLines(graph, new Color(1f, 0f, 0f, .5f), red);
+    this.drawLines(graph, new Color(0f, 1f, 0f, .5f), green);
+    this.drawLines(graph, new Color(0f, 0f, 1f, .5f), blue);
+    this.drawLines(graph, new Color(0.25f, 0.5f, 0.25f, .5f), intensity);
+    graph.drawImage(bi, null, 0, 0);
+    return bi;
+  }
+
+  private void drawLines(Graphics2D graph, Color graphColor, int[] frequencies) {
+    graph.setColor(graphColor);
+    for (int i = 0; i < 256; i++) {
+      graph.drawLine(i, 400 , i ,
+              Math.min(400, 400 - frequencies[i] / 2));
+    }
   }
 
   // downsizes this image by a certain percent, maintaining the same aspect ratio
@@ -406,8 +417,6 @@ public class ProcessableImageImpl implements ProcessableImage {
       newPixelGrid[i] = tempRow;
     }
     this.pixelGrid = newPixelGrid;
-    // TODO: Make width and height non-final
-    // reassign the width and height to the new width and height
     this.width = newWidth;
     this.height = newHeight;
   }
@@ -423,7 +432,7 @@ public class ProcessableImageImpl implements ProcessableImage {
       return combineSurroundingPixels((int) oldX, (int) oldY);
     }
 
-    PixelImpl oldPixel = this.pixelGrid[(int) oldX][(int) oldY];
+    Pixel oldPixel = this.pixelGrid[(int) oldX][(int) oldY];
 
     return new PixelImpl(oldPixel.getRed(), oldPixel.getGreen(), oldPixel.getBlue(), this.maxValue);
   }
@@ -435,7 +444,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     int avg = 4;
 
     try {
-      PixelImpl upPixel = pixelGrid[row - 1][col];
+      Pixel upPixel = pixelGrid[row - 1][col];
       redTot += upPixel.getRed();
       greenTot += upPixel.getGreen();
       blueTot += upPixel.getBlue();
@@ -444,7 +453,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     }
 
     try {
-      PixelImpl downPixel = pixelGrid[row + 1][col];
+      Pixel downPixel = pixelGrid[row + 1][col];
       redTot += downPixel.getRed();
       greenTot += downPixel.getGreen();
       blueTot += downPixel.getBlue();
@@ -453,7 +462,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     }
 
     try {
-      PixelImpl leftPixel = pixelGrid[row][col - 1];
+      Pixel leftPixel = pixelGrid[row][col - 1];
       redTot += leftPixel.getRed();
       greenTot += leftPixel.getGreen();
       blueTot += leftPixel.getBlue();
@@ -462,7 +471,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     }
 
     try {
-      PixelImpl rightPixel = pixelGrid[row][col + 1];
+      Pixel rightPixel = pixelGrid[row][col + 1];
       redTot += rightPixel.getRed();
       greenTot += rightPixel.getGreen();
       blueTot += rightPixel.getBlue();
@@ -470,7 +479,7 @@ public class ProcessableImageImpl implements ProcessableImage {
       avg--;
     }
 
-    return new PixelImpl(redTot / avg, greenTot / avg, blueTot / avg, this.maxValue);
+    return new PixelImpl(redTot/avg, greenTot/avg, blueTot/avg, this.maxValue);
   }
 
 }

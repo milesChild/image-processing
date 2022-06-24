@@ -10,7 +10,7 @@ public interface ImageProcessingController {
 
   /**
    * Allows the user to run the program and pass in various commands for loading, saving, and
-   * manipulating images. User can quit by typing "q" at any time.
+   * manipulating images.
    */
   void runProgram();
 

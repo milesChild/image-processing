@@ -148,4 +148,6 @@ public interface ImageProcessingModel {
    */
   void sepia(String from, String to) throws IllegalArgumentException;
 
+  void downscale(int percent, String from, String to) throws IllegalArgumentException;
+
 }

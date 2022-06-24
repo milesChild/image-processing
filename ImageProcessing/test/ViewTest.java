@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import view.ImageProcessingView;
-import view.ImageTextViewImpl;
+import view.ImageProcessingViewConsole;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,13 +18,13 @@ public class ViewTest {
   @Before
   public void init() {
     this.out = new StringBuilder();
-    this.view1 = new ImageTextViewImpl(out);
+    this.view1 = new ImageProcessingViewConsole(out);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidInitializationNullParameter() {
     Appendable testOut = null;
-    ImageProcessingView test = new ImageTextViewImpl(testOut);
+    ImageProcessingView test = new ImageProcessingViewConsole(testOut);
   }
 
   // test to ensure that the renderMessage() method properly mutates the appendable to be passed

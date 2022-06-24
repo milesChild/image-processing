@@ -158,6 +158,21 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
   }
 
   @Override
+  public void downscale(int percent, String from, String to) throws IllegalArgumentException {
+    ProcessableImage fromImage =
+            this.imageLibrary.getOrDefault(from, null);
+    if (fromImage == null) {
+      throw new IllegalArgumentException("Image does not exist in library."
+              + " Try again.");
+    }
+    ProcessableImageImpl newProcessableImageImpl =
+            new ProcessableImageImpl(fromImage);
+    newProcessableImageImpl.downsize(percent);
+    this.imageLibrary.put(to, newProcessableImageImpl);
+  }
+
+
+  @Override
   public ProcessableImage getImage(String name) throws IllegalArgumentException {
     ProcessableImage image =
             this.imageLibrary.getOrDefault(name, null);

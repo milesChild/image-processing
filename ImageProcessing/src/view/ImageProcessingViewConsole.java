@@ -7,7 +7,7 @@ import java.io.IOException;
  * commands and their results as strings on the command line. This class will accept orders from
  * the controller in the form of strings to display to the user.
  */
-public class ImageTextViewImpl implements ImageProcessingView {
+public class ImageProcessingViewConsole implements ImageProcessingView {
 
   private final Appendable out;
 
@@ -17,11 +17,10 @@ public class ImageTextViewImpl implements ImageProcessingView {
    * @param out an appendable that is used to display information to the client
    * @throws IllegalArgumentException when the appendable is null
    */
-  public ImageTextViewImpl(Appendable out) throws IllegalArgumentException {
+  public ImageProcessingViewConsole(Appendable out) throws IllegalArgumentException {
     if (out == null) {
       throw new IllegalArgumentException("Given null parameter.");
     }
-
     this.out = out;
   }
 

@@ -4,14 +4,14 @@ import org.junit.Test;
 import java.io.StringReader;
 
 import controller.ImageProcessingController;
-import controller.ImageProcessingControllerImpl;
+import controller.ImageProcessingControllerConsole;
 import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
 import model.PixelImpl;
 import model.ProcessableImage;
 import model.ProcessableImageImpl;
 import view.ImageProcessingView;
-import view.ImageTextViewImpl;
+import view.ImageProcessingViewConsole;
 
 import static org.junit.Assert.assertEquals;
 
@@ -53,9 +53,9 @@ public class ControllerTest {
                     "load res/predefinedImages/donkeySharpen.ppm donkeySharpen\n" +
                     "load res/predefinedImages/donkeyGrayscaleFilter.ppm donkeyGrayscaleFilter\n" +
                     "load res/predefinedImages/donkeySepia.ppm donkeySepia\n");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
     donkeyRedGrayscale = model.getImage("donkeyRedGrayscale");
     donkeyGreenGrayscale = model.getImage("donkeyGreenGrayscale");
@@ -77,18 +77,18 @@ public class ControllerTest {
   public void testInvalidConstructionNullModel() {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingController controller =
-            new ImageProcessingControllerImpl(null, readable, view);
+            new ImageProcessingControllerConsole(null, readable, view);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidConstructionNullReadable() {
     Appendable appendable = new StringBuilder();
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller =
-            new ImageProcessingControllerImpl(model, null, view);
+            new ImageProcessingControllerConsole(model, null, view);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -97,7 +97,7 @@ public class ControllerTest {
     Readable readable = new StringReader("q");
     ImageProcessingModel model = new ImageProcessingModelImpl();
     ImageProcessingController controller =
-            new ImageProcessingControllerImpl(model, readable, null);
+            new ImageProcessingControllerConsole(model, readable, null);
   }
 
   // testing runProgram
@@ -108,9 +108,9 @@ public class ControllerTest {
             "horizontal-flip donkey donkeyHorizontal\n" +
             "save test/testImages/donkeyHorizontal.ppm donkeyHorizontal\n" +
             "load test/testImages/donkeyHorizontal.ppm copyHorizontal\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyHorizontal, model.getImage("donkeyHorizontal"));
@@ -125,9 +125,9 @@ public class ControllerTest {
             "vertical-flip donkey donkeyVertical\n" +
             "save test/testImages/donkeyVertical.ppm donkeyVertical\n" +
             "load test/testImages/donkeyVertical.ppm copyVertical\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyVertical, model.getImage("donkeyVertical"));
@@ -143,9 +143,9 @@ public class ControllerTest {
             "brighten 50 donkey donkeyBrighten\n" +
             "save test/testImages/donkeyBrighten.ppm donkeyBrighten\n" +
             "load test/testImages/donkeyBrighten.ppm copyBrighten\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBrighterBy50, model.getImage("donkeyBrighten"));
@@ -161,9 +161,9 @@ public class ControllerTest {
             "dim 50 donkey donkeyDim\n" +
             "save test/testImages/donkeyDim.ppm donkeyDim\n" +
             "load test/testImages/donkeyDim.ppm copyDim\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyDimBy50, model.getImage("donkeyDim"));
@@ -179,9 +179,9 @@ public class ControllerTest {
             "grayscale red donkey donkeyGrayscaleRed\n" +
             "save test/testImages/donkeyRedGrayscale.ppm donkeyGrayscaleRed\n" +
             "load test/testImages/donkeyRedGrayscale.ppm copyGrayscale\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyRedGrayscale, model.getImage("donkeyGrayscaleRed"));
@@ -197,9 +197,9 @@ public class ControllerTest {
             "grayscale green donkey donkeyGrayscaleGreen\n" +
             "save test/testImages/donkeyGreenGrayscale.ppm donkeyGrayscaleGreen\n" +
             "load test/testImages/donkeyGreenGrayscale.ppm copyGrayscale\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyGreenGrayscale, model.getImage("donkeyGrayscaleGreen"));
@@ -215,9 +215,9 @@ public class ControllerTest {
             "grayscale blue donkey donkeyGrayscaleBlue\n" +
             "save test/testImages/donkeyBlueGrayscale.ppm donkeyGrayscaleBlue\n" +
             "load test/testImages/donkeyBlueGrayscale.ppm copyGrayscale\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlueGrayscale, model.getImage("donkeyGrayscaleBlue"));
@@ -233,9 +233,9 @@ public class ControllerTest {
             "grayscale intensity donkey donkeyGrayscaleIntensity\n" +
             "save test/testImages/donkeyIntensityGrayscale.ppm donkeyGrayscaleIntensity\n" +
             "load test/testImages/donkeyIntensityGrayscale.ppm copyGrayscale\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyIntensityGrayscale, model.getImage("donkeyGrayscaleIntensity"));
@@ -251,9 +251,9 @@ public class ControllerTest {
             "grayscale value donkey donkeyGrayscaleValue\n" +
             "save test/testImages/donkeyValueGrayscale.ppm donkeyGrayscaleValue\n" +
             "load test/testImages/donkeyValueGrayscale.ppm copyGrayscale\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyValueGrayscale, model.getImage("donkeyGrayscaleValue"));
@@ -269,9 +269,9 @@ public class ControllerTest {
             "grayscale luma donkey donkeyGrayscaleLuma\n" +
             "save test/testImages/donkeyLumaGrayscale.ppm donkeyGrayscaleLuma\n" +
             "load test/testImages/donkeyLumaGrayscale.ppm copyGrayscale\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyLumaGrayscale, model.getImage("donkeyGrayscaleLuma"));
@@ -287,9 +287,9 @@ public class ControllerTest {
             "grayscale transformation donkey donkeyGrayscaleFilter\n" +
             "save test/testImages/donkeyFilterGrayscale.ppm donkeyGrayscaleFilter\n" +
             "load test/testImages/donkeyFilterGrayscale.ppm copyGrayscale\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyGrayscaleFilter, model.getImage("donkeyGrayscaleFilter"));
@@ -305,9 +305,9 @@ public class ControllerTest {
             "sepia donkey donkeySepiaFilter\n" +
             "save test/testImages/donkeyFilterSepia.ppm donkeySepiaFilter\n" +
             "load test/testImages/donkeyFilterSepia.ppm copySepia\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeySepiaFilter, model.getImage("donkeySepiaFilter"));
@@ -323,9 +323,9 @@ public class ControllerTest {
             "sharpen donkey donkeySharpenFilter\n" +
             "save test/testImages/donkeyFilterSharpen.ppm donkeySharpenFilter\n" +
             "load test/testImages/donkeyFilterSharpen.ppm copySharpen\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeySharpenFilter, model.getImage("donkeySharpenFilter"));
@@ -341,9 +341,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.ppm copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -359,9 +359,9 @@ public class ControllerTest {
             "blur square squareBlur\n" +
             "save test/testImages/blackTestBlur.jpg squareBlur\n" +
             "load test/testImages/blackTestBlur.jpg copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
@@ -388,9 +388,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.png copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -406,9 +406,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.bmp copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -424,9 +424,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.png copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -442,9 +442,9 @@ public class ControllerTest {
             "blur square squareBlur\n" +
             "save test/testImages/blackTestBlur.jpg squareBlur\n" +
             "load test/testImages/blackTestBlur.jpg copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
@@ -470,9 +470,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.bmp copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -488,9 +488,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.bmp donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.bmp copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -506,9 +506,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.png donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.png copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -524,9 +524,9 @@ public class ControllerTest {
             "blur square squareBlur\n" +
             "save test/testImages/blackTestBlur.jpg squareBlur\n" +
             "load test/testImages/blackTestBlur.jpg copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
@@ -552,9 +552,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.ppm copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -570,9 +570,9 @@ public class ControllerTest {
             "blur donkey donkeyBlurFilter\n" +
             "save test/testImages/donkeyFilterBlur.ppm donkeyBlurFilter\n" +
             "load test/testImages/donkeyFilterBlur.ppm copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(this.donkeyBlurFilter, model.getImage("donkeyBlurFilter"));
@@ -588,9 +588,9 @@ public class ControllerTest {
             "blur square squareBlur\n" +
             "save test/testImages/blackTestBlur.jpg squareBlur\n" +
             "load test/testImages/blackTestBlur.jpg copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
@@ -616,9 +616,9 @@ public class ControllerTest {
             "blur square squareBlur\n" +
             "save test/testImages/blackTest.png squareBlur\n" +
             "load test/testImages/blackTest.png copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
@@ -644,9 +644,9 @@ public class ControllerTest {
             "blur square squareBlur\n" +
             "save test/testImages/blackTestBlur.bmp squareBlur\n" +
             "load test/testImages/blackTestBlur.bmp copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
@@ -672,9 +672,9 @@ public class ControllerTest {
             "blur square squareBlur\n" +
             "save test/testImages/blackTestBlur.ppm squareBlur\n" +
             "load test/testImages/blackTestBlur.ppm copyBlur\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     PixelImpl p1 = new PixelImpl(0, 0, 0, 255);
@@ -698,9 +698,9 @@ public class ControllerTest {
   public void testInvalidInput1() {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("loa res/predefinedImages/donkey.ppm donkey\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(appendable.toString(),
@@ -712,9 +712,9 @@ public class ControllerTest {
     Appendable appendable = new StringBuilder();
     Readable readable = new StringReader("load res/predefinedImages/donkey.ppm donkey\n " +
             "pong\n q");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
 
     assertEquals(appendable.toString(),

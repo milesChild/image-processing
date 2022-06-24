@@ -4,14 +4,15 @@ import org.junit.Test;
 import java.io.StringReader;
 
 import controller.ImageProcessingController;
-import controller.ImageProcessingControllerImpl;
+import controller.ImageProcessingControllerConsole;
 import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
+import model.Pixel;
 import model.PixelImpl;
 import model.ProcessableImage;
 import model.ProcessableImageImpl;
 import view.ImageProcessingView;
-import view.ImageTextViewImpl;
+import view.ImageProcessingViewConsole;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -56,9 +57,9 @@ public class ModelTest {
                     "load res/predefinedImages/donkeySharpen.ppm donkeySharpen\n" +
                     "load res/predefinedImages/donkeyGrayscaleFilter.ppm donkeyGrayscaleFilter\n" +
                     "load res/predefinedImages/donkeySepia.ppm donkeySepia\n");
-    ImageProcessingView view = new ImageTextViewImpl(appendable);
+    ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerImpl(model, readable, view);
+    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
     donkeyTest = model.getImage("donkeyTest");
     donkeyRedGrayscale = model.getImage("donkeyRedGrayscale");
@@ -81,8 +82,8 @@ public class ModelTest {
   public void testCopyImage() {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
 
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
@@ -96,8 +97,8 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.flip(ImageProcessingModel.Orientations.Horizontal);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
         assertEquals(donkeyPixelGrid[i][j],
@@ -111,8 +112,8 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.flip(ImageProcessingModel.Orientations.Vertical);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
         assertEquals(donkeyPixelGrid[i][j],
@@ -126,8 +127,8 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.brighten(255);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
         assertEquals(donkeyCopyPixelGrid[i][j].getRed(), 255);
@@ -142,8 +143,8 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.brighten(-255);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
         assertEquals(donkeyCopyPixelGrid[i][j].getRed(), 0);
@@ -158,12 +159,12 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.RedGrayscale);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
 
-        PixelImpl p1 = donkeyPixelGrid[i][j];
+        Pixel p1 = donkeyPixelGrid[i][j];
         assertEquals(donkeyCopyPixelGrid[i][j].getRed(), p1.getRed());
         assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), p1.getRed());
         assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), p1.getRed());
@@ -176,12 +177,12 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.GreenGrayscale);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
 
-        PixelImpl p1 = donkeyPixelGrid[i][j];
+        Pixel p1 = donkeyPixelGrid[i][j];
         assertEquals(donkeyCopyPixelGrid[i][j].getRed(), p1.getGreen());
         assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), p1.getGreen());
         assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), p1.getGreen());
@@ -194,12 +195,12 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.BlueGrayscale);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
 
-        PixelImpl p1 = donkeyPixelGrid[i][j];
+        Pixel p1 = donkeyPixelGrid[i][j];
         assertEquals(donkeyCopyPixelGrid[i][j].getRed(), p1.getBlue());
         assertEquals(donkeyCopyPixelGrid[i][j].getGreen(), p1.getBlue());
         assertEquals(donkeyCopyPixelGrid[i][j].getBlue(), p1.getBlue());
@@ -212,11 +213,11 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.ValueGrayscale);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
-        PixelImpl p1 = donkeyPixelGrid[i][j];
+        Pixel p1 = donkeyPixelGrid[i][j];
         int tempMax = Math.max(p1.getRed(), p1.getBlue());
         int finalMax = Math.max(tempMax, p1.getGreen());
 
@@ -232,11 +233,11 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.IntensityGrayscale);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
-        PixelImpl p1 = donkeyPixelGrid[i][j];
+        Pixel p1 = donkeyPixelGrid[i][j];
         int intensityVal = (int) Math.round((p1.getRed() + p1.getGreen() + p1.getBlue()) / 3.0);
 
         assertEquals(donkeyCopyPixelGrid[i][j].getRed(), intensityVal);
@@ -251,11 +252,11 @@ public class ModelTest {
     this.init();
     ProcessableImageImpl donkeyCopy = new ProcessableImageImpl(donkeyTest);
     donkeyCopy.grayscale(ImageProcessingModel.GrayscaleTypes.LumaGrayscale);
-    PixelImpl[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
-    PixelImpl[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
+    Pixel[][] donkeyPixelGrid = this.donkeyTest.getPixelGrid();
+    Pixel[][] donkeyCopyPixelGrid = donkeyCopy.getPixelGrid();
     for (int i = 0; i < this.donkeyTest.getHeight(); i++) {
       for (int j = 0; j < this.donkeyTest.getWidth(); j++) {
-        PixelImpl p1 = donkeyPixelGrid[i][j];
+        Pixel p1 = donkeyPixelGrid[i][j];
         int lumaVal = (int) Math.round(
                 (p1.getRed() * 0.2126 + p1.getGreen() * 0.7152 + p1.getBlue() * 0.0722));
 

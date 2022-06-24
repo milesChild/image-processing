@@ -30,7 +30,6 @@ public class Brighten extends AbstractCommand {
    */
   @Override
   public void execute(ImageProcessingModel model) {
-
     model.brighten(this.value, this.from, this.to);
   }
 
