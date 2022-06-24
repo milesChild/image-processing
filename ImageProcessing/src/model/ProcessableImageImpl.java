@@ -368,6 +368,11 @@ public class ProcessableImageImpl implements ProcessableImage {
     return max;
   }
 
+  /**
+   * Draws this image's histogram according to the red, green, and blue components of each pixel
+   * as well as the intensity.
+   * @return a buffered image of the histogram that can be displayed to the user
+   */
   public BufferedImage drawHistogram(){
     this.generateHistogram();
     return this.makeGraph(this.histogramArrays[0],
