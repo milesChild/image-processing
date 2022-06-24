@@ -19,13 +19,22 @@ public class Blur extends AbstractCommand {
     super(from, to);
   }
 
+  public Blur(String from, String mask, String to) {
+    super(from, mask, to);
+
+  }
+
   /**
    * Calls upon the model to blur the image, giving it the origin image name and the
    * name of the new image.
    * @param model the model which will be used to actually apply the blurring filter
    */
   public void execute(ImageProcessingModel model) {
-    model.blur(this.from, this.to);
+    if (this.mask == null) {
+      model.blur(this.from, this.to);
+    } else {
+      model.selectiveBlur(this.from, this.mask, this.to);
+    }
   }
 
 }

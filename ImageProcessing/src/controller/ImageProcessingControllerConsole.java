@@ -62,7 +62,7 @@ public class ImageProcessingControllerConsole extends AbstractImageProcessingCon
     this.knownCommands.put("dim", s -> new Dim(Integer.parseInt(s[1]), s[2], s[3]));
     this.knownCommands.put("grayscale", s -> new Grayscale(this.stringToGrayscaleEnum(s[1]),
             s[2], s[3]));
-    this.knownCommands.put("blur", s -> new Blur(s[1], s[2]));
+    this.knownCommands.put("blur", s -> new Blur(s[1], s[2], s[3]));
     this.knownCommands.put("sharpen", s -> new Sharpen(s[1], s[2]));
     this.knownCommands.put("sepia", s -> new Sepia(s[1], s[2]));
     this.knownCommands.put("downscale", s -> new Downscale(Integer.parseInt(s[1]), s[2], s[3]));

@@ -375,11 +375,6 @@ public class ModelTest {
 //    assertEquals(1, test[3][89]);
 //  }
 
-  @Test
-  public void testingMathLogic() {
-    int newWidth = (100 * (100 - 3)) / 100;
 
-    assertEquals(97, newWidth);
-  }
 
 }

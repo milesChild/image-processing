@@ -129,6 +129,36 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 
+  public void selectiveBlur(String from, String mask, String to) throws IllegalArgumentException {
+    ProcessableImage fromImage =
+            this.imageLibrary.getOrDefault(from, null);
+    ProcessableImage maskImage =
+            this.imageLibrary.getOrDefault(mask, null);
+    if (fromImage == null || maskImage == null) {
+      throw new IllegalArgumentException("Image does not exist in library."
+              + " Try again.");
+    }
+    ProcessableImageImpl fromImageImpl =
+            new ProcessableImageImpl(fromImage);
+    ProcessableImageImpl maskImageImpl =
+            new ProcessableImageImpl(maskImage);
+    if (fromImage.getHeight() != maskImage.getHeight()
+            || fromImage.getWidth() != maskImage.getWidth()) {
+      throw new IllegalArgumentException("Masked image must be the same "
+              + "dimensions as the original image.");
+    }
+
+    // get a copy of the from image's pixels
+    // manipulate the from image
+    // selectively paste the copy back onto the fromImage
+    Pixel[][] maskGrid = maskImageImpl.getPixelGrid();
+    Pixel[][] copyGrid = fromImageImpl.selectiveCopy(maskGrid);
+    fromImageImpl.blur();
+    fromImageImpl.selectivePaste(copyGrid);
+
+    this.imageLibrary.put(to, fromImageImpl);
+  }
+
   @Override
   public void sharpen(String from, String to) throws IllegalArgumentException {
     ProcessableImage fromImage =

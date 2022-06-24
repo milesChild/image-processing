@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class ProcessableImageImpl implements ProcessableImage {
   private Pixel[][] pixelGrid;
-  private int [][] histogramArrays;
+  private int[][] histogramArrays;
   private int width;
   private int height;
   private final int maxValue;
@@ -335,7 +335,7 @@ public class ProcessableImageImpl implements ProcessableImage {
   /**
    * Generates the frequency values to be used when plotting a histogram for this processable image.
    */
-  public void generateHistogram() {
+  private void generateHistogram() {
     int[] red = new int[this.maxValue + 1];
     int[] green = new int[this.maxValue + 1];
     int[] blue = new int[this.maxValue + 1];
@@ -397,7 +397,7 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   private void drawLines(Graphics2D graph, Color graphColor, int[] frequencies) {
     graph.setColor(graphColor);
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < this.maxValue; i++) {
       graph.drawLine(i, 400 , i ,
               Math.min(400, 400 - frequencies[i] / 2));
     }
@@ -426,6 +426,9 @@ public class ProcessableImageImpl implements ProcessableImage {
     this.height = newHeight;
   }
 
+  // maps a pixel from an original pixelGrid to a new pixelGrid. Attempts to find a specific pixel
+  // at a reference point (row, col) in the original image. If the reference point is not an int,
+  // it finds the four surrounding pixels from the closest pixel to the reference point.
   private PixelImpl mappedPixel(int row, int col, int newWidth, int newHeight) {
     double oldX = ((double) row / (double) newWidth) * this.width;
     double oldY = ((double) col / (double) newHeight) * this.height;
@@ -442,6 +445,8 @@ public class ProcessableImageImpl implements ProcessableImage {
     return new PixelImpl(oldPixel.getRed(), oldPixel.getGreen(), oldPixel.getBlue(), this.maxValue);
   }
 
+  // finds the pixels above, below, to the left, and to the right of the pixel at (row, col) and
+  // averages the R, G, B values of that pixel into a new Pixel.
   private PixelImpl combineSurroundingPixels(int row, int col) {
     int redTot = 0;
     int greenTot = 0;
@@ -485,6 +490,43 @@ public class ProcessableImageImpl implements ProcessableImage {
     }
 
     return new PixelImpl(redTot/avg, greenTot/avg, blueTot/avg, this.maxValue);
+  }
+
+  // Selectively copies the parts of this image that correspond to white pixels in the masked image
+  // into a new 2D array of pixels
+  public Pixel[][] selectiveCopy(Pixel[][] maskGrid) {
+    Pixel[][] copiedGrid = new Pixel[this.height][this.width];
+
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        if (maskGrid[i][j].getRed() != 0) { // only necessary to check one color, rest are 256
+          copiedGrid[i][j] = this.pixelGrid[i][j];
+        } else {
+          copiedGrid[i][j] = null;
+        }
+      }
+    }
+
+    return copiedGrid;
+  }
+
+  // selectively pastes the non-null pixels in the copiedGrid onto this pixelGrid, effectively
+  // making it appear as though only the parts of the image that the user wanted to manipulate have
+  // been manipulated.
+  public void selectivePaste(Pixel[][] copiedGrid) {
+    Pixel[][] pastedGrid = new Pixel[this.height][this.width];
+
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        if (copiedGrid[i][j] == null) {
+          pastedGrid[i][j] = this.pixelGrid[i][j];
+        } else {
+          pastedGrid[i][j] = copiedGrid[i][j];
+        }
+      }
+    }
+
+    this.pixelGrid = pastedGrid;
   }
 
 }

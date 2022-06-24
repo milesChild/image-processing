@@ -113,6 +113,13 @@ public interface ProcessableImage {
    */
   Pixel[][] getPixelGrid();
 
+  /**
+   * Draws histogram of the frequencies of color values in an image. Calls on a helper method,
+   * {@code generateHistogram()} to get the data to be drawn, then draws lines on a buffered image
+   * for each of the red, green, blue, and intensity (avg) color frequencies in the range of
+   * 0 - {@code maxValue}.
+   * @return a histogram image that represents the data of color frequencies and intensity
+   */
   BufferedImage drawHistogram();
 
 }

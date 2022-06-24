@@ -127,6 +127,19 @@ public interface ImageProcessingModel {
   void blur(String from, String to) throws IllegalArgumentException;
 
   /**
+   * Method that calls on the ProcessableImageImpl to apply a blurring filter to an image, saving
+   * it as a new image by the provided name. Only applies the blur filter to the desired parts of
+   * the image, based on the image mask. Grabs the image to blur and mask by getting the images in
+   * imageLibrary under the given names, specified by the user.
+   *
+   * @param from the name of the origin image
+   * @param mask the name of the mask image
+   * @param to   the new name for the blurred image
+   * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
+   */
+  void selectiveBlur(String from, String mask, String to) throws IllegalArgumentException;
+
+  /**
    * Method that calls on the ProcessableImageImpl to apply a sharpening filter to an image, saving
    * it as a new image by the provided name. Grabs the image to sharpen by getting the image in
    * imageLibrary under the given name, specified by the user.

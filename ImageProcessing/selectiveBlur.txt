@@ -1,0 +1,19 @@
+load res/selectiveManipulation/unmaskedImage.jpeg unmasked
+load res/selectiveManipulation/maskedImage.png mask
+blur unmasked mask unmasked1
+blur unmasked1 mask unmasked2
+blur unmasked2 mask unmasked3
+blur unmasked3 mask unmasked4
+blur unmasked4 mask unmasked5
+blur unmasked5 mask unmasked6
+blur unmasked6 mask unmasked7
+blur unmasked7 mask unmasked8
+blur unmasked8 mask unmasked9
+blur unmasked9 mask unmasked10
+blur unmasked10 mask unmasked11
+blur unmasked11 mask unmasked12
+blur unmasked12 mask unmasked13
+blur unmasked13 mask unmasked14
+blur unmasked14 mask unmasked15
+save res/selectiveManipulation/selectivelyBlurredImage.png unmasked15
+q

@@ -12,6 +12,7 @@ public abstract class AbstractCommand implements ImageProcessingCommand {
 
   protected final String from; // image alias at origin
   protected final String to; // name for new image
+  protected final String mask; // name for the image mask (for selective manipulation)
 
   /**
    * The abstract implementation for a command to be executed on an image.
@@ -24,6 +25,16 @@ public abstract class AbstractCommand implements ImageProcessingCommand {
       throw new IllegalArgumentException("Given null parameter");
     }
     this.from = from;
+    this.to = to;
+    this.mask = null;
+  }
+
+  protected AbstractCommand(String from, String mask, String to) throws IllegalArgumentException {
+    if (from == null || to == null || mask == null) {
+      throw new IllegalArgumentException("Given null parameter");
+    }
+    this.from = from;
+    this.mask = mask;
     this.to = to;
   }
 
