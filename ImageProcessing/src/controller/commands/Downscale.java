@@ -2,6 +2,9 @@ package controller.commands;
 
 import model.ImageProcessingModel;
 
+/**
+ * Command class to represent the downscale command, which downscales an image by a percentage.
+ */
 public class Downscale extends AbstractCommand {
   private final int value; // the percentage the image will be downscaled by
 
@@ -17,6 +20,7 @@ public class Downscale extends AbstractCommand {
     super(from, to);
     this.value = value;
   }
+
   /**
    * Calls upon the model to execute the downscale function, giving it the origin image
    * name and the destination for the new image.

@@ -13,6 +13,7 @@ import controller.commands.Downscale;
 import controller.commands.Grayscale;
 import controller.commands.HorizontalFlip;
 import controller.commands.ImageProcessingCommand;
+import controller.commands.PartialManipulation;
 import controller.commands.Sepia;
 import controller.commands.Sharpen;
 import controller.commands.VerticalFlip;
@@ -40,7 +41,8 @@ public class ImageProcessingControllerConsole extends AbstractImageProcessingCon
    * @throws IllegalArgumentException if any of the provided parameters are null
    */
   public ImageProcessingControllerConsole(ImageProcessingModel model, Readable in,
-                                          ImageProcessingView view) throws IllegalArgumentException {
+                                          ImageProcessingView view)
+          throws IllegalArgumentException {
     super(model);
     if (in == null || view == null) {
       throw new IllegalArgumentException("Given null parameter.");
@@ -102,6 +104,9 @@ public class ImageProcessingControllerConsole extends AbstractImageProcessingCon
           this.loadImage(in[1], in[2]);
         } else if (userCommand.equals("save")) {
           this.saveImage(in[1], in[2]);
+        } else if (userCommand.equals("partial")) {
+          c = this.createSelectiveCommand(in);
+          c.execute(this.model);
         } else {
           cmd = knownCommands.getOrDefault(in[0], null);
           if (cmd == null) {
@@ -170,6 +175,32 @@ public class ImageProcessingControllerConsole extends AbstractImageProcessingCon
     } catch (IOException e) {
       throw new IllegalStateException();
     }
+  }
+
+  /**
+   * Creates a partial command given list of string input by the user.
+   *
+   * @param userInput the list of strings input by the user
+   * @return the partial command according to the user's input
+   * @throws IllegalArgumentException if the user tries to create a partial command using invalid
+   *                                  input
+   */
+  private ImageProcessingCommand createSelectiveCommand(String[] userInput)
+          throws IllegalArgumentException {
+    if (userInput.length != 5 && userInput.length != 6) {
+      throw new IllegalArgumentException("Invalid input for partial command!");
+    }
+    int val = 0;
+    if (userInput.length == 6) {
+      if (userInput[1].equals("grayscale")) {
+        return new PartialManipulation(userInput[3], userInput[4], userInput[5],
+                "grayscale " + userInput[2], val);
+      } else if (userInput[1].equals("brighten") || userInput[1].equals("dim")) {
+        val = Integer.parseInt(userInput[2]);
+        return new PartialManipulation(userInput[3], userInput[4], userInput[5], userInput[1], val);
+      }
+    }
+    return new PartialManipulation(userInput[2], userInput[3], userInput[4], userInput[1], val);
   }
 
 }

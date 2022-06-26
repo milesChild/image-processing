@@ -137,7 +137,8 @@ public interface ImageProcessingModel {
    * @param to   the new name for the blurred image
    * @throws IllegalArgumentException if there is no image of the given name in the imageLibrary
    */
-  void selectiveBlur(String from, String mask, String to) throws IllegalArgumentException;
+  void partialManipulation(String from, String mask, String to, String command, int userValue)
+          throws IllegalArgumentException;
 
   /**
    * Method that calls on the ProcessableImageImpl to apply a sharpening filter to an image, saving

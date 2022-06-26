@@ -1,10 +1,11 @@
 package model;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
+import java.awt.Graphics2D;
+import java.awt.Color;
 
 /**
  * Class to represent an image, which stores all the pixel values in a 2D array of Pixels of a
@@ -47,7 +48,7 @@ public class ProcessableImageImpl implements ProcessableImage {
    * @param height    the height of the columns in the image
    * @param maxValue  the maximum int value that any color channel in any given pixel can have
    */
-  public ProcessableImageImpl(PixelImpl[][] pixelGrid, int width, int height, int maxValue) {
+  public ProcessableImageImpl(Pixel[][] pixelGrid, int width, int height, int maxValue) {
     this.pixelGrid = pixelGrid;
     this.width = width;
     this.height = height;
@@ -77,8 +78,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void grayscale() {
     double[][] matrix = new double[][]{new double[]{0.2126, 0.7152, 0.0722},
-            new double[]{0.2126, 0.7152, 0.0722},
-            new double[]{0.2126, 0.7152, 0.0722}
+      new double[]{0.2126, 0.7152, 0.0722},
+      new double[]{0.2126, 0.7152, 0.0722}
     };
     this.applyColorTransformation(matrix);
 
@@ -102,8 +103,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void blur() {
     double[][] kernel = new double[][]{new double[]{0.0625, 0.125, 0.0625},
-            new double[]{0.125, 0.25, 0.125},
-            new double[]{0.0625, 0.125, 0.0625}
+      new double[]{0.125, 0.25, 0.125},
+      new double[]{0.0625, 0.125, 0.0625}
     };
     this.applyFilter(kernel);
   }
@@ -111,10 +112,10 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void sharpen() {
     double[][] kernel = new double[][]{new double[]{-0.125, -0.125, -0.125, -0.125, -0.125},
-            new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
-            new double[]{-0.125, 0.25, 1, 0.25, -0.125},
-            new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
-            new double[]{-0.125, -0.125, -0.125, -0.125, -0.125}
+      new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
+      new double[]{-0.125, 0.25, 1, 0.25, -0.125},
+      new double[]{-0.125, 0.25, 0.25, 0.25, -0.125},
+      new double[]{-0.125, -0.125, -0.125, -0.125, -0.125}
     };
     this.applyFilter(kernel);
   }
@@ -122,8 +123,8 @@ public class ProcessableImageImpl implements ProcessableImage {
   @Override
   public void sepia() {
     double[][] matrix = new double[][]{new double[]{0.393, 0.769, 0.189},
-            new double[]{0.349, 0.686, 0.168},
-            new double[]{0.272, 0.534, 0.131}
+      new double[]{0.349, 0.686, 0.168},
+      new double[]{0.272, 0.534, 0.131}
     };
     this.applyColorTransformation(matrix);
   }
@@ -355,10 +356,11 @@ public class ProcessableImageImpl implements ProcessableImage {
 
   /**
    * Gets the max frequency value in an array of frequencies.
+   *
    * @param frequencies array of integer values (frequencies of a component of a pixel)
    * @return the largest frequency value in the array
    */
-  private int getMaxFrequency(int[] frequencies){
+  private int getMaxFrequency(int[] frequencies) {
     int max = 0;
     for (int frequency : frequencies) {
       if (frequency > max) {
@@ -368,12 +370,8 @@ public class ProcessableImageImpl implements ProcessableImage {
     return max;
   }
 
-  /**
-   * Draws this image's histogram according to the red, green, and blue components of each pixel
-   * as well as the intensity.
-   * @return a buffered image of the histogram that can be displayed to the user
-   */
-  public BufferedImage drawHistogram(){
+  @Override
+  public BufferedImage drawHistogram() {
     this.generateHistogram();
     return this.makeGraph(this.histogramArrays[0],
             this.histogramArrays[1],
@@ -381,29 +379,48 @@ public class ProcessableImageImpl implements ProcessableImage {
             this.histogramArrays[3]);
   }
 
-  // TODO: clamp histogram within the window correctly
+  /**
+   * Draws the histogram on to a buffered image.
+   *
+   * @param red       array of red frequencies
+   * @param blue      array of blue frequencies
+   * @param green     array of green frequencies
+   * @param intensity array of intensity frequencies
+   * @return the histogram drawn on to a buffered image
+   */
   private BufferedImage makeGraph(int[] red, int[] blue, int[] green, int[] intensity) {
     int max = Math.max(Math.max(this.getMaxFrequency(red), this.getMaxFrequency(green)),
             Math.max(this.getMaxFrequency(blue), this.getMaxFrequency(intensity)));
-    BufferedImage bi = new BufferedImage(this.maxValue, max, BufferedImage.TYPE_INT_RGB);
+    int scale = 1;
+    if (max != 0) {
+      scale = max / 385;
+    }
+    BufferedImage bi = new BufferedImage(this.maxValue, 385, BufferedImage.TYPE_INT_RGB);
     Graphics2D graph = bi.createGraphics();
-    this.drawLines(graph, new Color(1f, 0f, 0f, .5f), red);
-    this.drawLines(graph, new Color(0f, 1f, 0f, .5f), green);
-    this.drawLines(graph, new Color(0f, 0f, 1f, .5f), blue);
-    this.drawLines(graph, new Color(0.25f, 0.5f, 0.25f, .5f), intensity);
+    this.drawLines(graph, new Color(1f, 0f, 0f, .5f), red, scale);
+    this.drawLines(graph, new Color(0f, 1f, 0f, .5f), green, scale);
+    this.drawLines(graph, new Color(0f, 0f, 1f, .5f), blue, scale);
+    this.drawLines(graph, new Color(0.25f, 0.5f, 0.25f, .5f), intensity, scale);
     graph.drawImage(bi, null, 0, 0);
     return bi;
   }
 
-  private void drawLines(Graphics2D graph, Color graphColor, int[] frequencies) {
+  /**
+   * Draws the lines of a histogram.
+   *
+   * @param graph       the graph the lines will get drawn on
+   * @param graphColor  the color of the lines
+   * @param frequencies the frequencies of each color
+   * @param scale       the scale that the lines will be scaled to
+   */
+  private void drawLines(Graphics2D graph, Color graphColor, int[] frequencies, int scale) {
     graph.setColor(graphColor);
     for (int i = 0; i < this.maxValue; i++) {
-      graph.drawLine(i, 400 , i ,
-              Math.min(400, 400 - frequencies[i] / 2));
+      graph.drawLine(i, 385, i, Math.min(385, 385 - frequencies[i] / scale));
     }
   }
 
-  // downsizes this image by a certain percent, maintaining the same aspect ratio
+  @Override
   public void downsize(int percent) throws IllegalArgumentException {
     if (percent < 0 || percent > 100) {
       throw new IllegalArgumentException("Percent must be between 0 - 100");
@@ -411,12 +428,12 @@ public class ProcessableImageImpl implements ProcessableImage {
 
     int newWidth = (this.width * (100 - percent)) / 100;
     int newHeight = (this.height * (100 - percent)) / 100;
-    PixelImpl[][] newPixelGrid = new PixelImpl[newHeight][newWidth];
+    Pixel[][] newPixelGrid = new PixelImpl[newHeight][newWidth];
 
     for (int i = 0; i < newHeight; i++) {
-      PixelImpl[] tempRow = new PixelImpl[newWidth];
+      Pixel[] tempRow = new PixelImpl[newWidth];
       for (int j = 0; j < newWidth; j++) {
-        PixelImpl mappedPixel = this.mappedPixel(i, j, newWidth, newHeight);
+        Pixel mappedPixel = this.mappedPixel(i, j, newWidth, newHeight);
         tempRow[j] = mappedPixel;
       }
       newPixelGrid[i] = tempRow;
@@ -426,10 +443,18 @@ public class ProcessableImageImpl implements ProcessableImage {
     this.height = newHeight;
   }
 
-  // maps a pixel from an original pixelGrid to a new pixelGrid. Attempts to find a specific pixel
-  // at a reference point (row, col) in the original image. If the reference point is not an int,
-  // it finds the four surrounding pixels from the closest pixel to the reference point.
-  private PixelImpl mappedPixel(int row, int col, int newWidth, int newHeight) {
+  /**
+   * Maps a pixel from an original pixelGrid to a new pixelGrid. Attempts to find a specific pixel
+   * at a reference point (row, col) in the original image. If the reference point is not an int,
+   * it finds the four surrounding pixels from the closest pixel to the reference point.
+   *
+   * @param row       row of reference point
+   * @param col       column of reference point
+   * @param newWidth  new width of image
+   * @param newHeight new height of image
+   * @return newly mapped pixel
+   */
+  private Pixel mappedPixel(int row, int col, int newWidth, int newHeight) {
     double oldX = ((double) row / (double) newWidth) * this.width;
     double oldY = ((double) col / (double) newHeight) * this.height;
 
@@ -489,11 +514,10 @@ public class ProcessableImageImpl implements ProcessableImage {
       avg--;
     }
 
-    return new PixelImpl(redTot/avg, greenTot/avg, blueTot/avg, this.maxValue);
+    return new PixelImpl(redTot / avg, greenTot / avg, blueTot / avg, this.maxValue);
   }
 
-  // Selectively copies the parts of this image that correspond to white pixels in the masked image
-  // into a new 2D array of pixels
+  @Override
   public Pixel[][] selectiveCopy(Pixel[][] maskGrid) {
     Pixel[][] copiedGrid = new Pixel[this.height][this.width];
 
@@ -510,9 +534,7 @@ public class ProcessableImageImpl implements ProcessableImage {
     return copiedGrid;
   }
 
-  // selectively pastes the non-null pixels in the copiedGrid onto this pixelGrid, effectively
-  // making it appear as though only the parts of the image that the user wanted to manipulate have
-  // been manipulated.
+  @Override
   public void selectivePaste(Pixel[][] copiedGrid) {
     Pixel[][] pastedGrid = new Pixel[this.height][this.width];
 

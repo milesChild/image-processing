@@ -8,14 +8,12 @@ import controller.ImageProcessingControllerConsole;
 import model.ImageProcessingModel;
 import model.ImageProcessingModelImpl;
 import model.Pixel;
-import model.PixelImpl;
 import model.ProcessableImage;
 import model.ProcessableImageImpl;
 import view.ImageProcessingView;
 import view.ImageProcessingViewConsole;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the ProcessableImageImpl class and ImageProcessingModelImpl class.
@@ -59,7 +57,8 @@ public class ModelTest {
                     "load res/predefinedImages/donkeySepia.ppm donkeySepia\n");
     ImageProcessingView view = new ImageProcessingViewConsole(appendable);
     ImageProcessingModel model = new ImageProcessingModelImpl();
-    ImageProcessingController controller = new ImageProcessingControllerConsole(model, readable, view);
+    ImageProcessingController controller =
+            new ImageProcessingControllerConsole(model, readable, view);
     controller.runProgram();
     donkeyTest = model.getImage("donkeyTest");
     donkeyRedGrayscale = model.getImage("donkeyRedGrayscale");
@@ -365,16 +364,5 @@ public class ModelTest {
     donkeyTest.sharpen();
     assertEquals(donkeyTest, donkeySharpenFilter);
   }
-
-//  @Test
-//  public void testGenerateHistogram() {
-//    int[][] test = this.donkeyGrayscaleFilter.generateHistogram();
-//    assertEquals(1, test[0][89]);
-//    assertEquals(1, test[1][89]);
-//    assertEquals(1, test[2][89]);
-//    assertEquals(1, test[3][89]);
-//  }
-
-
 
 }

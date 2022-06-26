@@ -13,6 +13,10 @@ This is a basic processableImageImpl processing program which offers the client 
 
 ***
 
+## Design Changes from Assignment 5 & New Design Decisions
+- For the Downscale implementation, we did not change much of our code, we simply added a new method in the ImageProcessingModel and ProcessableImage interfaces/classes and added some extra helper methods in the ProcessableImage class.
+- For the Partial Image Manipulation implementation, we did not change much of our code as well. We added a new command that extends AbstractCommand called PartialManipulation. Then we added a method in the ImageProcessingModel interface/class to handle this command. We also added two helper methods in the ProcessableImage class that help selectively edit an image. 
+
 ## Design Changes from Assignment 4 & New Design Decisions
 
 > Taking feedback from A4 into account and in an attempt to abstract as much code as possible, we renamed our PPMImage class to ProcessableImageImpl class and made an interface, ProcessableImage that holds all of the common commands.

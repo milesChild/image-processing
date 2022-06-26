@@ -1,6 +1,6 @@
 package controller;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +20,7 @@ abstract class AbstractImageProcessingController implements ImageProcessingContr
   protected ImageProcessingModel model;
 
   AbstractImageProcessingController(ImageProcessingModel model) {
-    if (model == null){
+    if (model == null) {
       throw new IllegalArgumentException("Model cannot be null");
     }
     this.model = model;
@@ -33,7 +33,7 @@ abstract class AbstractImageProcessingController implements ImageProcessingContr
    * @param path path of the file
    * @param name name of what the image is to be called
    */
-  protected void loadImage(String path, String name) {
+  public void loadImage(String path, String name) {
     if (path.endsWith(".ppm")) {
       this.loadPPM(path, name);
     } else if (path.endsWith(".jpg") || path.endsWith(".png")

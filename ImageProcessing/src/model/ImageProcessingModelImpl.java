@@ -48,7 +48,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl =
+    ProcessableImage newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.flip(Orientations.Horizontal);
     this.imageLibrary.put(to, newProcessableImageImpl);
@@ -62,7 +62,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl =
+    ProcessableImage newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.flip(Orientations.Vertical);
     this.imageLibrary.put(to, newProcessableImageImpl);
@@ -76,7 +76,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl =
+    ProcessableImage newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.brighten(value);
     this.imageLibrary.put(to, newProcessableImageImpl);
@@ -90,7 +90,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl =
+    ProcessableImage newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.grayscale(choice);
     this.imageLibrary.put(to, newProcessableImageImpl);
@@ -104,7 +104,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl =
+    ProcessableImage newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.grayscale();
     this.imageLibrary.put(to, newProcessableImageImpl);
@@ -123,13 +123,15 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl =
+    ProcessableImage newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.blur();
     this.imageLibrary.put(to, newProcessableImageImpl);
   }
 
-  public void selectiveBlur(String from, String mask, String to) throws IllegalArgumentException {
+  @Override
+  public void partialManipulation(String from, String mask, String to, String command,
+                                  int userValue) throws IllegalArgumentException {
     ProcessableImage fromImage =
             this.imageLibrary.getOrDefault(from, null);
     ProcessableImage maskImage =
@@ -138,9 +140,9 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl fromImageImpl =
+    ProcessableImage fromImageImpl =
             new ProcessableImageImpl(fromImage);
-    ProcessableImageImpl maskImageImpl =
+    ProcessableImage maskImageImpl =
             new ProcessableImageImpl(maskImage);
     if (fromImage.getHeight() != maskImage.getHeight()
             || fromImage.getWidth() != maskImage.getWidth()) {
@@ -153,7 +155,48 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
     // selectively paste the copy back onto the fromImage
     Pixel[][] maskGrid = maskImageImpl.getPixelGrid();
     Pixel[][] copyGrid = fromImageImpl.selectiveCopy(maskGrid);
-    fromImageImpl.blur();
+
+    switch (command) {
+      case "blur":
+        fromImageImpl.blur();
+        break;
+      case "sharpen":
+        fromImageImpl.sharpen();
+        break;
+      case "sepia":
+        fromImageImpl.sepia();
+        break;
+      case "grayscale red":
+        fromImageImpl.grayscale(GrayscaleTypes.RedGrayscale);
+        break;
+      case "grayscale green":
+        fromImageImpl.grayscale(GrayscaleTypes.GreenGrayscale);
+        break;
+      case "grayscale blue":
+        fromImageImpl.grayscale(GrayscaleTypes.BlueGrayscale);
+        break;
+      case "grayscale value":
+        fromImageImpl.grayscale(GrayscaleTypes.ValueGrayscale);
+        break;
+      case "grayscale intensity":
+        fromImageImpl.grayscale(GrayscaleTypes.IntensityGrayscale);
+        break;
+      case "grayscale luma":
+        fromImageImpl.grayscale(GrayscaleTypes.LumaGrayscale);
+        break;
+      case "grayscale filter":
+        fromImageImpl.grayscale(GrayscaleTypes.TransformationGrayscale);
+        break;
+      case "brighten":
+        fromImageImpl.brighten(userValue);
+        break;
+      case "dim":
+        fromImageImpl.brighten(-userValue);
+        break;
+      default:
+        throw new IllegalArgumentException("Not a valid command!");
+    }
+
     fromImageImpl.selectivePaste(copyGrid);
 
     this.imageLibrary.put(to, fromImageImpl);
@@ -181,7 +224,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl =
+    ProcessableImage newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.sepia();
     this.imageLibrary.put(to, newProcessableImageImpl);
@@ -195,7 +238,7 @@ public class ImageProcessingModelImpl implements ImageProcessingModel {
       throw new IllegalArgumentException("Image does not exist in library."
               + " Try again.");
     }
-    ProcessableImageImpl newProcessableImageImpl =
+    ProcessableImage newProcessableImageImpl =
             new ProcessableImageImpl(fromImage);
     newProcessableImageImpl.downsize(percent);
     this.imageLibrary.put(to, newProcessableImageImpl);

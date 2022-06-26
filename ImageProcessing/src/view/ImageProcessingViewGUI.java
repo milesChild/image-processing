@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
@@ -15,6 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
+/**
+ * A GUI implementation for the image processing application. Allows the user to load and save an
+ * image system's file selector and press buttons to manipulate the image. Shows the user the image
+ * manipulations and shows the image's histogram.
+ */
 public class ImageProcessingViewGUI extends JFrame implements ImageProcessingView {
   private final JLabel imageLabel;
   private final JLabel histogramLabel;
@@ -36,7 +42,10 @@ public class ImageProcessingViewGUI extends JFrame implements ImageProcessingVie
   private final JButton grayscaleFilterButton;
   private final JButton downscaleButton;
 
-  public ImageProcessingViewGUI() throws IOException {
+  /**
+   * Default constructor for the GUI. Instantiates all the panels and buttons needed for the view.
+   */
+  public ImageProcessingViewGUI() {
     super();
     setTitle("Process an Image!");
     setSize(1100, 600);
@@ -62,7 +71,7 @@ public class ImageProcessingViewGUI extends JFrame implements ImageProcessingVie
 
     this.histogramLabel = new JLabel();
     JScrollPane histogramScrollable = new JScrollPane(this.histogramLabel);
-    histogramScrollable.setPreferredSize(new Dimension(400,400));
+    histogramScrollable.setPreferredSize(new Dimension(275,400));
     histogramPanel.add(histogramScrollable);
     mainPanel.add(histogramPanel);
 
@@ -141,6 +150,11 @@ public class ImageProcessingViewGUI extends JFrame implements ImageProcessingVie
     mainPanel.add(buttonPanel);
   }
 
+  /**
+   * Displays the given image and the given image's histogram to the user.
+   * @param image the given image
+   * @param histogram the given image's histogram
+   */
   public void displayLabels(BufferedImage image, BufferedImage histogram) {
     ImageIcon displayImage = new ImageIcon(image);
     this.imageLabel.setIcon(displayImage);
@@ -149,7 +163,11 @@ public class ImageProcessingViewGUI extends JFrame implements ImageProcessingVie
     this.histogramLabel.setIcon(displayHistogram);
   }
 
-  public void setListener(ActionListener listener){
+  /**
+   * Sets all the action listeners for the GUI's buttons.
+   * @param listener where the button click will be processed
+   */
+  public void setListener(ActionListener listener) {
     this.loadButton.addActionListener(listener);
     this.saveButton.addActionListener(listener);
     this.brightenButton.addActionListener(listener);
@@ -174,7 +192,7 @@ public class ImageProcessingViewGUI extends JFrame implements ImageProcessingVie
    * @param command the message sent to the user in the pop-up screen.
    * @return the value the user entered, as an int
    */
-  public int getInputValue(String command){
+  public int getInputValue(String command) {
     String value = JOptionPane.showInputDialog("Enter " + command + " value:");
     return Integer.parseInt(value);
   }

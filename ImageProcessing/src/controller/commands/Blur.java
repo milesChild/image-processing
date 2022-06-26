@@ -30,11 +30,7 @@ public class Blur extends AbstractCommand {
    * @param model the model which will be used to actually apply the blurring filter
    */
   public void execute(ImageProcessingModel model) {
-    if (this.mask == null) {
-      model.blur(this.from, this.to);
-    } else {
-      model.selectiveBlur(this.from, this.mask, this.to);
-    }
+    model.blur(this.from, this.to);
   }
 
 }

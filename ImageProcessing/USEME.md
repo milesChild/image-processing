@@ -13,6 +13,11 @@ This is a basic processableImageImpl processing program which offers the client 
 
 ***
 
+## GUI Interactions for Use
+- Each command in the GUI can be accessed by simply clicking on the button in the GUI. By clicking the button, each command will be applied to the image. There are only five exceptions:
+- Load and save buttons each present a pop-up file selector window that allows the user to load and save in an image of their choice
+- Brighten, dim, and downscale each present a pop-up user input window so the user can choose what value to brighten, dim, or downscale the image by
+
 ## Command Instructions for Use
 
 Commands can be made either as string commands made interactively with the program using the ImageProcessingMain class or as commands made in a text file that can be passed into the ImageProcessingMain class.

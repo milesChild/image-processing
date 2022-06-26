@@ -5,13 +5,19 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 import model.ImageProcessingModel;
 import model.ProcessableImage;
 import view.ImageProcessingViewGUI;
 
-public class ImageProcessingControllerGUI extends AbstractImageProcessingController implements ActionListener {
+/**
+ * The GUI implementation for the controller. Handles all the button clicks and edits the images
+ * accordingly.
+ */
+public class ImageProcessingControllerGUI extends AbstractImageProcessingController
+        implements ActionListener {
   private final ImageProcessingViewGUI view;
   private String currentKey;
 
@@ -24,6 +30,7 @@ public class ImageProcessingControllerGUI extends AbstractImageProcessingControl
    */
   public ImageProcessingControllerGUI(ImageProcessingModel model, ImageProcessingViewGUI view) {
     super(model);
+    this.currentKey = "initialImage";
     this.view = view;
     this.view.setListener(this);
     this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +43,7 @@ public class ImageProcessingControllerGUI extends AbstractImageProcessingControl
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch (e.getActionCommand()){
+    switch (e.getActionCommand()) {
       case "load": {
         final JFileChooser fchooser = new JFileChooser(".");
         int retvalue = fchooser.showOpenDialog(view);
@@ -142,6 +149,8 @@ public class ImageProcessingControllerGUI extends AbstractImageProcessingControl
         this.currentKey = "downscale";
         break;
       }
+      default:
+        throw new IllegalArgumentException("Invalid action!");
 
     }
     ProcessableImage currentImage = this.model.getImage(this.currentKey);
@@ -156,7 +165,7 @@ public class ImageProcessingControllerGUI extends AbstractImageProcessingControl
     try {
       this.view.renderMessage("Program is running in new window.");
     }
-    catch (IOException e){
+    catch (IOException e) {
       throw new IllegalArgumentException("Invalid output in console.");
     }
 

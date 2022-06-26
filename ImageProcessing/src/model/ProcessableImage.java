@@ -122,4 +122,27 @@ public interface ProcessableImage {
    */
   BufferedImage drawHistogram();
 
+  /**
+   * Downsizes the image by a certain percentage.
+   * @param percent the percentage the image will be downsized by
+   * @throws IllegalArgumentException if the percentage is not between 0-100
+   */
+  void downsize(int percent) throws IllegalArgumentException;
+
+  /**
+   * Selectively pastes the non-null pixels in the copiedGrid onto this pixelGrid, effectively,
+   * making it appear as though only the parts of the image that the user wanted to manipulate
+   * have been manipulated.
+   * @param copiedGrid the grid that is to be pasted into the image
+   */
+  void selectivePaste(Pixel[][] copiedGrid);
+
+  /**
+   * Selectively copies the parts of this image that correspond to white pixels in the masked image
+   * into a new 2D array of pixels.
+   * @param maskGrid the pixel grid of the masked image
+   * @return the newly masked pixel grid of this image
+   */
+  Pixel[][] selectiveCopy(Pixel[][] maskGrid);
+
 }

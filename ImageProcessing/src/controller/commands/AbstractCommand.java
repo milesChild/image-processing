@@ -29,6 +29,13 @@ public abstract class AbstractCommand implements ImageProcessingCommand {
     this.mask = null;
   }
 
+  /**
+   * The abstract implementation for a command to be partially executed on an image.
+   * @param from the name of the origin image
+   * @param mask the name of the mask image
+   * @param to the name of the new image
+   * @throws IllegalArgumentException if either of the provided parameters are null
+   */
   protected AbstractCommand(String from, String mask, String to) throws IllegalArgumentException {
     if (from == null || to == null || mask == null) {
       throw new IllegalArgumentException("Given null parameter");
