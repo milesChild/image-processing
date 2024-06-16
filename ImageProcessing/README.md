@@ -1,4 +1,4 @@
-# processableImageImpl-processing
+# Image Processing
 
 *Version 1: June 9, 2022*
  
@@ -9,7 +9,7 @@
 
 ## Project Description
 
-This is a basic processableImageImpl processing program which offers the client various options for loading, manipulating, and saving images. Images of various types can be loaded into the program and various processableImageImpl-manipulating operations can be conducted on them through the use of console inputs. Examples of operations include multiple flipping operations, dim/brighten operations, and varoius color-conversion operations. A more detailed list of operations, how to use them via the console, and examples of processableImageImpl-manipulation will follow.
+This is a Image processing program which offers the client various options for loading, manipulating, and saving images. Images of various types can be loaded into the program and various Image-manipulating operations can be conducted on them through the use of console inputs. Examples of operations include multiple flipping operations, dim/brighten operations, and various color-conversion operations. A more detailed list of operations, how to use them via the console, and examples of Image-manipulation will follow.
 
 ***
 
@@ -44,7 +44,7 @@ Our model includes the following:
 
 **ImageProcessingModel Interface:**
 
-Interface for an ImageProcessingModel which contains the operations that can be conducted on images in any model implementation. Implementations will have a HashMap of known images that can be operated on, and the operations which change the appearance of images will call upon a particular PPM processableImageImpl that is stored in the model's knownImages map.
+Interface for an ImageProcessingModel which contains the operations that can be conducted on images in any model implementation. Implementations will have a HashMap of known images that can be operated on, and the operations which change the appearance of images will call upon a particular PPM Image that is stored in the model's knownImages map.
 
 **ImageProcessingModelImpl Class:**
 
@@ -89,7 +89,7 @@ Our controller includes the following:
 **ImageProcessingController interface:**
 
 Interface that will be implemented by all of the controller implementations (currently, only one supported) and will hold all of the methods that must be 
-common amongst all implementations. Includes a runProgram() method that enables the client to pass in commands that will be transmitted to the model for processableImageImpl-manipulation, loading, and saving. User can _quit_ the program at any time by entering "q".
+common amongst all implementations. Includes a runProgram() method that enables the client to pass in commands that will be transmitted to the model for Image-manipulation, loading, and saving. User can _quit_ the program at any time by entering "q".
 
 **ImageProcessingControllerImpl class:**
 
@@ -97,7 +97,7 @@ Primary implementation of the controller interface. This controller class is con
 
 **commands package:**
 
-This package includes various command objects that represent different manipulative-operations that can be conducted by the user. For example, the _Brighten_ class represents a brightening command that will increase the brightness of any processableImageImpl by the specified brightness-quotient and save it to a new file.
+This package includes various command objects that represent different manipulative-operations that can be conducted by the user. For example, the _Brighten_ class represents a brightening command that will increase the brightness of any Image by the specified brightness-quotient and save it to a new file.
 
 The commands package has an ImageProcessingCommand interface that holds the execute(ImageProcessingModel model) method. This is the method that each of the class-implementations of this interface use to interact with the model. Each implementation represents a different type of command that the user can use when interacting with the program. 
 
@@ -105,27 +105,27 @@ This package also includes an AbstractCommand class which has abstracted out the
 
 **Commands:**
 
-Load, save, or manipulate an processableImageImpl, either adding or pulling it from the model's _imageLibrary_.
+Load, save, or manipulate an Image, either adding or pulling it from the model's _imageLibrary_.
 
-> **Brighten:** allows user to brighten an processableImageImpl by a certain value and save it to a new name.
+> **Brighten:** allows user to brighten an Image by a certain value and save it to a new name.
 > 
-> **Dim:** allows user to dim an processableImageImpl by a certain value and save it to a new name.
+> **Dim:** allows user to dim an Image by a certain value and save it to a new name.
 > 
-> **HorizontalFlip:** allows the user to horizontally-flip an processableImageImpl and save it under a new name.
+> **HorizontalFlip:** allows the user to horizontally-flip an Image and save it under a new name.
 > 
-> **VerticalFlip:** allows the user to vertically-flip an processableImageImpl and save it under a new name.
+> **VerticalFlip:** allows the user to vertically-flip an Image and save it under a new name.
 > 
-> **Blur:** allows the user to apply a blurring filter to an processableImageImpl and save it under a new name.
+> **Blur:** allows the user to apply a blurring filter to an Image and save it under a new name.
 > 
-> **Sharpen:** allows the user to apply a sharpening filter to an processableImageImpl and save it under a new name.
+> **Sharpen:** allows the user to apply a sharpening filter to an Image and save it under a new name.
 > 
-> **Grayscale:** allows the user to apply a grayscale conversion to an processableImageImpl and save it under a new name. The user can either apply a simple grayscaling filter to the image or specify a specific grayscaling type for the image they wish to filter.
+> **Grayscale:** allows the user to apply a grayscale conversion to an Image and save it under a new name. The user can either apply a simple grayscaling filter to the image or specify a specific grayscaling type for the image they wish to filter.
 > 
-> **Sepia:** allows the user to apply a sepia filter to a processableImageImpl and save it under a new name.
+> **Sepia:** allows the user to apply a sepia filter to a Image and save it under a new name.
 > 
-> **Load:** allows the user to load in a new processableImageImpl from the specified processableImageImpl-path and add it to the current _imageLibrary_.
+> **Load:** allows the user to load in a new Image from the specified Image and add it to the current _imageLibrary_.
 > 
-> **Save:** allows the user to save an processableImageImpl that exists in the _imageLibrary_ to the specified processableImageImpl-path.
+> **Save:** allows the user to save an Image that exists in the _imageLibrary_ to the specified Image-path.
 > 
 
 ***
@@ -142,48 +142,48 @@ The syntax the user should use when using the console to interact with the progr
 
 > **Common references:**
 > 
-> - *processableImageImpl-path:* the path of the processableImageImpl on the user's device. For example, ImageProcessing/src/Henock.ppm
+> - *Image-path:* the path of the Image on the user's device. For example, ImageProcessing/src/Henock.ppm
 > 
-> - *processableImageImpl-name:* the name that will henceforth be how the user should refer to the processableImageImpl. For example, HenockImage
+> - *Image-name:* the name that will henceforth be how the user should refer to the Image. For example, HenockImage
 > 
 
-**Loading an processableImageImpl:**
+**Loading an Image:**
 
 `load processableImageImpl-path processableImageImpl-name`
 
-**Saving an processableImageImpl:**
+**Saving an Image:**
 
 `save processableImageImpl-path processableImageImpl-name`
 
-**Horizontally flipping an processableImageImpl:**
+**Horizontally flipping an Image:**
 
 `horizontal-flip processableImageImpl-name new-processableImageImpl-name`
 
-**Vertically flipping an processableImageImpl:**
+**Vertically flipping an Image:**
 
 `vertical-flip processableImageImpl-name new-processableImageImpl-name`
 
-**Brighten an processableImageImpl:**
+**Brighten an Image:**
 
 `brighten value processableImageImpl-name new-processableImageImpl-name`
 
-**Dim an processableImageImpl:**
+**Dim an Image:**
 
 `dim value processableImageImpl-name new-processableImageImpl-name`
 
-**Grayscale an processableImageImpl:**
+**Grayscale an Image:**
 
 `grayscale grayscaleChoice processableImageImpl-name new-processableImageImpl-name`
 
-**Blur an processableImageImpl:**
+**Blur an Image:**
 
 `blur processableImageImpl-name new-processableImageImpl-name`
 
-**Sharpen an processableImageImpl:**
+**Sharpen an Image:**
 
 `sharpen processableImageImpl-name new-processableImageImpl-name`
 
-**Sepia an processableImageImpl:**
+**Sepia an Image:**
 
 `sepia processableImageImpl-name new-processableImageImpl-name`
 
@@ -195,12 +195,10 @@ The syntax the user should use when using the console to interact with the progr
 
 `save ImageProcessing/HenockBright.ppm henock-bright`
 
-*The above code will load the processableImageImpl Henock.ppm from the ImageProcessing project folder, brighten it by 10, and save it in the ImageProcessing project folder under the name HenockBright.ppm*
+*The above code will load the Image Henock.ppm from the ImageProcessing project folder, brighten it by 10, and save it in the ImageProcessing project folder under the name HenockBright.ppm*
 
 ***
 
 **Contact:**
 - Miles: child.m@northeastern.edu
 - Aashir: khan.aas@northeastern.edu
-
-Note: The processableImageImpl provided in the code for grading purposes is our own processableImageImpl. We give ourselves permission to use our own processableImageImpl.
